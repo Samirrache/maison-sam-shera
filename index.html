@@ -86,19 +86,22 @@ body::before {
 /* PAGES INTERNES */
 .back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border-radius:18px;padding:9px 16px;font-weight:900;font-size:14px;color:#ffffff;box-shadow:0 5px 16px rgba(0,0,0,0.2);margin-bottom:13px;border:1px solid rgba(255,255,255,0.1);}
 .back:active{transform:scale(.96);background:rgba(255,255,255,0.15);}
-.item{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+.item{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
 .item:last-child{border-bottom:none;}
 .item-body{flex:1;min-width:0;}
 .txt{font-size:14.5px;font-weight:800;color:#ffffff;line-height:1.35;word-break:break-word;}
 .item.done .txt{text-decoration:line-through;color:#6b7280;}
 .chk{width:30px;height:30px;border-radius:11px;border:2.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff;flex-shrink:0;margin-top:1px;transition:all .15s;}
 .item.done .chk{background:#5cc98a;border-color:#5cc98a;}
-.del{width:30px;height:30px;border-radius:11px;background:rgba(255,255,255,0.1);color:#ffa8c5;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;border:none;}
-.del:active{transform:scale(.92);}
 
-/* NOUVEAU BOUTON CRAYON (Edit) */
-.btn-edit-task{width:30px;height:30px;border-radius:11px;background:rgba(139,184,255,0.15);color:#8bb8ff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;border:none;}
-.btn-edit-task:active{transform:scale(.92);}
+/* LE NOUVEAU BOUTON FLÈCHE */
+.menu-arrow {
+  width: 32px; height: 32px; border-radius: 10px;
+  background: rgba(255,255,255,0.05); color: #a89fb5; font-size: 18px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background 0.2s; border:none;
+}
+.menu-arrow:active { background: rgba(255,255,255,0.15); }
 
 .tag{display:inline-block;margin-top:5px;font-size:10.5px;font-weight:900;padding:3px 9px;border-radius:10px;}
 .tag.sam{background:rgba(139,184,255,0.2);color:#8bb8ff;}
@@ -166,8 +169,6 @@ body::before {
 .ticket-title{font-size:16px; font-weight:900; color:#ffffff; line-height:1.2;}
 .ticket-desc{font-size:13px; color:#a89fb5; margin-top:6px; font-weight:600; line-height:1.4; white-space:pre-wrap;}
 .ticket-actions{display:flex; gap:10px; margin-top:12px; justify-content:flex-end; border-top:1px dashed rgba(255,255,255,0.1); padding-top:10px;}
-.btn-icon{width:36px; height:36px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:16px;}
-.btn-edit{background:rgba(139,184,255,0.15); color:#8bb8ff;}
 .row-2{display:flex; gap:10px;}
 .row-2 > div {flex:1;}
 .btn-cancel{width:100%;margin-top:8px;background:rgba(255,255,255,0.1);color:#fff;border-radius:20px;padding:12px;font-size:14px;font-weight:900; display:none;}
@@ -180,12 +181,49 @@ body::before {
 .hint{font-size:11.5px;color:#a89fb5;font-weight:800;text-align:center;margin-top:11px;line-height:1.5;}
 #toast{position:fixed;left:50%;bottom:32px;transform:translate(-50%,26px);background:#ffffff;color:#131b2f;font-size:13.5px;font-weight:800;padding:12px 22px;border-radius:18px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:999;max-width:88vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.4);}
 #toast.show{opacity:1;transform:translate(-50%,0);}
+
+/* =========================================
+   MENU POP-UP CENTRÉ (Option 2 validée)
+   ========================================= */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+  z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+  display:flex; align-items:center; justify-content:center;
+}
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal-popup {
+  background: #1e1b2e; border-radius: 24px; padding: 24px; width: 85%; max-width: 320px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6); transform: scale(0.8); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.modal-overlay.active .modal-popup { transform: scale(1); }
+.modal-title { font-size: 15px; font-weight: 900; color: #ffffff; text-align: center; margin-bottom: 20px; padding: 0 10px; line-height:1.4;}
+.modal-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+  padding: 16px; border-radius: 16px; font-size: 16px; font-weight: 800;
+  margin-bottom: 10px; transition: background 0.15s; border:none; text-decoration:none; cursor:pointer;
+}
+.modal-btn:active { background: rgba(255,255,255,0.1); }
+.modal-btn.btn-mod { background: rgba(139,184,255,0.1); color: #8bb8ff; }
+.modal-btn.btn-del { background: rgba(255,107,157,0.1); color: #ff6b9d; }
+.modal-btn.btn-cancel { background: rgba(255,255,255,0.05); color: #a89fb5; margin-top: 15px; }
 </style>
 </head>
 <body>
 
 <div id="snow-container"></div>
 <div id="app"></div>
+
+<!-- LE MENU POP-UP -->
+<div class="modal-overlay" id="actionMenu" onclick="closeActionMenu()">
+  <div class="modal-popup" onclick="event.stopPropagation()">
+    <div class="modal-title" id="actionMenuTitle">Options</div>
+    <button class="modal-btn btn-mod" id="actionMenuEdit" onclick="doAction('edit')"><span>✏️</span> Modifier</button>
+    <button class="modal-btn btn-del" id="actionMenuDelete" onclick="doAction('delete')"><span>🗑️</span> Supprimer</button>
+    <button class="modal-btn btn-cancel" onclick="closeActionMenu()">Annuler</button>
+  </div>
+</div>
 
 <script>
 var LS_STATE='ms_state_v2', LS_FB='ms_fb_url', LS_CODE='ms_code';
@@ -202,9 +240,11 @@ var selectedDate='';
 var selHour='00', selMin='00', formTime='', timeTouched=false;
 var detailApptId='';
 var editingLoisirId=null;
-
-/* NOUVELLE VARIABLE POUR L'ÉDITION DES TÂCHES */
 var editingTaskId=null;
+
+/* VARIABLES POUR LE MENU D'ACTION */
+var actionType='';
+var actionId='';
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -286,12 +326,9 @@ function tasksHTML(){
   h+='<div class="card form-card"><div class="form-title">'+(editingTaskId ? 'Modifier la tâche' : 'Ajouter une nouvelle tâche')+'</div>';
   h+='<input class="inp" id="taskText" placeholder="Écrire..." value="'+esc(editTask.text)+'" autocomplete="off">';
   h+='<div class="seg" id="taskWho">';
-  
-  // Gestion de l'état sélectionné
   h+='<button class="seg-btn sam'+(currentWho==='sam'?' sel':'')+'" data-act="who" data-who="sam">Sam 💙</button>';
   h+='<button class="seg-btn shera'+(currentWho==='shera'?' sel':'')+'" data-act="who" data-who="shera">Shera 💜</button>';
   h+='<button class="seg-btn both'+(currentWho==='both'?' sel':'')+'" data-act="who" data-who="both">Les deux 💖</button>';
-
   h+='</div>';
   h+='<button class="btn-main" data-act="add-task">'+(editingTaskId ? '✓ Enregistrer les modifications' : '+ Ajouter la tâche')+'</button>';
   h+='<button class="btn-cancel" style="'+(editingTaskId?'display:block':'display:none')+'" data-act="cancel-edit-task">Annuler la modification</button>';
@@ -305,8 +342,7 @@ function taskItemHTML(t){
     '<button class="chk" data-act="toggle-task" data-id="'+t.id+'">'+(t.done?'✓':'')+'</button>'+
     '<div class="item-body"><div class="txt">'+esc(t.text)+'</div>'+
     '<span class="tag '+esc(t.who)+'">'+whoLabel(t.who)+'</span></div>'+
-    '<button class="btn-edit-task" data-act="edit-task" data-id="'+t.id+'">✏️</button>'+
-    '<button class="del" data-act="del-task" data-id="'+t.id+'">✕</button>'+
+    '<button class="menu-arrow" data-act="menu-task" data-id="'+t.id+'">⌄</button>'+
   '</div>';
 }
 
@@ -342,8 +378,7 @@ function loisirsHTML(){
         <div class="ticket-title">${esc(item.title)}</div>
         ${item.desc ? `<div class="ticket-desc">${esc(item.desc)}</div>` : ''}
         <div class="ticket-actions">
-          <button class="btn-icon btn-edit" data-act="edit-loisir" data-id="${item.id}">✏️</button>
-          <button class="btn-icon del" data-act="del-loisir" data-id="${item.id}">✕</button>
+          <button class="menu-arrow" data-act="menu-loisir" data-id="${item.id}">⌄</button>
         </div>
       </div>
     </div>`;
@@ -384,6 +419,45 @@ function notifsHTML(){var h='<button class="back" data-act="go-home">‹ Retour<
 
 function commit(notifText){if(notifText)addNotif(notifText);schedulePush();render();}
 
+/* --- GESTION DU MENU D'ACTION --- */
+function openActionMenu(type, id, titleText) {
+  actionType = type;
+  actionId = id;
+  document.getElementById('actionMenuTitle').textContent = titleText;
+  document.getElementById('actionMenu').classList.add('active');
+}
+
+function closeActionMenu() {
+  document.getElementById('actionMenu').classList.remove('active');
+}
+
+function doAction(action) {
+  closeActionMenu();
+  if (action === 'edit') {
+    if (actionType === 'task') {
+      editingTaskId = actionId;
+      render();
+      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+    } else if (actionType === 'loisir') {
+      editingLoisirId = actionId;
+      render();
+      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+    }
+  } else if (action === 'delete') {
+    if (actionType === 'task') {
+      var t = state.tasks.find(function(x){return x.id===actionId;});
+      state.tasks = state.tasks.filter(function(x){return x.id!==actionId;});
+      editingTaskId = null;
+      commit('Tâche supprimée : '+(t?t.text:''));
+    } else if (actionType === 'loisir') {
+      var l = state.loisirs.find(function(x){return x.id===actionId;});
+      state.loisirs = state.loisirs.filter(function(x){return x.id!==actionId;});
+      editingLoisirId = null;
+      commit('Loisir supprimé : '+(l?l.title:''));
+    }
+  }
+}
+
 document.addEventListener('click',function(e){var el=e.target.closest?e.target.closest('[data-act]'):null;if(!el)return;var act=el.getAttribute('data-act');var id=el.getAttribute('data-id');
 if(act==='go-home'){currentView='home';detailApptId='';render();return;}
 if(act==='go-tasks'){currentView='tasks';render();return;}
@@ -396,20 +470,20 @@ if(act==='open-appt'){detailApptId=id;currentView='appt-detail';render();return;
 if(act==='back-from-detail'){detailApptId='';currentView='home';render();return;}
 if(act==='who'){selectedWho=el.getAttribute('data-who');var btns=document.querySelectorAll('#taskWho .seg-btn');Array.prototype.forEach.call(btns,function(b){b.classList.toggle('sel',b.getAttribute('data-who')===selectedWho);});return;}
 
-/* --- GESTION MODIFICATION TÂCHES --- */
-if(act==='edit-task'){
-  editingTaskId=id;
-  render();
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+/* --- OUVRIR LE MENU TÂCHE / LOISIR --- */
+if(act==='menu-task'){
+  var t=state.tasks.find(function(x){return x.id===id;});
+  openActionMenu('task', id, t ? 'Que faire pour : ' + t.text + ' ?' : 'Options');
   return;
 }
-if(act==='cancel-edit-task'){
-  editingTaskId=null;
-  render();
+if(act==='menu-loisir'){
+  var l=state.loisirs.find(function(x){return x.id===id;});
+  openActionMenu('loisir', id, l ? 'Que faire pour : ' + l.title + ' ?' : 'Options');
   return;
 }
 
-/* --- AJOUT / MODIFICATION TÂCHES --- */
+/* --- AJOUT / MODIFICATION --- */
+if(act==='cancel-edit-task'){editingTaskId=null;render();return;}
 if(act==='add-task'){
   var inp=document.getElementById('taskText');
   var text=(inp.value||'').trim();
@@ -419,7 +493,6 @@ if(act==='add-task'){
     var idx=state.tasks.findIndex(function(x){return x.id===editingTaskId;});
     if(idx>-1){state.tasks[idx]={id:editingTaskId,text:text,who:selectedWho,done:state.tasks[idx].done};}
     editingTaskId=null;
-    inp.value='';
     toast('Tâche modifiée !');
     commit('Tâche modifiée : '+text);
   } else {
@@ -467,21 +540,9 @@ if(act==='add-loisir'){
   }
   return;
 }
-if(act==='edit-loisir'){
-  editingLoisirId=id;
-  render();
-  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-  return;
-}
 if(act==='cancel-edit-loisir'){
   editingLoisirId=null;
   render();
-  return;
-}
-if(act==='del-loisir'){
-  var dl=state.loisirs.filter(function(x){return x.id===id;})[0];
-  state.loisirs=state.loisirs.filter(function(x){return x.id!==id;});
-  commit('Loisir supprimé : '+(dl?dl.title:''));
   return;
 }
 });
