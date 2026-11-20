@@ -21,15 +21,12 @@
 html,body{margin:0;padding:0;overflow-x:hidden;}
 body{
   font-family:'Nunito','Quicksand','Trebuchet MS',system-ui,-apple-system,sans-serif;
-  /* Thème Conte de Noël */
   background: linear-gradient(160deg, #131b2f 0%, #2a1b38 50%, #1a1225 100%);
   background-attachment:fixed;min-height:100vh;color:#f8f4f9;-webkit-font-smoothing:antialiased;
   position:relative;
 }
 
-/* =========================================
-   BONHOMME DE NEIGE EN ARRIÈRE-PLAN
-   ========================================= */
+/* BONHOMME DE NEIGE */
 body::before {
   content: ""; position: fixed; bottom: -20px; right: -20px; width: 300px; height: 400px;
   opacity: 0.04; z-index: 0; background-size: contain; background-repeat: no-repeat; background-position: bottom right; pointer-events: none;
@@ -38,28 +35,18 @@ body::before {
 
 #app{max-width:720px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) 14px calc(44px + env(safe-area-inset-bottom));position:relative;z-index:10;}
 
-/* =========================================
-   ANIMATION DE NEIGE EN ÉTOILES
-   ========================================= */
+/* NEIGE ÉTOILES */
 #snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:hidden;}
-.snowflake{
-  position:absolute;top:-20px;background:#ffffff;
-  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-  animation: fall linear infinite;
-  filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));
-}
+.snowflake{position:absolute;top:-20px;background:#ffffff;clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);animation: fall linear infinite;filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));}
 @keyframes fall{to {transform: translateY(105vh) translateX(20px) rotate(360deg);}}
 
 /* EN-TÊTE */
 .header{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:26px;padding:11px 13px;box-shadow:0 8px 24px rgba(0,0,0,0.3);margin-bottom:14px;border:1px solid rgba(255,255,255,0.1);}
 .logo{width:46px;height:46px;border-radius:17px;background:linear-gradient(135deg,#5e3c70,#2e4a72);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,0.4);}
 .titles{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;}
-
-/* LE NOUVEAU TITRE */
 .titles h1{font-family:'Nunito',sans-serif;margin:0;line-height:1.2;}
 .title-small{font-size:12px;color:rgba(255,255,255,0.85);font-weight:700;display:block;margin-bottom:1px;}
 .title-large{font-size:18px;color:#ffa8c5;font-weight:900;display:block;letter-spacing:0.3px;text-shadow:0 2px 5px rgba(0,0,0,0.3);}
-
 .date{font-size:11.5px;color:#a89fb5;margin-top:4px;font-weight:700;text-transform:capitalize;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .icon-btn{width:40px;height:40px;border-radius:15px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;flex-shrink:0;border:1px solid rgba(255,255,255,0.05);}
 .icon-btn:active{transform:scale(.94);}
@@ -74,7 +61,7 @@ body::before {
 .summary p{margin:0;font-size:13.5px;color:#ffffff;font-weight:800;}
 .summary small{display:block;margin-top:2px;font-size:11px;color:#a89fb5;font-weight:700;}
 
-/* BOUTONS NAVIGATION ACCUEIL */
+/* BOUTONS NAVIGATION */
 .nav-btn{display:flex;align-items:center;gap:12px;width:100%;background:rgba(255,255,255,0.07);border-radius:24px;padding:17px;margin-bottom:11px;box-shadow:0 7px 20px rgba(0,0,0,0.2);font-weight:900;font-size:16px;color:#ffffff;transition:transform .12s ease;border:1px solid rgba(255,255,255,0.1);}
 .nav-btn:active{transform:scale(.977);background:rgba(255,255,255,0.12);}
 .nav-btn .emoji{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
@@ -85,7 +72,7 @@ body::before {
 .nav-btn .label{flex:1;text-align:left;}
 .nav-btn .arrow{color:#a89fb5;font-size:22px;font-weight:900;line-height:1;}
 
-/* LIGNES RDV ET LOISIRS SUR L'ACCUEIL */
+/* LIGNES SUR L'ACCUEIL */
 .line-btn{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:rgba(255,255,255,0.06);border-radius:20px;padding:13px 14px;margin-bottom:9px;box-shadow:0 5px 16px rgba(0,0,0,0.15);transition:transform .12s ease;border:1px solid rgba(255,255,255,0.05);}
 .line-btn:active{transform:scale(.977);background:rgba(255,255,255,0.1);}
 .line-time{font-size:14.5px;font-weight:900;color:#ffa8c5;background:rgba(255,168,197,0.15);padding:6px 9px;border-radius:12px;flex-shrink:0;line-height:1.15;}
@@ -93,9 +80,7 @@ body::before {
 .line-addr{font-size:12px;color:#c3cbd8;font-weight:700;margin-top:3px;line-height:1.3;}
 .line-meta{font-size:11.5px;color:#a89fb5;font-weight:700;margin-top:3px;line-height:1.35;}
 .line-btn .arrow{color:#a89fb5;font-size:22px;font-weight:900;line-height:1;align-self:center;flex-shrink:0;}
-/* Thème Loisirs sur l'accueil */
 .line-btn.loisir-home .line-time{color:#ffe6a8;background:rgba(255,230,168,0.15);}
-.line-btn.loisir-home .arrow{color:#a89fb5;}
 .empty-card{background:rgba(255,255,255,0.03);border-radius:20px;padding:16px;text-align:center;color:#a89fb5;font-weight:700;font-size:13px;border:1px dashed rgba(255,255,255,0.15);box-shadow:0 4px 12px rgba(0,0,0,0.1);}
 
 /* PAGES INTERNES */
@@ -108,8 +93,13 @@ body::before {
 .item.done .txt{text-decoration:line-through;color:#6b7280;}
 .chk{width:30px;height:30px;border-radius:11px;border:2.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff;flex-shrink:0;margin-top:1px;transition:all .15s;}
 .item.done .chk{background:#5cc98a;border-color:#5cc98a;}
-.del{width:30px;height:30px;border-radius:11px;background:rgba(255,255,255,0.1);color:#ffa8c5;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.del{width:30px;height:30px;border-radius:11px;background:rgba(255,255,255,0.1);color:#ffa8c5;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;border:none;}
 .del:active{transform:scale(.92);}
+
+/* NOUVEAU BOUTON CRAYON (Edit) */
+.btn-edit-task{width:30px;height:30px;border-radius:11px;background:rgba(139,184,255,0.15);color:#8bb8ff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;border:none;}
+.btn-edit-task:active{transform:scale(.92);}
+
 .tag{display:inline-block;margin-top:5px;font-size:10.5px;font-weight:900;padding:3px 9px;border-radius:10px;}
 .tag.sam{background:rgba(139,184,255,0.2);color:#8bb8ff;}
 .tag.shera{background:rgba(195,168,255,0.2);color:#c3a8ff;}
@@ -134,7 +124,7 @@ body::before {
 .seg-btn.sel.shera{background:rgba(195,168,255,0.2);color:#c3a8ff;border-color:#c3a8ff;}
 .seg-btn.sel.both{background:rgba(255,168,197,0.2);color:#ffa8c5;border-color:#ffa8c5;}
 
-/* CALENDRIER */
+/* CALENDRIER / HEURE */
 .cal{background:rgba(255,255,255,0.03);border-radius:20px;padding:10px;border:1px solid rgba(255,255,255,0.1);}
 .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .cal-nav{width:36px;height:36px;border-radius:13px;background:rgba(255,255,255,0.1);color:#fff;font-size:19px;font-weight:900;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
@@ -143,8 +133,6 @@ body::before {
 .cal-dow{text-align:center;font-size:10.5px;color:#a89fb5;font-weight:900;padding:2px 0;}
 .cal-day{min-height:34px;border-radius:11px;background:rgba(255,255,255,0.05);font-size:13px;font-weight:900;color:#ffffff;}
 .cal-day.sel{background:linear-gradient(135deg,#ff8fab,#d98ce6);color:#fff;box-shadow:0 4px 12px rgba(200,100,170,.4);}
-
-/* HEURE */
 .time-wrap{display:flex;align-items:stretch;gap:6px;background:rgba(255,255,255,0.03);border-radius:20px;padding:8px;border:1px solid rgba(255,255,255,0.1);}
 .t-col{flex:1;height:176px;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:3px;scrollbar-width:thin;}
 .t-colon{display:flex;align-items:center;font-size:20px;font-weight:900;color:#a89fb5;}
@@ -152,14 +140,6 @@ body::before {
 .t-item.sel{background:linear-gradient(135deg,#ff8fab,#d98ce6);color:#fff;box-shadow:0 4px 12px rgba(200,100,170,.4);}
 
 /* RDV DETAIL */
-.appt-head{display:flex;align-items:center;gap:8px;margin-bottom:3px;}
-.appt-time{font-size:14px;font-weight:900;color:#ffa8c5;background:rgba(255,168,197,0.15);padding:3px 8px;border-radius:10px;}
-.appt-date{font-size:11.5px;font-weight:800;color:#a89fb5;}
-.meta{font-size:11.5px;color:#a89fb5;font-weight:700;margin-top:3px;}
-.addr{font-size:12px;color:#c3cbd8;font-weight:800;margin-top:4px;}
-.maps-row{display:flex;gap:7px;margin-top:9px;}
-.btn-maps{width:100%;text-align:center;background:rgba(139,184,255,0.15);color:#8bb8ff;border-radius:14px;padding:12px 8px;font-size:13px;font-weight:900;text-decoration:none;display:block;}
-.btn-maps:active{transform:scale(.97);}
 .detail-hero{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
 .detail-time{font-size:20px;font-weight:900;color:#ffa8c5;background:rgba(255,168,197,0.15);padding:8px 14px;border-radius:16px;}
 .detail-date{font-size:13px;font-weight:800;color:#a89fb5;}
@@ -168,7 +148,7 @@ body::before {
 .detail-lbl{flex:0 0 92px;font-size:11.5px;font-weight:900;color:#a89fb5;letter-spacing:.5px;text-transform:uppercase;padding-top:2px;}
 .detail-val{flex:1;font-size:14px;font-weight:800;color:#ffffff;line-height:1.4;word-break:break-word;}
 
-/* COURSES */
+/* COURSES / LOISIRS */
 .shop-card{background:rgba(255,255,255,0.06);border-radius:24px;padding:14px;box-shadow:0 8px 24px rgba(0,0,0,0.2);margin-bottom:13px;border:1px solid rgba(255,255,255,0.08);}
 .shop-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
 .shop-name{flex:1;font-size:15px;font-weight:900;color:#ffffff;}
@@ -178,7 +158,6 @@ body::before {
 .btn-plus{width:52px;height:50px;border-radius:16px;background:linear-gradient(135deg,#ff8fab,#c98ae8);color:#fff;font-size:24px;font-weight:900;box-shadow:0 6px 16px rgba(220,130,190,.35);flex-shrink:0;}
 .btn-plus:active{transform:scale(.94);}
 
-/* LOISIRS (TICKETS) */
 .ticket{display:flex;background:rgba(255,255,255,0.06);border-radius:16px;margin-bottom:15px;box-shadow:0 4px 12px rgba(0,0,0,0.2);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.08);}
 .ticket::before{content:'';position:absolute;left:-6px; top:0; bottom:0;width:12px;background-image: radial-gradient(circle, #1a1225 6px, transparent 7px);background-size: 12px 16px;background-position: 0 4px;}
 .ticket-left{background:rgba(255,255,255,0.05);width:70px;display:flex;align-items:center;justify-content:center;font-size:30px;border-right:2px dashed rgba(255,255,255,0.1);padding:10px;flex-shrink:0;}
@@ -223,6 +202,9 @@ var selectedDate='';
 var selHour='00', selMin='00', formTime='', timeTouched=false;
 var detailApptId='';
 var editingLoisirId=null;
+
+/* NOUVELLE VARIABLE POUR L'ÉDITION DES TÂCHES */
+var editingTaskId=null;
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -291,11 +273,42 @@ function homeHTML(){
 
 function apptLineHTML(a){var meta=[];if(a.forWho)meta.push('Pour : '+esc(a.forWho));if(a.withWho)meta.push('Avec : '+esc(a.withWho));return '<button class="line-btn" data-act="open-appt" data-id="'+a.id+'"><div class="line-time">'+esc(a.time||'--:--')+'</div><div class="item-body"><div class="line-title">'+esc(a.title||a.forWho||'Rendez-vous')+'</div>'+(a.address?'<div class="line-addr">📍 '+esc(a.address)+'</div>':'')+(meta.length?'<div class="line-meta">'+meta.join(' · ')+'</div>':'')+'</div><div class="arrow">›</div></button>';}
 
-function tasksHTML(){var h='<button class="back" data-act="go-home">‹ Retour</button>';h+='<div class="card"><div class="section-title">✅ Tâches</div>';if(state.tasks.length){state.tasks.forEach(function(t){h+=taskItemHTML(t);});}else{h+='<div class="empty">Aucune tâche pour le moment.</div>';}h+='</div>';h+='<div class="card form-card"><div class="form-title">Ajouter une nouvelle tâche</div>';h+='<input class="inp" id="taskText" placeholder="Écrire..." autocomplete="off">';h+='<div class="seg" id="taskWho">';h+=segBtn('sam','Sam 💙');h+=segBtn('shera','Shera 💜');h+=segBtn('both','Les deux 💖');h+='</div><button class="btn-main" data-act="add-task">+ Ajouter la tâche</button></div>';return h;}
+/* --- TÂCHES --- */
+function tasksHTML(){
+  var h='<button class="back" data-act="go-home">‹ Retour</button>';
+  h+='<div class="card"><div class="section-title">✅ Tâches</div>';
+  if(state.tasks.length){state.tasks.forEach(function(t){h+=taskItemHTML(t);});}else{h+='<div class="empty">Aucune tâche pour le moment.</div>';}
+  h+='</div>';
+  
+  let editTask = editingTaskId ? state.tasks.find(t => t.id === editingTaskId) : { text: '', who: 'both' };
+  let currentWho = editingTaskId ? editTask.who : selectedWho;
 
-function segBtn(v,label){return '<button class="seg-btn '+v+(selectedWho===v?' sel':'')+'" data-act="who" data-who="'+v+'">'+label+'</button>';}
+  h+='<div class="card form-card"><div class="form-title">'+(editingTaskId ? 'Modifier la tâche' : 'Ajouter une nouvelle tâche')+'</div>';
+  h+='<input class="inp" id="taskText" placeholder="Écrire..." value="'+esc(editTask.text)+'" autocomplete="off">';
+  h+='<div class="seg" id="taskWho">';
+  
+  // Gestion de l'état sélectionné
+  h+='<button class="seg-btn sam'+(currentWho==='sam'?' sel':'')+'" data-act="who" data-who="sam">Sam 💙</button>';
+  h+='<button class="seg-btn shera'+(currentWho==='shera'?' sel':'')+'" data-act="who" data-who="shera">Shera 💜</button>';
+  h+='<button class="seg-btn both'+(currentWho==='both'?' sel':'')+'" data-act="who" data-who="both">Les deux 💖</button>';
 
-function taskItemHTML(t){return '<div class="item'+(t.done?' done':'')+'"><button class="chk" data-act="toggle-task" data-id="'+t.id+'">'+(t.done?'✓':'')+'</button><div class="item-body"><div class="txt">'+esc(t.text)+'</div><span class="tag '+esc(t.who)+'">'+whoLabel(t.who)+'</span></div><button class="del" data-act="del-task" data-id="'+t.id+'">✕</button></div>';}
+  h+='</div>';
+  h+='<button class="btn-main" data-act="add-task">'+(editingTaskId ? '✓ Enregistrer les modifications' : '+ Ajouter la tâche')+'</button>';
+  h+='<button class="btn-cancel" style="'+(editingTaskId?'display:block':'display:none')+'" data-act="cancel-edit-task">Annuler la modification</button>';
+  h+='</div>';
+  
+  return h;
+}
+
+function taskItemHTML(t){
+  return '<div class="item'+(t.done?' done':'')+'">'+
+    '<button class="chk" data-act="toggle-task" data-id="'+t.id+'">'+(t.done?'✓':'')+'</button>'+
+    '<div class="item-body"><div class="txt">'+esc(t.text)+'</div>'+
+    '<span class="tag '+esc(t.who)+'">'+whoLabel(t.who)+'</span></div>'+
+    '<button class="btn-edit-task" data-act="edit-task" data-id="'+t.id+'">✏️</button>'+
+    '<button class="del" data-act="del-task" data-id="'+t.id+'">✕</button>'+
+  '</div>';
+}
 
 function apptsHTML(){var list=state.appts.slice().sort(function(a,b){return (String(a.date||'')+String(a.time||'')).localeCompare(String(b.date||'')+String(b.time||''));});var h='<button class="back" data-act="go-home">‹ Retour</button>';h+='<div class="card"><div class="section-title">📅 Rendez-vous</div>';if(list.length){list.forEach(function(a){h+='<div class="line-btn" style="margin-bottom:9px" data-act="open-appt" data-id="'+a.id+'"><div class="line-time">'+esc(a.time||'--:--')+'<div style="font-size:10px;font-weight:800;color:#a89fb5;margin-top:2px">'+esc(frDate(a.date))+'</div></div><div class="item-body"><div class="line-title">'+esc(a.title||a.forWho||'Rendez-vous')+'</div>'+(a.address?'<div class="line-addr">📍 '+esc(a.address)+'</div>':'')+((a.forWho||a.withWho)?'<div class="line-meta">'+(a.forWho?'Pour : '+esc(a.forWho):'')+(a.forWho&&a.withWho?' · ':'')+(a.withWho?'Avec : '+esc(a.withWho):'')+'</div>':'')+'</div><div class="arrow">›</div></div>';});}else{h+='<div class="empty">Aucun rendez-vous pour le moment.</div>';}h+='</div>';h+='<div class="card form-card"><div class="form-title">Ajouter un nouveau rendez-vous</div>';h+='<label class="lbl">Titre</label><input class="inp" id="apTitle" placeholder="Écrire..." autocomplete="off">';h+='<label class="lbl">Pour qui ?</label><input class="inp" id="apFor" placeholder="Écrire..." autocomplete="off">';h+='<label class="lbl">Avec qui ?</label><input class="inp" id="apWith" placeholder="Écrire..." autocomplete="off">';h+='<label class="lbl">Date</label><div class="chip" id="dateChip">'+(selectedDate?frDate(selectedDate):'Aucune date choisie')+'</div><div class="cal" id="calBox"></div><button class="btn-soft" data-act="confirm-date">Confirmer la date</button>';h+='<label class="lbl">Heure</label><div class="chip" id="timeChip">'+(formTime?formTime:'Aucune heure choisie')+'</div><div class="time-wrap" id="timeBox"></div><button class="btn-soft" data-act="confirm-time">Confirmer l\'heure</button>';h+='<label class="lbl">Adresse</label><input class="inp" id="apAddr" placeholder="Écrire..." autocomplete="off">';h+='<button class="btn-main" data-act="add-appt">+ Ajouter le rendez-vous</button></div>';return h;}
 
@@ -382,7 +395,42 @@ if(act==='go-notifs'){currentView='notifs';render();return;}
 if(act==='open-appt'){detailApptId=id;currentView='appt-detail';render();return;}
 if(act==='back-from-detail'){detailApptId='';currentView='home';render();return;}
 if(act==='who'){selectedWho=el.getAttribute('data-who');var btns=document.querySelectorAll('#taskWho .seg-btn');Array.prototype.forEach.call(btns,function(b){b.classList.toggle('sel',b.getAttribute('data-who')===selectedWho);});return;}
-if(act==='add-task'){var inp=document.getElementById('taskText');var text=(inp.value||'').trim();if(!text){inp.focus();toast('Écrivez d\'abord une tâche.');return;}state.tasks.unshift({id:uid(),text:text,who:selectedWho,done:false});inp.value='';toast('Tâche ajoutée !');commit('Nouvelle tâche ajoutée : '+text);return;}
+
+/* --- GESTION MODIFICATION TÂCHES --- */
+if(act==='edit-task'){
+  editingTaskId=id;
+  render();
+  window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+  return;
+}
+if(act==='cancel-edit-task'){
+  editingTaskId=null;
+  render();
+  return;
+}
+
+/* --- AJOUT / MODIFICATION TÂCHES --- */
+if(act==='add-task'){
+  var inp=document.getElementById('taskText');
+  var text=(inp.value||'').trim();
+  if(!text){inp.focus();toast('Écrivez d\'abord une tâche.');return;}
+  
+  if(editingTaskId){
+    var idx=state.tasks.findIndex(function(x){return x.id===editingTaskId;});
+    if(idx>-1){state.tasks[idx]={id:editingTaskId,text:text,who:selectedWho,done:state.tasks[idx].done};}
+    editingTaskId=null;
+    inp.value='';
+    toast('Tâche modifiée !');
+    commit('Tâche modifiée : '+text);
+  } else {
+    state.tasks.unshift({id:uid(),text:text,who:selectedWho,done:false});
+    inp.value='';
+    toast('Tâche ajoutée !');
+    commit('Nouvelle tâche ajoutée : '+text);
+  }
+  return;
+}
+
 if(act==='toggle-task'){var t=state.tasks.filter(function(x){return x.id===id;})[0];if(!t)return;t.done=!t.done;commit(t.done?'Tâche terminée : '+t.text:'Tâche rouverte : '+t.text);return;}
 if(act==='del-task'){var dt=state.tasks.filter(function(x){return x.id===id;})[0];state.tasks=state.tasks.filter(function(x){return x.id!==id;});commit('Tâche supprimée : '+(dt?dt.text:''));return;}
 if(act==='cal-prev'){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();return;}
@@ -442,7 +490,6 @@ if(act==='del-loisir'){
 loadLocal();
 render();
 
-// Script pour la neige en forme d'étoiles
 const snowContainer = document.getElementById('snow-container');
 const snowflakeCount = 20; 
 for (let i = 0; i < snowflakeCount; i++) {
