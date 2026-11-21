@@ -94,14 +94,8 @@ body::before {
 .chk{width:30px;height:30px;border-radius:11px;border:2.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff;flex-shrink:0;margin-top:1px;transition:all .15s;}
 .item.done .chk{background:#5cc98a;border-color:#5cc98a;}
 
-/* LE NOUVEAU BOUTON FLÈCHE */
-.menu-arrow {
-  width: 32px; height: 32px; border-radius: 10px;
-  background: rgba(255,255,255,0.05); color: #a89fb5; font-size: 18px; font-weight: 900;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; transition: background 0.2s; border:none;
-}
-.menu-arrow:active { background: rgba(255,255,255,0.15); }
+/* BOUTON MENU FLECHE */
+.menu-arrow { width: 32px; height: 32px; border-radius: 10px; background: rgba(255,255,255,0.05); color: #a89fb5; font-size: 18px; font-weight: 900; display: flex; align-items: center; justify-content: center; border:none; margin-left:auto; flex-shrink:0;}
 
 .tag{display:inline-block;margin-top:5px;font-size:10.5px;font-weight:900;padding:3px 9px;border-radius:10px;}
 .tag.sam{background:rgba(139,184,255,0.2);color:#8bb8ff;}
@@ -116,7 +110,7 @@ body::before {
 .inp{width:100%;border:2px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);border-radius:16px;padding:13px 15px;font-size:15px;font-weight:700;color:#ffffff;outline:none;transition:border-color .15s;}
 .inp::placeholder{color:#6b7280;font-weight:700;}
 .inp:focus{border-color:#b3c6ff;background:rgba(255,255,255,0.1);}
-.btn-main{width:100%;margin-top:16px;background:linear-gradient(135deg,#ff8fab,#c46fe0);color:#fff;border-radius:20px;padding:16px;font-size:15.5px;font-weight:900;box-shadow:0 8px 20px rgba(200,100,170,.35);}
+.btn-main{width:100%;margin-top:16px;background:linear-gradient(135deg,#ff8fab,#c46fe0);color:#fff;border-radius:20px;padding:16px;font-size:15.5px;font-weight:900;box-shadow:0 8px 20px rgba(200,100,170,.35);border:none;}
 .btn-main:active{transform:scale(.975);}
 .btn-soft{width:100%;margin-top:9px;background:rgba(255,255,255,0.1);color:#ffffff;border-radius:16px;padding:12px;font-size:13.5px;font-weight:900;border:1px solid rgba(255,255,255,0.05);}
 .btn-soft:active{transform:scale(.975);background:rgba(255,255,255,0.15);}
@@ -151,7 +145,7 @@ body::before {
 .detail-lbl{flex:0 0 92px;font-size:11.5px;font-weight:900;color:#a89fb5;letter-spacing:.5px;text-transform:uppercase;padding-top:2px;}
 .detail-val{flex:1;font-size:14px;font-weight:800;color:#ffffff;line-height:1.4;word-break:break-word;}
 
-/* COURSES / LOISIRS */
+/* COURSES */
 .shop-card{background:rgba(255,255,255,0.06);border-radius:24px;padding:14px;box-shadow:0 8px 24px rgba(0,0,0,0.2);margin-bottom:13px;border:1px solid rgba(255,255,255,0.08);}
 .shop-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
 .shop-name{flex:1;font-size:15px;font-weight:900;color:#ffffff;}
@@ -161,6 +155,7 @@ body::before {
 .btn-plus{width:52px;height:50px;border-radius:16px;background:linear-gradient(135deg,#ff8fab,#c98ae8);color:#fff;font-size:24px;font-weight:900;box-shadow:0 6px 16px rgba(220,130,190,.35);flex-shrink:0;}
 .btn-plus:active{transform:scale(.94);}
 
+/* LOISIRS / DOSSIERS */
 .ticket{display:flex;background:rgba(255,255,255,0.06);border-radius:16px;margin-bottom:15px;box-shadow:0 4px 12px rgba(0,0,0,0.2);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.08);}
 .ticket::before{content:'';position:absolute;left:-6px; top:0; bottom:0;width:12px;background-image: radial-gradient(circle, #1a1225 6px, transparent 7px);background-size: 12px 16px;background-position: 0 4px;}
 .ticket-left{background:rgba(255,255,255,0.05);width:70px;display:flex;align-items:center;justify-content:center;font-size:30px;border-right:2px dashed rgba(255,255,255,0.1);padding:10px;flex-shrink:0;}
@@ -168,10 +163,16 @@ body::before {
 .ticket-date{font-size:11px; font-weight:900; color:#ffa8c5; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;}
 .ticket-title{font-size:16px; font-weight:900; color:#ffffff; line-height:1.2;}
 .ticket-desc{font-size:13px; color:#a89fb5; margin-top:6px; font-weight:600; line-height:1.4; white-space:pre-wrap;}
-.ticket-actions{display:flex; gap:10px; margin-top:12px; justify-content:flex-end; border-top:1px dashed rgba(255,255,255,0.1); padding-top:10px;}
-.row-2{display:flex; gap:10px;}
-.row-2 > div {flex:1;}
-.btn-cancel{width:100%;margin-top:8px;background:rgba(255,255,255,0.1);color:#fff;border-radius:20px;padding:12px;font-size:14px;font-weight:900; display:none;}
+.btn-open-folder { display:flex; align-items:center; justify-content:space-between; width:100%; background:rgba(139,184,255,0.1); color:#8bb8ff; padding:12px 16px; border-radius:12px; font-size:13.5px; font-weight:900; margin-top:10px; border:none; }
+.btn-open-folder:active { background:rgba(139,184,255,0.2); }
+
+/* RESERVATIONS DANS LE DOSSIER */
+.sub-item { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.04); border-radius:16px; padding:12px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.05); }
+.sub-icon { font-size:24px; }
+.sub-info { flex:1; }
+.sub-title { font-size:14.5px; font-weight:900; color:#ffffff; }
+.sub-date { font-size:11.5px; font-weight:700; color:#a89fb5; margin-top:3px; }
+.sub-billet-btn { background:rgba(255,168,197,0.15); color:#ffa8c5; padding:8px 12px; border-radius:10px; font-size:11px; font-weight:900; border:none; display:flex; align-items:center; gap:5px;}
 
 /* NOTIFS & DIVERS */
 .notif{padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
@@ -182,32 +183,32 @@ body::before {
 #toast{position:fixed;left:50%;bottom:32px;transform:translate(-50%,26px);background:#ffffff;color:#131b2f;font-size:13.5px;font-weight:800;padding:12px 22px;border-radius:18px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:999;max-width:88vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.4);}
 #toast.show{opacity:1;transform:translate(-50%,0);}
 
-/* =========================================
-   MENU POP-UP CENTRÉ (Option 2 validée)
-   ========================================= */
-.modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-  z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
-  display:flex; align-items:center; justify-content:center;
-}
-.modal-overlay.active { opacity: 1; pointer-events: auto; }
-.modal-popup {
-  background: #1e1b2e; border-radius: 24px; padding: 24px; width: 85%; max-width: 320px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6); transform: scale(0.8); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.modal-overlay.active .modal-popup { transform: scale(1); }
-.modal-title { font-size: 15px; font-weight: 900; color: #ffffff; text-align: center; margin-bottom: 20px; padding: 0 10px; line-height:1.4;}
-.modal-btn {
-  display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
-  padding: 16px; border-radius: 16px; font-size: 16px; font-weight: 800;
-  margin-bottom: 10px; transition: background 0.15s; border:none; text-decoration:none; cursor:pointer;
-}
-.modal-btn:active { background: rgba(255,255,255,0.1); }
+/* MODALES */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.active { display: flex; }
+.modal-popup { background: #1e1b2e; border-radius: 24px; padding: 20px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); position:relative;}
+@keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-title { font-size: 16px; font-weight: 900; color: #ffffff; margin-bottom: 15px; text-align: center;}
+.modal-close { position: absolute; top: 15px; right: 15px; color: #fff; background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 16px; cursor: pointer;}
+.modal-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 800; margin-bottom: 10px; border:none; cursor:pointer;}
 .modal-btn.btn-mod { background: rgba(139,184,255,0.1); color: #8bb8ff; }
 .modal-btn.btn-del { background: rgba(255,107,157,0.1); color: #ff6b9d; }
-.modal-btn.btn-cancel { background: rgba(255,255,255,0.05); color: #a89fb5; margin-top: 15px; }
+.modal-btn.btn-cancel { background: rgba(255,255,255,0.05); color: #a89fb5; margin-top: 10px; }
+
+/* VISIONNEUSE BILLETS */
+.billet-large-container { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.billet-large { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 16px; background: #fff; padding: 10px; }
+.billet-nav { display: flex; gap: 10px; width: 100%; }
+.billet-nav button { flex:1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.1); color: #fff; border:none; font-weight:900; font-size:14px; cursor:pointer;}
+.billet-nav button:active { background: rgba(255,255,255,0.2); }
+.viewer-name { font-size: 14px; font-weight: 900; color: #ffa8c5; text-align: center; margin-bottom: 10px; }
+
+/* PREVIEW BILLETS DANS LE FORM */
+.preview-billets { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.preview-item { position: relative; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 8px; text-align: center; width: 80px; }
+.preview-item img { width: 100%; height: 60px; object-fit: contain; background:#fff; border-radius: 4px; }
+.preview-item .p-name { font-size: 9px; font-weight: 800; color: #fff; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.del-billet-btn { position: absolute; top: -6px; right: -6px; background: #ff6b9d; color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;}
 </style>
 </head>
 <body>
@@ -215,13 +216,48 @@ body::before {
 <div id="snow-container"></div>
 <div id="app"></div>
 
-<!-- LE MENU POP-UP -->
-<div class="modal-overlay" id="actionMenu" onclick="closeActionMenu()">
-  <div class="modal-popup" onclick="event.stopPropagation()">
-    <div class="modal-title" id="actionMenuTitle">Options</div>
-    <button class="modal-btn btn-mod" id="actionMenuEdit" onclick="doAction('edit')"><span>✏️</span> Modifier</button>
-    <button class="modal-btn btn-del" id="actionMenuDelete" onclick="doAction('delete')"><span>🗑️</span> Supprimer</button>
-    <button class="modal-btn btn-cancel" onclick="closeActionMenu()">Annuler</button>
+<!-- INPUT FILE CACHÉ POUR UPLOADER LES PHOTOS -->
+<input type="file" id="fileInput" accept="image/*" style="display:none;">
+
+<!-- MODAL OPTIONS (Flèche Loisir) -->
+<div class="modal-overlay" id="modalOptions">
+  <div class="modal-popup">
+    <button class="modal-close" onclick="closeModal('modalOptions')">✕</button>
+    <div class="modal-title" id="modalOptionsTitle">Options</div>
+    <button class="modal-btn btn-mod" id="btnEditLoisir"><span>✏️</span> Modifier le voyage</button>
+    <button class="modal-btn btn-del" id="btnDeleteLoisir"><span>🗑️</span> Supprimer le voyage</button>
+    <button class="modal-btn btn-cancel" onclick="closeModal('modalOptions')">Annuler</button>
+  </div>
+</div>
+
+<!-- MODAL OPTIONS (Flèche Tâche) -->
+<div class="modal-overlay" id="modalOptionsTask">
+  <div class="modal-popup">
+    <button class="modal-close" onclick="closeModal('modalOptionsTask')">✕</button>
+    <div class="modal-title" id="modalOptionsTaskTitle">Options</div>
+    <button class="modal-btn btn-mod" id="btnEditTask"><span>✏️</span> Modifier</button>
+    <button class="modal-btn btn-del" id="btnDeleteTask"><span>🗑️</span> Supprimer</button>
+    <button class="modal-btn btn-cancel" onclick="closeModal('modalOptionsTask')">Annuler</button>
+  </div>
+</div>
+
+<!-- MODAL VISIONNEUSE DE BILLETS -->
+<div class="modal-overlay" id="modalBilletViewer">
+  <div class="modal-popup">
+    <button class="modal-close" onclick="closeModal('modalBilletViewer')">✕</button>
+    <div class="modal-title" id="viewerTitle">Billet</div>
+    <div class="viewer-name" id="viewerName">Nom du billet</div>
+    
+    <div class="billet-large-container">
+      <img src="" id="viewerImg" class="billet-large" alt="Billet">
+      
+      <div class="billet-nav" id="navBillets" style="display:none;">
+        <button onclick="prevBillet()">‹ Précédent</button>
+        <button onclick="nextBillet()">Suivant ›</button>
+      </div>
+      
+      <button class="btn-secondary" style="margin-top:5px; color:#ff6b9d; background:rgba(255,107,157,0.1); border:none;" onclick="deleteBilletFromViewer()">🗑️ Supprimer ce billet</button>
+    </div>
   </div>
 </div>
 
@@ -238,13 +274,23 @@ var calYear=new Date().getFullYear();
 var calMonth=new Date().getMonth();
 var selectedDate='';
 var selHour='00', selMin='00', formTime='', timeTouched=false;
+
 var detailApptId='';
 var editingLoisirId=null;
 var editingTaskId=null;
+var activeFolderId=null;
 
-/* VARIABLES POUR LE MENU D'ACTION */
+/* VARIABLES MENU / ACTION */
 var actionType='';
 var actionId='';
+
+/* VARIABLES AJOUT RESERVATION */
+var tempResBillets = [];
+
+/* VARIABLES VISIONNEUSE BILLETS */
+var currentBilletResId = null;
+var currentBilletArray = [];
+var currentBilletIndex = 0;
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
@@ -258,6 +304,8 @@ function getLoisirEmoji(title){
   if(title.includes('resto')||title.includes('restaurant'))return '🍽️';
   if(title.includes('week-end')||title.includes('voyage')||title.includes('vol'))return '✈️';
   if(title.includes('spectacle')||title.includes('théâtre'))return '🎭';
+  if(title.includes('train'))return '🚆';
+  if(title.includes('musée'))return '🏛️';
   return '🎟️';
 }
 function normalize(d){d=d||{};var tasks=Array.isArray(d.tasks)?d.tasks:[];var appts=Array.isArray(d.appts)?d.appts:[];var shops=Array.isArray(d.shops)?d.shops:[];var notifs=Array.isArray(d.notifs)?d.notifs:[];var loisirs=Array.isArray(d.loisirs)?d.loisirs:[];shops=shops.map(function(s){s=s||{};var items=Array.isArray(s.items)?s.items:[];items=items.map(function(it){it=it||{};return{id:it.id||uid(),text:it.text||'',done:!!it.done};});return{id:s.id||uid(),name:s.name||'',items:items};});return{tasks:tasks,appts:appts,shops:shops,notifs:notifs,loisirs:loisirs};}
@@ -271,12 +319,31 @@ function pushNow(){var url=apiUrl();if(!url)return;var json=JSON.stringify(state
 function poll(){var url=apiUrl();if(!url)return;fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)return null;return r.json();}).then(function(data){if(data===null||data===undefined)return;var clean=normalize(data);var json=JSON.stringify(clean);if(json!==lastRemoteJson){lastRemoteJson=json;state=clean;saveLocal();render();}}).catch(function(){});}
 function addNotif(text){state.notifs.unshift({id:uid(),text:text,ts:Date.now()});if(state.notifs.length>120)state.notifs.length=120;}
 
+/* COMPRESSEUR D'IMAGE POUR FIREBASE */
+function compressImage(file, maxWidth, callback) {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function(event) {
+    const img = new Image();
+    img.src = event.target.result;
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const scaleSize = maxWidth / img.width;
+      canvas.width = maxWidth;
+      canvas.height = img.height * scaleSize;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      callback(canvas.toDataURL('image/jpeg', 0.7));
+    };
+  };
+}
+
 function render(){try{sanitizeState();}catch(e){}var app=document.getElementById('app');if(!app)return;try{var saved={};Array.prototype.forEach.call(app.querySelectorAll('input, textarea'),function(i){if(i.id)saved[i.id]=i.value;});app.innerHTML=headerHTML()+viewHTML();Object.keys(saved).forEach(function(k){var el=document.getElementById(k);if(el&&!el.value)el.value=saved[k];});if(currentView==='appts'){renderCalendar();renderTime();}}catch(e){try{state.shops.forEach(function(s){if(!Array.isArray(s.items))s.items=[];});app.innerHTML='<div class="card"><div class="section-title">Oups, petit bug réparé ♥</div><div class="empty">Ferme et rouvre l\'app, tout est encore dans Firebase.</div></div>';}catch(e2){}}}
 
 function headerHTML(){var d=new Date();var ds=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});ds=ds.charAt(0).toUpperCase()+ds.slice(1);var remaining=state.tasks.filter(function(t){return !t.done;}).length;var count=remaining+state.appts.length+state.loisirs.filter(function(l){return l.date===todayISO();}).length;
 return '<div class="header"><div class="logo">🏡✨</div><div class="titles"><h1><span class="title-small">Bonjour,</span><span class="title-large">Sam &amp; Shera !</span></h1><div class="date">'+esc(ds)+'</div></div><button class="icon-btn" data-act="go-notifs">🔔'+(count>0?'<span class="badge">'+count+'</span>':'')+'</button><button class="icon-btn gear" data-act="go-share">⚙️</button></div>';}
 
-function viewHTML(){switch(currentView){case 'tasks':return tasksHTML();case 'appts':return apptsHTML();case 'appt-detail':return apptDetailHTML();case 'shopping':return shoppingHTML();case 'loisirs':return loisirsHTML();case 'share':return shareHTML();case 'notifs':return notifsHTML();default:return homeHTML();}}
+function viewHTML(){switch(currentView){case 'tasks':return tasksHTML();case 'appts':return apptsHTML();case 'appt-detail':return apptDetailHTML();case 'shopping':return shoppingHTML();case 'loisirs':return loisirsHTML();case 'folder':return folderHTML();case 'share':return shareHTML();case 'notifs':return notifsHTML();default:return homeHTML();}}
 
 function homeHTML(){
   var remaining=state.tasks.filter(function(t){return !t.done;}).length;
@@ -302,7 +369,7 @@ function homeHTML(){
   if(todayLoisirs.length){
     todayLoisirs.forEach(function(l){
       var emoji = getLoisirEmoji(l.title);
-      h+='<button class="line-btn loisir-home" data-act="go-loisirs"><div class="line-time">'+esc(l.time||'Journée')+'</div><div class="item-body"><div class="line-title">'+emoji+' '+esc(l.title)+'</div>'+(l.desc?'<div class="line-addr">'+esc(l.desc)+'</div>':'')+'</div><div class="arrow">›</div></button>';
+      h+='<button class="line-btn loisir-home" data-act="open-folder-home" data-id="'+l.id+'"><div class="line-time">'+esc(l.time||'Journée')+'</div><div class="item-body"><div class="line-title">'+emoji+' '+esc(l.title)+'</div>'+(l.desc?'<div class="line-addr">'+esc(l.desc)+'</div>':'')+'</div><div class="arrow">›</div></button>';
     });
   }else{
     h+='<div class="empty-card">Aucun loisir aujourd\'hui.</div>';
@@ -331,7 +398,7 @@ function tasksHTML(){
   h+='<button class="seg-btn both'+(currentWho==='both'?' sel':'')+'" data-act="who" data-who="both">Les deux 💖</button>';
   h+='</div>';
   h+='<button class="btn-main" data-act="add-task">'+(editingTaskId ? '✓ Enregistrer les modifications' : '+ Ajouter la tâche')+'</button>';
-  h+='<button class="btn-cancel" style="'+(editingTaskId?'display:block':'display:none')+'" data-act="cancel-edit-task">Annuler la modification</button>';
+  h+='<button class="btn-soft" style="'+(editingTaskId?'display:block':'display:none')+'" data-act="cancel-edit-task">Annuler la modification</button>';
   h+='</div>';
   
   return h;
@@ -354,6 +421,7 @@ function renderCalendar(){var box=document.getElementById('calBox');if(!box)retu
 
 function renderTime(){var box=document.getElementById('timeBox');if(!box)return;var hoursHtml='',minsHtml='';for(var i=0;i<24;i++){var hh=String(i).padStart(2,'0');hoursHtml+='<button class="t-item'+(hh===selHour?' sel':'')+'" data-act="t-hour" data-v="'+hh+'">'+hh+'</button>';}for(var j=0;j<60;j++){var mm=String(j).padStart(2,'0');minsHtml+='<button class="t-item'+(mm===selMin?' sel':'')+'" data-act="t-min" data-v="'+mm+'">'+mm+'</button>';}box.innerHTML='<div class="t-col" id="tHours">'+hoursHtml+'</div><div class="t-colon">:</div><div class="t-col" id="tMins">'+minsHtml+'</div>';var hc=document.getElementById('tHours');var mc=document.getElementById('tMins');if(hc)hc.scrollTop=Math.max(0,parseInt(selHour,10)*47-60);if(mc)mc.scrollTop=Math.max(0,parseInt(selMin,10)*47-60);}
 
+/* --- LOISIRS (DOSSIERS) --- */
 function loisirsHTML(){
   var list = state.loisirs.slice().sort(function(a,b){
     return (String(a.date||'')+String(a.time||'')).localeCompare(String(b.date||'')+String(b.time||''));
@@ -369,6 +437,7 @@ function loisirsHTML(){
       dateStr = 'À ' + item.time;
     }
     var emoji = getLoisirEmoji(item.title);
+    let resCount = item.reservations ? item.reservations.length : 0;
 
     return `
     <div class="ticket">
@@ -377,7 +446,13 @@ function loisirsHTML(){
         <div class="ticket-date">${dateStr}</div>
         <div class="ticket-title">${esc(item.title)}</div>
         ${item.desc ? `<div class="ticket-desc">${esc(item.desc)}</div>` : ''}
-        <div class="ticket-actions">
+        
+        <button class="btn-open-folder" data-act="open-folder" data-id="${item.id}">
+          <span>📂 Ouvrir le dossier (${resCount} réservation${resCount > 1 ? 's' : ''})</span>
+          <span>›</span>
+        </button>
+
+        <div style="display:flex; align-items:center; margin-top:10px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:10px;">
           <button class="menu-arrow" data-act="menu-loisir" data-id="${item.id}">⌄</button>
         </div>
       </div>
@@ -387,27 +462,98 @@ function loisirsHTML(){
   let editItem = editingLoisirId ? state.loisirs.find(i => i.id === editingLoisirId) : { title: '', date: '', time: '', desc: '' };
 
   var h = '<button class="back" data-act="go-home">‹ Retour</button>';
-  h += '<div class="card" style="background:transparent; box-shadow:none; padding:0; border:none;">';
+  h += '<div style="background:transparent; padding:0; border:none; margin-bottom:20px;">';
   h += itemsHTML.length > 0 ? itemsHTML : '<div class="empty" style="background:rgba(255,255,255,0.03); border-radius:20px; padding:20px; border:1px dashed rgba(255,255,255,0.15);">Aucun loisir noté pour le moment.</div>';
   h += '</div>';
 
   h += '<div class="card form-card">';
-  h += '<div class="form-title">'+(editingLoisirId ? 'Modifier le loisir' : 'Ajouter un loisir')+'</div>';
-  h += '<label class="lbl">Titre (ex: Billets spectacle, Week-end...)</label>';
-  h += '<input class="inp" id="loisirTitle" placeholder="Écrire..." value="'+esc(editItem.title)+'">';
+  h += '<div class="form-title">'+(editingLoisirId ? 'Modifier le voyage' : 'Créer un nouveau voyage')+'</div>';
+  h += '<label class="lbl">Titre principal</label>';
+  h += '<input class="inp" id="loisirTitle" placeholder="Ex: Week-end à Londres..." value="'+esc(editItem.title)+'">';
   
-  h += '<div class="row-2">';
-  h += '<div><label class="lbl">Date</label><input class="inp" id="loisirDate" type="date" value="'+esc(editItem.date)+'"></div>';
-  h += '<div><label class="lbl">Heure</label><input class="inp" id="loisirTime" type="time" value="'+esc(editItem.time)+'"></div>';
+  h += '<div class="row-2" style="display:flex; gap:10px;">';
+  h += '<div style="flex:1"><label class="lbl">Date</label><input class="inp" id="loisirDate" type="date" value="'+esc(editItem.date)+'"></div>';
+  h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="loisirTime" type="time" value="'+esc(editItem.time)+'"></div>';
   h += '</div>';
   
-  h += '<label class="lbl">Détails / Notes (optionnel)</label>';
-  h += '<textarea class="inp" id="loisirDesc" placeholder="Écrire..." rows="3">'+esc(editItem.desc)+'</textarea>';
+  h += '<label class="lbl">Notes</label>';
+  h += '<textarea class="inp" id="loisirDesc" placeholder="Écrire..." rows="2">'+esc(editItem.desc)+'</textarea>';
   
-  h += '<button class="btn-main" data-act="add-loisir">'+(editingLoisirId ? '✓ Enregistrer les modifications' : '+ Ajouter le loisir')+'</button>';
-  h += '<button class="btn-cancel" style="'+(editingLoisirId?'display:block':'display:none')+'" data-act="cancel-edit-loisir">Annuler la modification</button>';
+  h += '<button class="btn-main" data-act="add-loisir">'+(editingLoisirId ? '✓ Enregistrer les modifications' : '+ Créer le dossier')+'</button>';
+  h += '<button class="btn-soft" style="'+(editingLoisirId?'display:block':'display:none')+'" data-act="cancel-edit-loisir">Annuler</button>';
   h += '</div>';
   
+  return h;
+}
+
+/* --- DOSSIER INTERNE (RESERVATIONS) --- */
+function folderHTML(){
+  var folder = state.loisirs.find(function(l){return l.id===activeFolderId;});
+  if(!folder) { currentView='loisirs'; return loisirsHTML(); }
+
+  let subItemsHTML = (folder.reservations || []).map(r => {
+    let count = r.billets ? r.billets.length : 0;
+    let btnText = count > 1 ? `🎟️ Voir les ${count} billets` : (count === 1 ? '🎟️ Voir le billet' : 'Sans billet');
+    let btn = count > 0 ? `<button class="sub-billet-btn" data-act="view-billets" data-resid="${r.id}">${btnText}</button>` : `<span style="font-size:11px;color:#6b7280;font-weight:800;">Sans billet</span>`;
+
+    return `
+    <div class="sub-item">
+      <div class="sub-icon">${r.icon}</div>
+      <div class="sub-info">
+        <div class="sub-title">${esc(r.title)}</div>
+        <div class="sub-date">${esc(r.date)} ${r.time ? 'à '+esc(r.time) : ''}</div>
+      </div>
+      ${btn}
+    </div>
+  `}).join('');
+
+  let previewBillets = tempResBillets.map((b, idx) => `
+    <div class="preview-item">
+      <img src="${b.url}">
+      <div class="p-name">${esc(b.name)}</div>
+      <button class="del-billet-btn" data-act="remove-temp-billet" data-idx="${idx}">✕</button>
+    </div>
+  `).join('');
+
+  var h = '<div class="header"><div class="logo">'+(folder.emoji||'🎟️')+'</div><div class="titles"><h1>'+esc(folder.title)+'</h1><div class="date">'+esc(folder.date)+'</div></div></div>';
+  h += '<button class="back" data-act="back-to-loisirs">‹ Retour aux loisirs</button>';
+
+  h += '<div class="card" style="background:rgba(255,255,255,0.03); border-style:dashed;">';
+  h += '<div class="section-title" style="margin:0 0 10px 0; font-size:12px;">📋 Réservations prévues</div>';
+  h += subItemsHTML || '<div style="color:#6b7280; font-size:13px; font-weight:700; text-align:center; padding:10px;">Aucune réservation pour l\'instant.</div>';
+  h += '</div>';
+
+  h += '<div class="card form-card">';
+  h += '<div class="form-title">Ajouter une réservation</div>';
+  h += '<label class="lbl">Titre (ex: Train, Musée...)</label>';
+  h += '<input class="inp" id="rTitle" placeholder="Qu\'avez-vous réservé ?">';
+  
+  h += '<div class="row-2" style="display:flex; gap:10px;">';
+  h += '<div style="flex:1"><label class="lbl">Date</label><input class="inp" id="rDate" type="date"></div>';
+  h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="rTime" type="time"></div>';
+  h += '</div>';
+
+  h += '<label class="lbl">Icône</label>';
+  h += '<select class="inp" id="rIcon" style="appearance:none; background:rgba(255,255,255,0.05); color:#fff;">';
+  h += '<option value="🚆" style="color:#000">🚆 Train</option>';
+  h += '<option value="✈️" style="color:#000">✈️ Avion</option>';
+  h += '<option value="🏛️" style="color:#000">🏛️ Musée</option>';
+  h += '<option value="🎭" style="color:#000">🎭 Spectacle</option>';
+  h += '<option value="🍽️" style="color:#000">🍽️ Restaurant</option>';
+  h += '<option value="🎟️" style="color:#000">🎟️ Autre</option>';
+  h += '</select>';
+
+  h += '<label class="lbl">Billets / QR Codes</label>';
+  h += '<div class="preview-billets">'+previewBillets+'</div>';
+  
+  h += '<div style="display:flex; gap:8px; margin-top:10px;">';
+  h += '<input class="inp" id="newBilletName" placeholder="Nom (ex: Sam...)" style="flex:1; padding:10px; font-size:13px;">';
+  h += '<button class="btn-soft" style="width:auto; margin:0; padding:10px 15px; font-size:13px; background:rgba(139,184,255,0.15); color:#8bb8ff; border:none;" data-act="upload-billet">📷 Choisir</button>';
+  h += '</div>';
+
+  h += '<button class="btn-main" data-act="add-reservation">+ Ajouter à ce voyage</button>';
+  h += '</div>';
+
   return h;
 }
 
@@ -419,47 +565,129 @@ function notifsHTML(){var h='<button class="back" data-act="go-home">‹ Retour<
 
 function commit(notifText){if(notifText)addNotif(notifText);schedulePush();render();}
 
-/* --- GESTION DU MENU D'ACTION --- */
-function openActionMenu(type, id, titleText) {
-  actionType = type;
+/* --- MENUS D'ACTION --- */
+function openTaskMenu(id, title) {
+  actionType = 'task';
   actionId = id;
-  document.getElementById('actionMenuTitle').textContent = titleText;
-  document.getElementById('actionMenu').classList.add('active');
+  document.getElementById('modalOptionsTaskTitle').textContent = "Que faire pour : " + title + " ?";
+  document.getElementById('modalOptionsTask').classList.add('active');
 }
 
-function closeActionMenu() {
-  document.getElementById('actionMenu').classList.remove('active');
+function openLoisirMenu(id, title) {
+  actionType = 'loisir';
+  actionId = id;
+  document.getElementById('modalOptionsTitle').textContent = "Gérer : " + title;
+  document.getElementById('modalOptions').classList.add('active');
 }
 
-function doAction(action) {
-  closeActionMenu();
-  if (action === 'edit') {
-    if (actionType === 'task') {
-      editingTaskId = actionId;
-      render();
-      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-    } else if (actionType === 'loisir') {
-      editingLoisirId = actionId;
-      render();
-      window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-    }
-  } else if (action === 'delete') {
-    if (actionType === 'task') {
-      var t = state.tasks.find(function(x){return x.id===actionId;});
-      state.tasks = state.tasks.filter(function(x){return x.id!==actionId;});
-      editingTaskId = null;
-      commit('Tâche supprimée : '+(t?t.text:''));
-    } else if (actionType === 'loisir') {
-      var l = state.loisirs.find(function(x){return x.id===actionId;});
-      state.loisirs = state.loisirs.filter(function(x){return x.id!==actionId;});
-      editingLoisirId = null;
-      commit('Loisir supprimé : '+(l?l.title:''));
-    }
+function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+
+document.getElementById('btnEditTask').onclick = function() {
+  closeModal('modalOptionsTask');
+  editingTaskId = actionId;
+  render();
+  window.scrollTo(0, document.body.scrollHeight);
+};
+
+document.getElementById('btnDeleteTask').onclick = function() {
+  closeModal('modalOptionsTask');
+  var t=state.tasks.find(function(x){return x.id===actionId;});
+  state.tasks=state.tasks.filter(function(x){return x.id!==actionId;});
+  editingTaskId=null;
+  commit('Tâche supprimée : '+(t?t.text:''));
+};
+
+document.getElementById('btnEditLoisir').onclick = function() {
+  closeModal('modalOptions');
+  editingLoisirId = actionId;
+  render();
+  window.scrollTo(0, document.body.scrollHeight);
+};
+
+document.getElementById('btnDeleteLoisir').onclick = function() {
+  closeModal('modalOptions');
+  var l=state.loisirs.find(function(x){return x.id===actionId;});
+  state.loisirs=state.loisirs.filter(function(x){return x.id!==actionId;});
+  if(activeFolderId === actionId) activeFolderId=null;
+  editingLoisirId=null;
+  commit('Voyage supprimé : '+(l?l.title:''));
+};
+
+/* --- VISIONNEUSE BILLETS --- */
+function openBilletViewer(resId) {
+  let folder = state.loisirs.find(l => l.id === activeFolderId);
+  let res = folder.reservations.find(r => r.id === resId);
+  if (!res || !res.billets || res.billets.length === 0) return;
+  
+  currentBilletResId = resId;
+  currentBilletArray = res.billets;
+  currentBilletIndex = 0;
+  
+  document.getElementById('viewerTitle').textContent = res.title;
+  updateBilletImage();
+  document.getElementById('navBillets').style.display = res.billets.length > 1 ? 'flex' : 'none';
+  document.getElementById('modalBilletViewer').classList.add('active');
+}
+
+function updateBilletImage() {
+  let b = currentBilletArray[currentBilletIndex];
+  document.getElementById('viewerImg').src = b.url;
+  document.getElementById('viewerName').textContent = b.name;
+}
+
+function nextBillet() { if (currentBilletIndex < currentBilletArray.length - 1) { currentBilletIndex++; updateBilletImage(); } }
+function prevBillet() { if (currentBilletIndex > 0) { currentBilletIndex--; updateBilletImage(); } }
+
+function deleteBilletFromViewer() {
+  if(!confirm("Supprimer ce billet ?")) return;
+  let folder = state.loisirs.find(l => l.id === activeFolderId);
+  let res = folder.reservations.find(r => r.id === currentBilletResId);
+  res.billets.splice(currentBilletIndex, 1);
+  
+  if (res.billets.length === 0) {
+    closeModal('modalBilletViewer');
+    commit('Billet supprimé de : '+res.title);
+    return;
   }
+  if (currentBilletIndex >= res.billets.length) currentBilletIndex = res.billets.length - 1;
+  currentBilletArray = res.billets;
+  updateBilletImage();
+  commit('Billet supprimé de : '+res.title);
 }
 
+/* --- UPLOAD DE FICHIER --- */
+var fileInput = document.getElementById('fileInput');
+var currentBilletNameTemp = '';
+
+document.addEventListener('click', function(e) {
+  var el = e.target.closest ? e.target.closest('[data-act]') : null;
+  if (!el) return;
+  var act = el.getAttribute('data-act');
+  var id = el.getAttribute('data-id');
+
+  if (act === 'upload-billet') {
+    currentBilletNameTemp = val('newBilletName') || "Billet " + (tempResBillets.length + 1);
+    fileInput.click();
+    return;
+  }
+});
+
+fileInput.addEventListener('change', function(e) {
+  if (!e.target.files || !e.target.files[0]) return;
+  var file = e.target.files[0];
+  
+  // On compresse l'image avant de l'ajouter
+  compressImage(file, 600, function(base64Image) {
+    tempResBillets.push({ name: currentBilletNameTemp, url: base64Image });
+    currentBilletNameTemp = '';
+    fileInput.value = ''; // Reset
+    render(); // Met à jour la preview
+  });
+});
+
+/* --- NAVIGATION & ACTIONS --- */
 document.addEventListener('click',function(e){var el=e.target.closest?e.target.closest('[data-act]'):null;if(!el)return;var act=el.getAttribute('data-act');var id=el.getAttribute('data-id');
-if(act==='go-home'){currentView='home';detailApptId='';render();return;}
+if(act==='go-home'){currentView='home';detailApptId='';activeFolderId=null;render();return;}
 if(act==='go-tasks'){currentView='tasks';render();return;}
 if(act==='go-appts'){currentView='appts';render();return;}
 if(act==='go-shopping'){currentView='shopping';render();return;}
@@ -470,25 +698,48 @@ if(act==='open-appt'){detailApptId=id;currentView='appt-detail';render();return;
 if(act==='back-from-detail'){detailApptId='';currentView='home';render();return;}
 if(act==='who'){selectedWho=el.getAttribute('data-who');var btns=document.querySelectorAll('#taskWho .seg-btn');Array.prototype.forEach.call(btns,function(b){b.classList.toggle('sel',b.getAttribute('data-who')===selectedWho);});return;}
 
-/* --- OUVRIR LE MENU TÂCHE / LOISIR --- */
+/* --- MENUS --- */
 if(act==='menu-task'){
   var t=state.tasks.find(function(x){return x.id===id;});
-  openActionMenu('task', id, t ? 'Que faire pour : ' + t.text + ' ?' : 'Options');
+  openTaskMenu(id, t ? t.text : 'Options');
   return;
 }
 if(act==='menu-loisir'){
   var l=state.loisirs.find(function(x){return x.id===id;});
-  openActionMenu('loisir', id, l ? 'Que faire pour : ' + l.title + ' ?' : 'Options');
+  openLoisirMenu(id, l ? l.title : 'Options');
   return;
 }
 
-/* --- AJOUT / MODIFICATION --- */
+/* --- DOSSIERS --- */
+if(act==='open-folder' || act==='open-folder-home'){
+  activeFolderId = id;
+  currentView = 'folder';
+  tempResBillets = [];
+  render();
+  window.scrollTo(0,0);
+  return;
+}
+if(act==='back-to-loisirs'){
+  currentView='loisirs'; activeFolderId=null; render(); return;
+}
+
+if(act==='view-billets'){
+  var resId = parseInt(el.getAttribute('data-resid'), 10);
+  openBilletViewer(resId);
+  return;
+}
+
+if(act==='remove-temp-billet'){
+  tempResBillets.splice(parseInt(el.getAttribute('data-idx'), 10), 1);
+  render(); return;
+}
+
+/* --- AJOUTS / EDITS --- */
 if(act==='cancel-edit-task'){editingTaskId=null;render();return;}
 if(act==='add-task'){
   var inp=document.getElementById('taskText');
   var text=(inp.value||'').trim();
   if(!text){inp.focus();toast('Écrivez d\'abord une tâche.');return;}
-  
   if(editingTaskId){
     var idx=state.tasks.findIndex(function(x){return x.id===editingTaskId;});
     if(idx>-1){state.tasks[idx]={id:editingTaskId,text:text,who:selectedWho,done:state.tasks[idx].done};}
@@ -523,26 +774,36 @@ if(act==='del-shop'){var sh=state.shops.filter(function(s){return s.id===id;})[0
 if(act==='add-shop'){var ni=document.getElementById('newShopName');var nomMag=(ni.value||'').trim();if(!nomMag){ni.focus();toast('Écrivez le nom du magasin.');return;}state.shops.push({id:uid(),name:nomMag,items:[]});ni.value='';toast('Liste créée !');commit('Nouvelle liste créée : '+nomMag);return;}
 if(act==='save-share'){var code=(val('shareCode')||'SAMSHERA');var url=(val('shareUrl')||'').replace(/\/+$/,'');houseCode=code;fbUrl=url;localStorage.setItem(LS_CODE,code);localStorage.setItem(LS_FB,url);lastRemoteJson='';toast('Partage enregistré.');poll();return;}
 
-/* LOISIRS */
+/* --- LOISIRS --- */
 if(act==='add-loisir'){
   var lTitle=val('loisirTitle'), lDate=val('loisirDate'), lTime=val('loisirTime'), lDesc=val('loisirDesc');
   if(!lTitle){toast('Écrivez un titre.');return;}
   if(editingLoisirId){
     var idx=state.loisirs.findIndex(function(x){return x.id===editingLoisirId;});
-    if(idx>-1){state.loisirs[idx]={id:editingLoisirId,title:lTitle,date:lDate,time:lTime,desc:lDesc};}
+    if(idx>-1){
+      state.loisirs[idx]={...state.loisirs[idx], title:lTitle, date:lDate, time:lTime, desc:lDesc};
+    }
     editingLoisirId=null;
-    toast('Loisir modifié !');
-    commit('Loisir modifié : '+lTitle);
+    toast('Voyage modifié !');
+    commit('Voyage modifié : '+lTitle);
   }else{
-    state.loisirs.push({id:uid(),title:lTitle,date:lDate,time:lTime,desc:lDesc});
-    toast('Loisir ajouté !');
-    commit('Nouveau loisir : '+lTitle);
+    state.loisirs.push({id:uid(),title:lTitle,date:lDate,time:lTime,desc:lDesc,reservations:[]});
+    toast('Voyage créé !');
+    commit('Nouveau voyage : '+lTitle);
   }
   return;
 }
-if(act==='cancel-edit-loisir'){
-  editingLoisirId=null;
-  render();
+if(act==='cancel-edit-loisir'){editingLoisirId=null;render();return;}
+
+if(act==='add-reservation'){
+  var rTitle=val('rTitle'), rDate=val('rDate'), rTime=val('rTime'), rIcon=document.getElementById('rIcon').value;
+  if(!rTitle){toast('Mettez un titre.');return;}
+  var folder = state.loisirs.find(function(l){return l.id===activeFolderId;});
+  if(!folder) return;
+  folder.reservations.push({ id:uid(), icon:rIcon, title:rTitle, date:rDate, time:rTime, billets:[...tempResBillets] });
+  tempResBillets = [];
+  toast('Réservation ajoutée !');
+  commit('Réservation ajoutée à '+folder.title+' : '+rTitle);
   return;
 }
 });
