@@ -209,6 +209,11 @@ body::before {
 .preview-item img { width: 100%; height: 60px; object-fit: contain; background:#fff; border-radius: 4px; }
 .preview-item .p-name { font-size: 9px; font-weight: 800; color: #fff; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .del-billet-btn { position: absolute; top: -6px; right: -6px; background: #ff6b9d; color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;}
+
+/* NOUVEAU : BOUTON SELECTEUR HEURE */
+.time-chips { display: flex; gap: 8px; }
+.time-chips select { flex:1; padding: 14px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; font-size: 16px; font-weight: 800; outline: none; appearance: none; text-align: center; }
+.time-chips select option { background: #1e1b2e; color: #fff; }
 </style>
 </head>
 <body>
@@ -530,7 +535,9 @@ function folderHTML(){
   
   h += '<div class="row-2" style="display:flex; gap:10px;">';
   h += '<div style="flex:1"><label class="lbl">Date</label><input class="inp" id="rDate" type="date"></div>';
-  h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="rTime" type="time"></div>';
+  
+  // LE NOUVEAU CHAMP HEURE (Champ texte classique)
+  h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="rTime" type="text" placeholder="Ex: 19:30" maxlength="5"></div>';
   h += '</div>';
 
   h += '<label class="lbl">Icône</label>';
@@ -676,7 +683,6 @@ fileInput.addEventListener('change', function(e) {
   if (!e.target.files || !e.target.files[0]) return;
   var file = e.target.files[0];
   
-  // On compresse l'image avant de l'ajouter
   compressImage(file, 600, function(base64Image) {
     tempResBillets.push({ name: currentBilletNameTemp, url: base64Image });
     currentBilletNameTemp = '';
@@ -724,7 +730,7 @@ if(act==='back-to-loisirs'){
 }
 
 if(act==='view-billets'){
-  var resId = parseInt(el.getAttribute('data-resid'), 10);
+  var resId = el.getAttribute('data-resid');
   openBilletViewer(resId);
   return;
 }
