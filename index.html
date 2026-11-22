@@ -163,8 +163,11 @@ body::before {
 .ticket-date{font-size:11px; font-weight:900; color:#ffa8c5; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;}
 .ticket-title{font-size:16px; font-weight:900; color:#ffffff; line-height:1.2;}
 .ticket-desc{font-size:13px; color:#a89fb5; margin-top:6px; font-weight:600; line-height:1.4; white-space:pre-wrap;}
-.btn-open-folder { display:flex; align-items:center; justify-content:space-between; width:100%; background:rgba(139,184,255,0.1); color:#8bb8ff; padding:12px 16px; border-radius:12px; font-size:13.5px; font-weight:900; margin-top:10px; border:none; }
-.btn-open-folder:active { background:rgba(139,184,255,0.2); }
+
+/* NOUVEAU LIEN POUR OUVRIR LE DOSSIER */
+.link-folder { display:flex; align-items:center; justify-content:space-between; width:100%; background:transparent; color:#8bb8ff; padding:10px 0 0 0; border-top:1px dashed rgba(255,255,255,0.1); font-size:13px; font-weight:900; border:none; margin-top:10px; cursor:pointer; text-align:left; }
+.link-folder span { display:flex; align-items:center; gap:6px; }
+.link-folder .arrow { color:#a89fb5; font-size:18px; }
 
 /* RESERVATIONS DANS LE DOSSIER */
 .sub-item { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.04); border-radius:16px; padding:12px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.05); }
@@ -210,7 +213,6 @@ body::before {
 .preview-item .p-name { font-size: 9px; font-weight: 800; color: #fff; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 .del-billet-btn { position: absolute; top: -6px; right: -6px; background: #ff6b9d; color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;}
 
-/* NOUVEAU : BOUTON SELECTEUR HEURE */
 .time-chips { display: flex; gap: 8px; }
 .time-chips select { flex:1; padding: 14px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; font-size: 16px; font-weight: 800; outline: none; appearance: none; text-align: center; }
 .time-chips select option { background: #1e1b2e; color: #fff; }
@@ -452,12 +454,12 @@ function loisirsHTML(){
         <div class="ticket-title">${esc(item.title)}</div>
         ${item.desc ? `<div class="ticket-desc">${esc(item.desc)}</div>` : ''}
         
-        <button class="btn-open-folder" data-act="open-folder" data-id="${item.id}">
-          <span>📂 Ouvrir le dossier (${resCount} réservation${resCount > 1 ? 's' : ''})</span>
-          <span>›</span>
+        <button class="link-folder" data-act="open-folder" data-id="${item.id}">
+          <span>📂 ${resCount} réservation${resCount > 1 ? 's' : ''}</span>
+          <span class="arrow">›</span>
         </button>
 
-        <div style="display:flex; align-items:center; margin-top:10px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:10px;">
+        <div style="display:flex; align-items:center; margin-top:5px;">
           <button class="menu-arrow" data-act="menu-loisir" data-id="${item.id}">⌄</button>
         </div>
       </div>
@@ -478,7 +480,7 @@ function loisirsHTML(){
   
   h += '<div class="row-2" style="display:flex; gap:10px;">';
   h += '<div style="flex:1"><label class="lbl">Date</label><input class="inp" id="loisirDate" type="date" value="'+esc(editItem.date)+'"></div>';
-  h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="loisirTime" type="time" value="'+esc(editItem.time)+'"></div>';
+  h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="loisirTime" type="text" placeholder="Ex: 19:30" value="'+esc(editItem.time)+'" maxlength="5"></div>';
   h += '</div>';
   
   h += '<label class="lbl">Notes</label>';
@@ -535,8 +537,6 @@ function folderHTML(){
   
   h += '<div class="row-2" style="display:flex; gap:10px;">';
   h += '<div style="flex:1"><label class="lbl">Date</label><input class="inp" id="rDate" type="date"></div>';
-  
-  // LE NOUVEAU CHAMP HEURE (Champ texte classique)
   h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="rTime" type="text" placeholder="Ex: 19:30" maxlength="5"></div>';
   h += '</div>';
 
