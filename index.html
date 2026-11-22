@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -22,893 +22,820 @@ html,body{margin:0;padding:0;overflow-x:hidden;}
 body{
   font-family:'Nunito','Quicksand','Trebuchet MS',system-ui,-apple-system,sans-serif;
   background: linear-gradient(160deg, #131b2f 0%, #2a1b38 50%, #1a1225 100%);
-  min-height:100vh;color:#f8f4f9;-webkit-font-smoothing:antialiased;
+  background-attachment:fixed;min-height:100vh;color:#f8f4f9;-webkit-font-smoothing:antialiased;
   position:relative;
 }
-@media (min-width:769px){ body{ background-attachment:fixed; } }
 
 /* BONHOMME DE NEIGE */
 body::before {
   content: ""; position: fixed; bottom: -20px; right: -20px; width: 300px; height: 400px;
   opacity: 0.04; z-index: 0; background-size: contain; background-repeat: no-repeat; background-position: bottom right; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 300'%3E%3Cg fill='white'%3E%3Ccircle cx='100' cy='240' r='60'/%3E%3Ccircle cx='100' cy='140' r='45'/%3E%3Ccircle cx='100' cy='60' r='30'/%3E%3C/g%3E%3Crect x='80' y='10' width='40' height='25' fill='white'/%3E%3Ccircle cx='90' cy='60' r='4' fill='black'/%3E%3Ccircle cx='110' cy='60' r='4' fill='black'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 300'%3E%3Cg fill='%23ffffff'%3E%3Ccircle cx='100' cy='220' r='60'/%3E%3Ccircle cx='100' cy='130' r='45'/%3E%3Ccircle cx='100' cy='60' r='35'/%3E%3C/g%3E%3Cg fill='%23333'%3E%3Ccircle cx='85' cy='50' r='4'/%3E%3Ccircle cx='115' cy='50' r='4'/%3E%3Ccircle cx='100' cy='150' r='5'/%3E%3Ccircle cx='100' cy='180' r='5'/%3E%3Ccircle cx='100' cy='210' r='5'/%3E%3Crect x='70' y='15' width='60' height='10'/%3E%3Crect x='80' y='-10' width='40' height='25'/%3E%3C/g%3E%3Cpath d='M 85 75 Q 100 85 115 75' stroke='%23333' stroke-width='3' fill='none'/%3E%3Cpolygon points='100,60 100,70 130,65' fill='%23ff8c00'/%3E%3Cpath d='M 60 100 Q 100 120 140 100 L 145 110 Q 100 130 55 110 Z' fill='%23ff4b4b'/%3E%3Cpath d='M 40 140 L 10 120 M 160 140 L 190 120' stroke='%235c4033' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
-/* NEIGE */
-#snow-container{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
-.snowflake{position:absolute;top:-20px;background:#fff;border-radius:50%;opacity:.85;will-change:transform;animation:fall linear infinite;}
-@keyframes fall{to{transform:translateY(105vh) translateX(30px);}}
+#app{max-width:720px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) 14px calc(44px + env(safe-area-inset-bottom));position:relative;z-index:10;}
 
-#app{max-width:480px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 14px calc(26px + env(safe-area-inset-bottom));position:relative;z-index:10;}
-.header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 4px 14px;}
-.brand{display:flex;align-items:center;gap:10px;min-width:0;}
-.logo{width:46px;height:46px;flex-shrink:0;border-radius:15px;background:linear-gradient(135deg,#ff8a9c,#a06ee1);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 20px rgba(0,0,0,.3);}
-.brand-text{line-height:1.15;min-width:0;}
-.brand-text b{font-size:19px;letter-spacing:-.2px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.brand-text span{font-size:11px;opacity:.75;font-weight:700;}
-.notif-btn{width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:19px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;flex-shrink:0;}
-.notif-badge{position:absolute;top:-5px;right:-5px;background:#ff5d7a;color:#fff;font-size:10px;font-weight:900;min-width:20px;height:20px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:0 5px;border:2px solid #1a1225;}
-.nav{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:16px;}
-.nav-btn{border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.06);color:#d9d2e3;border-radius:16px;padding:10px 2px 9px;text-align:center;cursor:pointer;font-family:inherit;transition:.15s;}
-.nav-btn.active{background:linear-gradient(135deg,#ff8a9c,#a06ee1);color:#fff;border-color:transparent;box-shadow:0 8px 20px rgba(255,138,156,.3);}
-.nav-btn .ic{font-size:19px;display:block;line-height:1;}
-.nav-btn .tx{font-size:10px;font-weight:800;margin-top:4px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:22px;padding:16px;margin-bottom:12px;backdrop-filter:blur(6px);}
-.card h2{margin:0 0 4px;font-size:16px;}
-.card p{margin:0;font-size:12.5px;opacity:.85;line-height:1.5;}
-h2.sec{font-size:13px;text-transform:uppercase;letter-spacing:.8px;opacity:.75;margin:18px 2px 10px;}
-.mini{font-size:12px;opacity:.75;line-height:1.5;}
-.list{display:flex;flex-direction:column;gap:8px;}
-.line-btn{width:100%;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:12px 12px;text-align:left;color:#fff;cursor:pointer;font-family:inherit;}
-.line-btn:active{transform:scale(.98);}
-.line-ic{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
-.line-time{flex-shrink:0;text-align:center;line-height:1.15;}
-.line-time b{font-size:13px;display:block;}
-.line-time span{font-size:10px;opacity:.7;font-weight:700;}
+/* NEIGE ÉTOILES */
+#snow-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:hidden;}
+.snowflake{position:absolute;top:-20px;background:#ffffff;clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);animation: fall linear infinite;filter: drop-shadow(0 0 4px rgba(255,255,255,0.8));}
+@keyframes fall{to {transform: translateY(105vh) translateX(20px) rotate(360deg);}}
+
+/* EN-TÊTE */
+.header{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:26px;padding:11px 13px;box-shadow:0 8px 24px rgba(0,0,0,0.3);margin-bottom:14px;border:1px solid rgba(255,255,255,0.1);}
+.logo{width:46px;height:46px;border-radius:17px;background:linear-gradient(135deg,#5e3c70,#2e4a72);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,0.4);}
+.titles{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;}
+.titles h1{font-family:'Nunito',sans-serif;margin:0;line-height:1.2;}
+.title-small{font-size:12px;color:rgba(255,255,255,0.85);font-weight:700;display:block;margin-bottom:1px;}
+.title-large{font-size:18px;color:#ffa8c5;font-weight:900;display:block;letter-spacing:0.3px;text-shadow:0 2px 5px rgba(0,0,0,0.3);}
+.date{font-size:11.5px;color:#a89fb5;margin-top:4px;font-weight:700;text-transform:capitalize;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.icon-btn{width:40px;height:40px;border-radius:15px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;flex-shrink:0;border:1px solid rgba(255,255,255,0.05);}
+.icon-btn:active{transform:scale(.94);}
+.icon-btn.gear{background:transparent;opacity:.6;font-size:16px;width:32px;border:none;}
+.badge{position:absolute;top:-3px;right:-3px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:linear-gradient(135deg,#ff8fab,#c46fe0);color:#fff;font-size:10.5px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.5);}
+
+/* CARTES */
+.card{background:rgba(255,255,255,0.06);border-radius:26px;padding:15px;box-shadow:0 8px 24px rgba(0,0,0,0.2);margin-bottom:13px;border:1px solid rgba(255,255,255,0.08);}
+.section-title{font-size:13px;font-weight:900;color:#b3c6ff;letter-spacing:.4px;margin:18px 0 10px;display:flex;align-items:center;gap:6px;}
+.summary{background:rgba(255,255,255,0.05);border-radius:22px;padding:12px 15px;margin-bottom:13px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.08);}
+.summary h2{font-size:10.5px;letter-spacing:1.7px;color:#b3c6ff;margin:0 0 3px;font-weight:900;}
+.summary p{margin:0;font-size:13.5px;color:#ffffff;font-weight:800;}
+.summary small{display:block;margin-top:2px;font-size:11px;color:#a89fb5;font-weight:700;}
+
+/* BOUTONS NAVIGATION */
+.nav-btn{display:flex;align-items:center;gap:12px;width:100%;background:rgba(255,255,255,0.07);border-radius:24px;padding:17px;margin-bottom:11px;box-shadow:0 7px 20px rgba(0,0,0,0.2);font-weight:900;font-size:16px;color:#ffffff;transition:transform .12s ease;border:1px solid rgba(255,255,255,0.1);}
+.nav-btn:active{transform:scale(.977);background:rgba(255,255,255,0.12);}
+.nav-btn .emoji{width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.nav-btn.t1 .emoji{background:#8bb8ff;}
+.nav-btn.t2 .emoji{background:#ffa8c5;}
+.nav-btn.t3 .emoji{background:#c3a8ff;}
+.nav-btn.t4 .emoji{background:#ffe6a8;}
+.nav-btn .label{flex:1;text-align:left;}
+.nav-btn .arrow{color:#a89fb5;font-size:22px;font-weight:900;line-height:1;}
+
+/* LIGNES SUR L'ACCUEIL */
+.line-btn{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:rgba(255,255,255,0.06);border-radius:20px;padding:13px 14px;margin-bottom:9px;box-shadow:0 5px 16px rgba(0,0,0,0.15);transition:transform .12s ease;border:1px solid rgba(255,255,255,0.05);}
+.line-btn:active{transform:scale(.977);background:rgba(255,255,255,0.1);}
+.line-time{font-size:14.5px;font-weight:900;color:#ffa8c5;background:rgba(255,168,197,0.15);padding:6px 9px;border-radius:12px;flex-shrink:0;line-height:1.15;}
+.line-title{font-size:14.5px;font-weight:900;color:#ffffff;line-height:1.25;}
+.line-addr{font-size:12px;color:#c3cbd8;font-weight:700;margin-top:3px;line-height:1.3;}
+.line-meta{font-size:11.5px;color:#a89fb5;font-weight:700;margin-top:3px;line-height:1.35;}
+.line-btn .arrow{color:#a89fb5;font-size:22px;font-weight:900;line-height:1;align-self:center;flex-shrink:0;}
+.line-btn.loisir-home .line-time{color:#ffe6a8;background:rgba(255,230,168,0.15);}
+.empty-card{background:rgba(255,255,255,0.03);border-radius:20px;padding:16px;text-align:center;color:#a89fb5;font-weight:700;font-size:13px;border:1px dashed rgba(255,255,255,0.15);box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+
+/* PAGES INTERNES */
+.back{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border-radius:18px;padding:9px 16px;font-weight:900;font-size:14px;color:#ffffff;box-shadow:0 5px 16px rgba(0,0,0,0.2);margin-bottom:13px;border:1px solid rgba(255,255,255,0.1);}
+.back:active{transform:scale(.96);background:rgba(255,255,255,0.15);}
+.item{display:flex;align-items:center;gap:11px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+.item:last-child{border-bottom:none;}
 .item-body{flex:1;min-width:0;}
-.item-body b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.item-body span{font-size:11.5px;opacity:.75;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
-.arrow{opacity:.5;font-size:20px;}
-.chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12);padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;cursor:pointer;}
-.inp{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:13px 12px;color:#fff;font-size:14.5px;font-family:inherit;outline:none;}
-.inp:focus{border-color:#ff8a9c;box-shadow:0 0 0 3px rgba(255,138,156,.18);}
-.inp::placeholder{color:rgba(255,255,255,.45);}
-select.inp option{color:#000;background:#fff;}
-textarea.inp{resize:vertical;min-height:64px;}
-.btn{width:100%;border:none;border-radius:14px;padding:13px;font-size:14px;font-weight:900;cursor:pointer;font-family:inherit;}
-.btn-pink{background:linear-gradient(135deg,#ff8a9c,#a06ee1);color:#fff;box-shadow:0 8px 20px rgba(255,138,156,.28);}
-.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.12);}
-.btn-maps{display:block;text-align:center;background:rgba(139,184,255,.15);color:#8bb8ff;padding:13px;border-radius:14px;font-weight:900;text-decoration:none;font-size:14px;border:1px solid rgba(139,184,255,.3);}
-.btn-maps:active{transform:scale(.98);}
-.btn-secondary{width:100%;padding:13px;border-radius:14px;font-weight:900;cursor:pointer;font-family:inherit;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.12);}
-.btn-danger{width:100%;padding:13px;border-radius:14px;font-weight:900;cursor:pointer;font-family:inherit;background:#ff5d7a;color:#fff;border:none;}
-.seg{display:flex;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:4px;gap:4px;}
-.seg-btn{flex:1;border:none;background:transparent;color:#d9d2e3;padding:10px 4px;border-radius:10px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;}
-.seg-btn.active{background:linear-gradient(135deg,#ff8a9c,#a06ee1);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.2);}
-.task-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:11px 12px;}
-.task-row.done{opacity:.55;}
-.task-row.done .t-text{text-decoration:line-through;}
-.ck{width:26px;height:26px;border-radius:9px;border:2px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;padding:0;}
-.ck.on{background:#ff8a9c;border-color:#ff8a9c;}
-.t-text{flex:1;min-width:0;font-size:14px;font-weight:700;word-break:break-word;}
-.t-who{font-size:10px;font-weight:900;background:rgba(255,255,255,.12);padding:3px 7px;border-radius:999px;white-space:nowrap;}
-.menu-btn{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.08);border:none;color:#fff;font-size:16px;cursor:pointer;flex-shrink:0;}
-.shop-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;}
-.shop-head b{font-size:15px;}
-.del{width:30px;height:30px;border-radius:10px;background:rgba(255,93,122,.15);color:#ff8a9c;border:1px solid rgba(255,93,122,.25);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;}
-.del:active{transform:scale(.92);}
-.row{display:flex;gap:8px;}
-.row .inp{flex:1;}
-.add-btn{width:46px;border:none;border-radius:14px;background:linear-gradient(135deg,#ff8a9c,#a06ee1);color:#fff;font-size:22px;cursor:pointer;flex-shrink:0;}
-.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.cal-head b{font-size:14px;}
-.cal-nav{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;cursor:pointer;}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;}
-.cal-dow{font-size:10px;font-weight:900;opacity:.6;padding:4px 0;}
-.cal-day{aspect-ratio:1;border:none;border-radius:11px;background:rgba(255,255,255,.05);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;padding:0;}
-.cal-day.sel{background:linear-gradient(135deg,#ff8a9c,#a06ee1);box-shadow:0 4px 12px rgba(255,138,156,.35);}
-.cal-day.has-dot{position:relative;}
-.cal-day.has-dot::after{content:"";position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:#ffd166;}
-.cal-day:disabled{opacity:.25;cursor:default;}
-.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.time-col{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.10);border-radius:14px;max-height:190px;overflow-y:auto;padding:4px;scrollbar-width:thin;}
-.time-col button{display:block;width:100%;border:none;background:transparent;color:#fff;padding:11px 6px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
-.time-col button.sel{background:linear-gradient(135deg,#ff8a9c,#a06ee1);}
-.time-label{font-size:11px;font-weight:900;opacity:.7;text-align:center;padding:6px 0 2px;text-transform:uppercase;letter-spacing:.6px;}
-.ticket{background:#fdf7ff;color:#1a1225;border-radius:16px;padding:14px;margin-bottom:10px;position:relative;overflow:hidden;}
-.ticket b{font-size:15px;}
-.ticket span{font-size:12px;opacity:.7;display:block;margin-top:2px;}
-.ticket .t-row{display:flex;justify-content:space-between;align-items:center;gap:10px;}
-.ticket .t-actions{display:flex;gap:6px;margin-top:10px;}
-.ticket .t-actions button{flex:1;border:none;border-radius:11px;padding:10px;font-weight:900;cursor:pointer;font-family:inherit;font-size:12.5px;}
-.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
-.preview-item{position:relative;border-radius:12px;overflow:hidden;background:#eee;aspect-ratio:1;}
-.preview-item img{width:100%;height:100%;object-fit:cover;display:block;}
-.preview-item span{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:4px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);z-index:100;display:none;align-items:flex-end;justify-content:center;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom));}
-.modal-overlay.active{display:flex;}
-.modal{background:#241a33;border:1px solid rgba(255,255,255,.14);border-radius:24px 24px 20px 20px;padding:18px;width:100%;max-width:440px;max-height:82vh;overflow-y:auto;}
-.modal h3{margin:0 0 14px;font-size:17px;}
-.modal-opt{width:100%;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:13px;color:#fff;font-size:14px;font-weight:800;cursor:pointer;text-align:left;font-family:inherit;margin-bottom:8px;}
-.modal-opt.danger{background:rgba(255,93,122,.12);border-color:rgba(255,93,122,.3);color:#ff8a9c;}
-.billet-large-container{width:100%;border-radius:16px;overflow:hidden;background:#000;min-height:220px;display:flex;align-items:center;justify-content:center;}
-.billet-large-container img{width:100%;max-height:62vh;object-fit:contain;display:block;}
-#toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:#fff;color:#1a1225;padding:11px 16px;border-radius:999px;font-weight:900;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:200;opacity:0;pointer-events:none;transition:.25s;max-width:92vw;text-align:center;}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.empty{padding:22px 10px;text-align:center;font-size:13px;opacity:.7;line-height:1.6;}
+.txt{font-size:14.5px;font-weight:800;color:#ffffff;line-height:1.35;word-break:break-word;}
+.item.done .txt{text-decoration:line-through;color:#6b7280;}
+.chk{width:30px;height:30px;border-radius:11px;border:2.5px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff;flex-shrink:0;margin-top:1px;transition:all .15s;}
+.item.done .chk{background:#5cc98a;border-color:#5cc98a;}
+
+/* BOUTON MENU FLECHE */
+.menu-arrow { width: 32px; height: 32px; border-radius: 10px; background: rgba(255,255,255,0.05); color: #a89fb5; font-size: 18px; font-weight: 900; display: flex; align-items: center; justify-content: center; border:none; margin-left:auto; flex-shrink:0;}
+
+.tag{display:inline-block;margin-top:5px;font-size:10.5px;font-weight:900;padding:3px 9px;border-radius:10px;}
+.tag.sam{background:rgba(139,184,255,0.2);color:#8bb8ff;}
+.tag.shera{background:rgba(195,168,255,0.2);color:#c3a8ff;}
+.tag.both{background:rgba(255,168,197,0.2);color:#ffa8c5;}
+.empty{text-align:center;color:#a89fb5;font-weight:700;font-size:13px;padding:14px 0;}
+
+/* FORMULAIRES */
+.form-card{background:rgba(255,255,255,0.06);}
+.form-title{font-size:13px;font-weight:900;color:#b3c6ff;margin-bottom:10px;}
+.lbl{display:block;font-size:11.5px;font-weight:900;color:#a89fb5;letter-spacing:.5px;margin:12px 0 5px;text-transform:uppercase;}
+.inp{width:100%;border:2px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);border-radius:16px;padding:13px 15px;font-size:15px;font-weight:700;color:#ffffff;outline:none;transition:border-color .15s;}
+.inp::placeholder{color:#6b7280;font-weight:700;}
+.inp:focus{border-color:#b3c6ff;background:rgba(255,255,255,0.1);}
+.btn-main{width:100%;margin-top:16px;background:linear-gradient(135deg,#ff8fab,#c46fe0);color:#fff;border-radius:20px;padding:16px;font-size:15.5px;font-weight:900;box-shadow:0 8px 20px rgba(200,100,170,.35);border:none;}
+.btn-main:active{transform:scale(.975);}
+.btn-soft{width:100%;margin-top:9px;background:rgba(255,255,255,0.1);color:#ffffff;border-radius:16px;padding:12px;font-size:13.5px;font-weight:900;border:1px solid rgba(255,255,255,0.05);}
+.btn-soft:active{transform:scale(.975);background:rgba(255,255,255,0.15);}
+.chip{margin-top:2px;margin-bottom:9px;background:rgba(255,255,255,0.05);border:2px dashed rgba(255,255,255,0.2);border-radius:14px;padding:10px 14px;font-size:13.5px;font-weight:900;color:#ffa8c5;text-align:center;}
+.seg{display:flex;gap:7px;margin-top:11px;}
+.seg-btn{flex:1;padding:11px 4px;border-radius:15px;background:rgba(255,255,255,0.05);font-size:12.5px;font-weight:900;color:#a89fb5;border:2px solid transparent;}
+.seg-btn.sel.sam{background:rgba(139,184,255,0.2);color:#8bb8ff;border-color:#8bb8ff;}
+.seg-btn.sel.shera{background:rgba(195,168,255,0.2);color:#c3a8ff;border-color:#c3a8ff;}
+.seg-btn.sel.both{background:rgba(255,168,197,0.2);color:#ffa8c5;border-color:#ffa8c5;}
+
+/* CALENDRIER / HEURE */
+.cal{background:rgba(255,255,255,0.03);border-radius:20px;padding:10px;border:1px solid rgba(255,255,255,0.1);}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.cal-nav{width:36px;height:36px;border-radius:13px;background:rgba(255,255,255,0.1);color:#fff;font-size:19px;font-weight:900;box-shadow:0 3px 10px rgba(0,0,0,0.2);}
+.cal-title{font-size:13.5px;font-weight:900;color:#ffffff;text-transform:capitalize;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-dow{text-align:center;font-size:10.5px;color:#a89fb5;font-weight:900;padding:2px 0;}
+.cal-day{min-height:34px;border-radius:11px;background:rgba(255,255,255,0.05);font-size:13px;font-weight:900;color:#ffffff;}
+.cal-day.sel{background:linear-gradient(135deg,#ff8fab,#d98ce6);color:#fff;box-shadow:0 4px 12px rgba(200,100,170,.4);}
+.time-wrap{display:flex;align-items:stretch;gap:6px;background:rgba(255,255,255,0.03);border-radius:20px;padding:8px;border:1px solid rgba(255,255,255,0.1);}
+.t-col{flex:1;height:176px;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:3px;scrollbar-width:thin;}
+.t-colon{display:flex;align-items:center;font-size:20px;font-weight:900;color:#a89fb5;}
+.t-item{flex:0 0 auto;height:44px;border-radius:12px;background:rgba(255,255,255,0.05);font-size:15px;font-weight:900;color:#ffffff;}
+.t-item.sel{background:linear-gradient(135deg,#ff8fab,#d98ce6);color:#fff;box-shadow:0 4px 12px rgba(200,100,170,.4);}
+
+/* RDV DETAIL */
+.detail-hero{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.detail-time{font-size:20px;font-weight:900;color:#ffa8c5;background:rgba(255,168,197,0.15);padding:8px 14px;border-radius:16px;}
+.detail-date{font-size:13px;font-weight:800;color:#a89fb5;}
+.detail-title{font-size:19px;font-weight:900;color:#ffffff;line-height:1.3;margin-bottom:14px;}
+.detail-row{display:flex;gap:10px;padding:11px 0;border-top:1px solid rgba(255,255,255,0.1);}
+.detail-lbl{flex:0 0 92px;font-size:11.5px;font-weight:900;color:#a89fb5;letter-spacing:.5px;text-transform:uppercase;padding-top:2px;}
+.detail-val{flex:1;font-size:14px;font-weight:800;color:#ffffff;line-height:1.4;word-break:break-word;}
+
+/* COURSES */
+.shop-card{background:rgba(255,255,255,0.06);border-radius:24px;padding:14px;box-shadow:0 8px 24px rgba(0,0,0,0.2);margin-bottom:13px;border:1px solid rgba(255,255,255,0.08);}
+.shop-head{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+.shop-name{flex:1;font-size:15px;font-weight:900;color:#ffffff;}
+.shop-count{font-size:12.5px;font-weight:900;color:#ffa8c5;background:rgba(255,168,197,0.15);padding:4px 11px;border-radius:12px;}
+.add-row{display:flex;gap:8px;margin-top:11px;}
+.add-row .inp{flex:1;}
+.btn-plus{width:52px;height:50px;border-radius:16px;background:linear-gradient(135deg,#ff8fab,#c98ae8);color:#fff;font-size:24px;font-weight:900;box-shadow:0 6px 16px rgba(220,130,190,.35);flex-shrink:0;}
+.btn-plus:active{transform:scale(.94);}
+
+/* LOISIRS / DOSSIERS */
+.ticket{display:flex;background:rgba(255,255,255,0.06);border-radius:16px;margin-bottom:15px;box-shadow:0 4px 12px rgba(0,0,0,0.2);position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.08);}
+.ticket::before{content:'';position:absolute;left:-6px; top:0; bottom:0;width:12px;background-image: radial-gradient(circle, #1a1225 6px, transparent 7px);background-size: 12px 16px;background-position: 0 4px;}
+.ticket-left{background:rgba(255,255,255,0.05);width:70px;display:flex;align-items:center;justify-content:center;font-size:30px;border-right:2px dashed rgba(255,255,255,0.1);padding:10px;flex-shrink:0;}
+.ticket-right{padding:14px;flex:1;display:flex;flex-direction:column;}
+.ticket-date{font-size:11px; font-weight:900; color:#ffa8c5; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;}
+.ticket-title{font-size:16px; font-weight:900; color:#ffffff; line-height:1.2;}
+.ticket-desc{font-size:13px; color:#a89fb5; margin-top:6px; font-weight:600; line-height:1.4; white-space:pre-wrap;}
+
+/* NOUVEAU LIEN POUR OUVRIR LE DOSSIER */
+.link-folder { display:flex; align-items:center; justify-content:space-between; width:100%; background:transparent; color:#8bb8ff; padding:10px 0 0 0; border-top:1px dashed rgba(255,255,255,0.1); font-size:13px; font-weight:900; border:none; margin-top:10px; cursor:pointer; text-align:left; }
+.link-folder span { display:flex; align-items:center; gap:6px; }
+.link-folder .arrow { color:#a89fb5; font-size:18px; }
+
+/* RESERVATIONS DANS LE DOSSIER */
+.sub-item { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.04); border-radius:16px; padding:12px; margin-bottom:10px; border:1px solid rgba(255,255,255,0.05); }
+.sub-icon { font-size:24px; }
+.sub-info { flex:1; }
+.sub-title { font-size:14.5px; font-weight:900; color:#ffffff; }
+.sub-date { font-size:11.5px; font-weight:700; color:#a89fb5; margin-top:3px; }
+.sub-billet-btn { background:rgba(255,168,197,0.15); color:#ffa8c5; padding:8px 12px; border-radius:10px; font-size:11px; font-weight:900; border:none; display:flex; align-items:center; gap:5px;}
+
+/* NOTIFS & DIVERS */
+.notif{padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+.notif:last-child{border-bottom:none;}
+.notif-txt{font-size:13.5px;font-weight:800;color:#ffffff;line-height:1.35;}
+.notif-time{font-size:10.5px;color:#6b7280;font-weight:800;margin-top:3px;}
+.hint{font-size:11.5px;color:#a89fb5;font-weight:800;text-align:center;margin-top:11px;line-height:1.5;}
+#toast{position:fixed;left:50%;bottom:32px;transform:translate(-50%,26px);background:#ffffff;color:#131b2f;font-size:13.5px;font-weight:800;padding:12px 22px;border-radius:18px;opacity:0;pointer-events:none;transition:all .25s ease;z-index:999;max-width:88vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.4);}
+#toast.show{opacity:1;transform:translate(-50%,0);}
+
+/* MODALES */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.active { display: flex; }
+.modal-popup { background: #1e1b2e; border-radius: 24px; padding: 20px; width: 100%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); position:relative;}
+@keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-title { font-size: 16px; font-weight: 900; color: #ffffff; margin-bottom: 15px; text-align: center;}
+.modal-close { position: absolute; top: 15px; right: 15px; color: #fff; background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 16px; cursor: pointer;}
+.modal-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 800; margin-bottom: 10px; border:none; cursor:pointer;}
+.modal-btn.btn-mod { background: rgba(139,184,255,0.1); color: #8bb8ff; }
+.modal-btn.btn-del { background: rgba(255,107,157,0.1); color: #ff6b9d; }
+.modal-btn.btn-cancel { background: rgba(255,255,255,0.05); color: #a89fb5; margin-top: 10px; }
+
+/* VISIONNEUSE BILLETS */
+.billet-large-container { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+.billet-large { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 16px; background: #fff; padding: 10px; }
+.billet-nav { display: flex; gap: 10px; width: 100%; }
+.billet-nav button { flex:1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.1); color: #fff; border:none; font-weight:900; font-size:14px; cursor:pointer;}
+.billet-nav button:active { background: rgba(255,255,255,0.2); }
+.viewer-name { font-size: 14px; font-weight: 900; color: #ffa8c5; text-align: center; margin-bottom: 10px; }
+
+/* PREVIEW BILLETS DANS LE FORM */
+.preview-billets { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.preview-item { position: relative; background: rgba(255,255,255,0.1); padding: 5px; border-radius: 8px; text-align: center; width: 80px; }
+.preview-item img { width: 100%; height: 60px; object-fit: contain; background:#fff; border-radius: 4px; }
+.preview-item .p-name { font-size: 9px; font-weight: 800; color: #fff; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.del-billet-btn { position: absolute; top: -6px; right: -6px; background: #ff6b9d; color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; font-size: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;}
+
+.time-chips { display: flex; gap: 8px; }
+.time-chips select { flex:1; padding: 14px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; font-size: 16px; font-weight: 800; outline: none; appearance: none; text-align: center; }
+.time-chips select option { background: #1e1b2e; color: #fff; }
 </style>
 </head>
 <body>
+
 <div id="snow-container"></div>
 <div id="app"></div>
-<div id="toast" role="status" aria-live="polite"></div>
 
-<input type="file" id="fileInput" accept="image/*" style="display:none">
+<!-- INPUT FILE CACHÉ POUR UPLOADER LES PHOTOS -->
+<input type="file" id="fileInput" accept="image/*" style="display:none;">
 
-<!-- MODAL OPTIONS -->
+<!-- MODAL OPTIONS (Flèche Loisir) -->
 <div class="modal-overlay" id="modalOptions">
-  <div class="modal">
-    <h3 id="modalOptionsTitle">Options</h3>
-    <div id="modalOptionsBody"></div>
-    <button type="button" class="btn-secondary" onclick="closeModal('modalOptions')">Fermer</button>
+  <div class="modal-popup">
+    <button class="modal-close" onclick="closeModal('modalOptions')">✕</button>
+    <div class="modal-title" id="modalOptionsTitle">Options</div>
+    <button class="modal-btn btn-mod" id="btnEditLoisir"><span>✏️</span> Modifier le voyage</button>
+    <button class="modal-btn btn-del" id="btnDeleteLoisir"><span>🗑️</span> Supprimer le voyage</button>
+    <button class="modal-btn btn-cancel" onclick="closeModal('modalOptions')">Annuler</button>
   </div>
 </div>
 
-<!-- MODAL BILLET -->
-<div class="modal-overlay" id="modalBillet">
-  <div class="modal">
-    <h3 id="billetViewerTitle">Billet</h3>
-    <div class="billet-large-container"><img id="billetViewerImg" alt="Billet"></div>
-    <p id="billetViewerName" style="text-align:center;font-weight:800;margin:10px 0 14px;"></p>
-    <div style="display:flex;gap:8px;">
-      <button type="button" class="btn-secondary" id="billetPrevBtn" onclick="changeBillet(-1)">← Préc.</button>
-      <button type="button" class="btn-secondary" id="billetNextBtn" onclick="changeBillet(1)">Suiv. →</button>
-    </div>
-    <div style="display:flex;gap:8px;margin-top:8px;">
-      <button type="button" class="btn-danger" onclick="deleteBilletFromViewer()">🗑 Supprimer</button>
-      <button type="button" class="btn-secondary" onclick="closeModal('modalBillet')">Fermer</button>
+<!-- MODAL OPTIONS (Flèche Tâche) -->
+<div class="modal-overlay" id="modalOptionsTask">
+  <div class="modal-popup">
+    <button class="modal-close" onclick="closeModal('modalOptionsTask')">✕</button>
+    <div class="modal-title" id="modalOptionsTaskTitle">Options</div>
+    <button class="modal-btn btn-mod" id="btnEditTask"><span>✏️</span> Modifier</button>
+    <button class="modal-btn btn-del" id="btnDeleteTask"><span>🗑️</span> Supprimer</button>
+    <button class="modal-btn btn-cancel" onclick="closeModal('modalOptionsTask')">Annuler</button>
+  </div>
+</div>
+
+<!-- MODAL VISIONNEUSE DE BILLETS -->
+<div class="modal-overlay" id="modalBilletViewer">
+  <div class="modal-popup">
+    <button class="modal-close" onclick="closeModal('modalBilletViewer')">✕</button>
+    <div class="modal-title" id="viewerTitle">Billet</div>
+    <div class="viewer-name" id="viewerName">Nom du billet</div>
+    
+    <div class="billet-large-container">
+      <img src="" id="viewerImg" class="billet-large" alt="Billet">
+      
+      <div class="billet-nav" id="navBillets" style="display:none;">
+        <button onclick="prevBillet()">‹ Précédent</button>
+        <button onclick="nextBillet()">Suivant ›</button>
+      </div>
+      
+      <button class="btn-secondary" style="margin-top:5px; color:#ff6b9d; background:rgba(255,107,157,0.1); border:none;" onclick="deleteBilletFromViewer()">🗑️ Supprimer ce billet</button>
     </div>
   </div>
 </div>
 
 <script>
-var LS_STATE='maison_sam_shera_v1';
-var LS_FB='maison_fb_url';
-var LS_CODE='maison_code';
-var fbUrl = localStorage.getItem(LS_FB) || '';
-var houseCode = localStorage.getItem(LS_CODE) || 'sam-shera';
-var state = {tasks:[], appts:[], shops:[], notifs:[], loisirs:[]};
+var LS_STATE='ms_state_v2', LS_FB='ms_fb_url', LS_CODE='ms_code';
+var state={tasks:[],appts:[],shops:[],notifs:[],loisirs:[]};
+var fbUrl=localStorage.getItem(LS_FB)||'';
+var houseCode=localStorage.getItem(LS_CODE)||'SAMSHERA';
+var lastRemoteJson='';
+var pushTimer=null;
 var currentView='home';
-var prevView='home';
-var editingTaskId=null;
-var editingLoisirId=null;
 var selectedWho='both';
-var activeFolderId=null;
-var actionId=null;
-var actionType=null;
-var selectedDate='';
-var selHour='12';
-var selMin='00';
-var formTime='';
-var timeTouched=false;
 var calYear=new Date().getFullYear();
 var calMonth=new Date().getMonth();
-var currentBilletResId=null;
-var currentBilletIndex=0;
-var currentBilletArray=[];
-var currentBilletNameTemp='';
-var tempResBillets=[];
-var lastRemoteJson='';
-var isPushing=false;
-var lastLocalEdit=0;
-var pushTimer=null;
-var lastToastTimer=null;
+var selectedDate='';
+var selHour='00', selMin='00', formTime='', timeTouched=false;
 
-function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
-function esc(s){
-  if(s===null||s===undefined) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/`/g,'&#96;');
-}
-function todayISO(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-function frDate(iso){
-  if(!iso||typeof iso!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso||'';
-  var p=iso.split('-'); return p[2]+'/'+p[1]+'/'+p[0];
-}
-function frDateLong(iso){
-  if(!iso) return '';
-  var d=new Date(iso+'T12:00:00');
-  if(isNaN(d.getTime())) return frDate(iso);
-  return d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
-}
-function isValidTime(t){ return typeof t==='string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(t); }
+var detailApptId='';
+var editingLoisirId=null;
+var editingTaskId=null;
+var activeFolderId=null;
+
+/* VARIABLES MENU / ACTION */
+var actionType='';
+var actionId='';
+
+/* VARIABLES AJOUT RESERVATION */
+var tempResBillets = [];
+
+/* VARIABLES VISIONNEUSE BILLETS */
+var currentBilletResId = null;
+var currentBilletArray = [];
+var currentBilletIndex = 0;
+
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function val(id){var e=document.getElementById(id);return e?(e.value||'').trim():'';}
+function todayISO(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function frDate(iso){if(!iso)return '';var p=String(iso).split('-');if(p.length!==3)return iso;return p[2]+'/'+p[1]+'/'+p[0];}
+function whoLabel(w){return w==='sam'?'Sam 💙':w==='shera'?'Shera 💜':'Les deux 💖';}
 function getLoisirEmoji(title){
-  title=(title||'').toLowerCase();
-  if(title.includes('cin')||title.includes('film')) return '🎬';
-  if(title.includes('resto')||title.includes('dîner')||title.includes('diner')||title.includes('repas')) return '🍽️';
-  if(title.includes('concert')||title.includes('musique')) return '🎵';
-  if(title.includes('plage')||title.includes('mer')) return '🏖️';
-  if(title.includes('montagne')||title.includes('ski')) return '⛷️';
-  if(title.includes('voyage')||title.includes('week-end')||title.includes('weekend')) return '✈️';
-  if(title.includes('parc')||title.includes('zoo')) return '🎡';
-  if(title.includes('sport')) return '⚽';
+  title = (title||'').toLowerCase();
+  if(title.includes('cinéma')||title.includes('film')||title.includes('concert'))return '🍿';
+  if(title.includes('resto')||title.includes('restaurant'))return '🍽️';
+  if(title.includes('week-end')||title.includes('voyage')||title.includes('vol'))return '✈️';
+  if(title.includes('spectacle')||title.includes('théâtre'))return '🎭';
+  if(title.includes('train'))return '🚆';
+  if(title.includes('musée'))return '🏛️';
   return '🎟️';
 }
+function normalize(d){d=d||{};var tasks=Array.isArray(d.tasks)?d.tasks:[];var appts=Array.isArray(d.appts)?d.appts:[];var shops=Array.isArray(d.shops)?d.shops:[];var notifs=Array.isArray(d.notifs)?d.notifs:[];var loisirs=Array.isArray(d.loisirs)?d.loisirs:[];shops=shops.map(function(s){s=s||{};var items=Array.isArray(s.items)?s.items:[];items=items.map(function(it){it=it||{};return{id:it.id||uid(),text:it.text||'',done:!!it.done};});return{id:s.id||uid(),name:s.name||'',items:items};});return{tasks:tasks,appts:appts,shops:shops,notifs:notifs,loisirs:loisirs};}
+function sanitizeState(){if(!Array.isArray(state.tasks))state.tasks=[];if(!Array.isArray(state.appts))state.appts=[];if(!Array.isArray(state.shops))state.shops=[];if(!Array.isArray(state.notifs))state.notifs=[];if(!Array.isArray(state.loisirs))state.loisirs=[];state.shops.forEach(function(s){if(!s||typeof s!=='object')return;if(!Array.isArray(s.items))s.items=[];});}
+function toast(msg){var t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},2300);}
+function loadLocal(){try{var s=localStorage.getItem(LS_STATE);if(s)state=normalize(JSON.parse(s));sanitizeState();}catch(e){state={tasks:[],appts:[],shops:[],notifs:[],loisirs:[]};}}
+function saveLocal(){try{localStorage.setItem(LS_STATE,JSON.stringify(state));}catch(e){}}
+function apiUrl(){if(!fbUrl)return null;var base=fbUrl.replace(/\/+$/,'');return base+'/maison/'+encodeURIComponent(houseCode)+'.json';}
+function schedulePush(){saveLocal();if(!apiUrl())return;clearTimeout(pushTimer);pushTimer=setTimeout(pushNow,350);}
+function pushNow(){var url=apiUrl();if(!url)return;var json=JSON.stringify(state);lastRemoteJson=json;fetch(url,{method:'PUT',headers:{'Content-Type':'application/json'},body:json}).catch(function(){});}
+function poll(){var url=apiUrl();if(!url)return;fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)return null;return r.json();}).then(function(data){if(data===null||data===undefined)return;var clean=normalize(data);var json=JSON.stringify(clean);if(json!==lastRemoteJson){lastRemoteJson=json;state=clean;saveLocal();render();}}).catch(function(){});}
+function addNotif(text){state.notifs.unshift({id:uid(),text:text,ts:Date.now()});if(state.notifs.length>120)state.notifs.length=120;}
 
-// --- NORMALIZE CORRIGÉ : nettoie tout, ne jette jamais reservations/billets ---
-function normalize(d){
-  if(!d || typeof d!=='object') d={};
-  var tasks = Array.isArray(d.tasks)?d.tasks:[];
-  var appts = Array.isArray(d.appts)?d.appts:[];
-  var shops = Array.isArray(d.shops)?d.shops:[];
-  var notifs = Array.isArray(d.notifs)?d.notifs:[];
-  var loisirs = Array.isArray(d.loisirs)?d.loisirs:[];
-  tasks = tasks.filter(Boolean).map(function(t){
-    t=t||{};
-    var who=['sam','shera','both'].indexOf(t.who)>=0?t.who:'both';
-    return {id: typeof t.id==='string'&&t.id?t.id:uid(), text:String(t.text||''), who:who, done:!!t.done};
-  });
-  appts = appts.filter(Boolean).map(function(a){
-    a=a||{};
-    return {id: typeof a.id==='string'&&a.id?a.id:uid(), title:String(a.title||''), forWho:String(a.forWho||''), withWho:String(a.withWho||''), date:String(a.date||''), time:isValidTime(a.time)?a.time:'', address:String(a.address||'')};
-  });
-  shops = shops.filter(Boolean).map(function(s){
-    s=s||{};
-    var items=Array.isArray(s.items)?s.items:[];
-    items=items.filter(Boolean).map(function(it){ it=it||{}; return {id: typeof it.id==='string'&&it.id?it.id:uid(), text:String(it.text||''), done:!!it.done}; });
-    return {id: typeof s.id==='string'&&s.id?s.id:uid(), name:String(s.name||''), items:items};
-  });
-  notifs = notifs.filter(Boolean).map(function(n){
-    n=n||{};
-    return {id: typeof n.id==='string'&&n.id?n.id:uid(), text:String(n.text||''), ts: typeof n.ts==='number'?n.ts:Date.now()};
-  });
-  loisirs = loisirs.filter(Boolean).map(function(l){
-    l=l||{};
-    var res=Array.isArray(l.reservations)?l.reservations:[];
-    res=res.filter(Boolean).map(function(r){
-      r=r||{};
-      var billets=Array.isArray(r.billets)?r.billets:[];
-      billets=billets.filter(Boolean).map(function(b){ b=b||{}; return {name:String(b.name||'Billet'), url:String(b.url||'')}; }).filter(function(b){return !!b.url;});
-      return {id: typeof r.id==='string'&&r.id?r.id:uid(), icon:String(r.icon||'🎟️'), title:String(r.title||''), date:String(r.date||''), time:isValidTime(r.time)?r.time:'', billets:billets};
-    });
-    return {id: typeof l.id==='string'&&l.id?l.id:uid(), title:String(l.title||''), date:String(l.date||''), time:isValidTime(l.time)?l.time:'', desc:String(l.desc||''), reservations:res};
-  });
-  return {tasks:tasks, appts:appts, shops:shops, notifs:notifs, loisirs:loisirs};
-}
-function sanitizeState(){ state = normalize(state); }
-function loadLocal(){
-  try{
-    var raw=localStorage.getItem(LS_STATE);
-    if(raw){ state=normalize(JSON.parse(raw)); }
-  }catch(e){ state={tasks:[],appts:[],shops:[],notifs:[],loisirs:[]}; }
-}
-function saveLocal(){
-  try{ localStorage.setItem(LS_STATE, JSON.stringify(state)); }
-  catch(e){
-    // Quota dépassé : on sauvegarde sans les images pour ne pas perdre tâches/RDV
-    try{
-      var light=JSON.parse(JSON.stringify(state));
-      light.loisirs.forEach(function(l){ (l.reservations||[]).forEach(function(r){ r.billets=[]; }); });
-      localStorage.setItem(LS_STATE, JSON.stringify(light));
-      toast('Stockage plein : billets non sauvegardés localement, supprime un billet.');
-    }catch(e2){ toast('Stockage plein : supprime un billet.'); }
-  }
-}
-function apiUrl(){
-  if(!fbUrl) return null;
-  var base=fbUrl.replace(/\/+$/,'');
-  return base+'/maison/'+encodeURIComponent(houseCode)+'.json';
-}
-function schedulePush(){
-  saveLocal();
-  lastLocalEdit=Date.now();
-  clearTimeout(pushTimer);
-  pushTimer=setTimeout(pushNow, 350);
-}
-function pushNow(){
-  var url=apiUrl(); if(!url) return;
-  var json=JSON.stringify(state);
-  isPushing=true;
-  fetch(url,{method:'PUT',headers:{'Content-Type':'application/json'},body:json})
-    .then(function(r){ if(!r.ok) throw new Error('PUT '+r.status); lastRemoteJson=json; })
-    .catch(function(){ /* on ne met pas à jour lastRemoteJson en cas d'échec, pour ne pas perdre les modifs */ })
-    .finally(function(){ isPushing=false; });
-}
-function poll(){
-  var url=apiUrl(); if(!url) return;
-  if(isPushing) return;
-  // Ne pas écraser une saisie très récente
-  if(Date.now()-lastLocalEdit < 800) return;
-  fetch(url).then(function(r){ return r.json(); }).then(function(data){
-    if(data===null||data===undefined) return; // ne jamais effacer si le nœud est vide
-    var json=JSON.stringify(data);
-    if(json===lastRemoteJson) return;
-    lastRemoteJson=json;
-    state=normalize(data);
-    saveLocal();
-    render();
-  }).catch(function(){});
-}
-function commit(msg){
-  if(msg) addNotif(msg);
-  sanitizeState();
-  schedulePush();
-  render();
-}
-function addNotif(text){
-  state.notifs.unshift({id:uid(), text:text, ts:Date.now()});
-  if(state.notifs.length>120) state.notifs=state.notifs.slice(0,120);
-}
-function toast(msg){
-  var el=document.getElementById('toast');
-  if(!el) return;
-  el.textContent=msg;
-  el.classList.add('show');
-  clearTimeout(lastToastTimer);
-  lastToastTimer=setTimeout(function(){ el.classList.remove('show'); }, 2600);
-}
-function val(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
-function closeModal(id){ var m=document.getElementById(id); if(m) m.classList.remove('active'); }
-function openModal(id){ var m=document.getElementById(id); if(m) m.classList.add('active'); }
-
-// --- COMPRESS CORRIGÉ ---
-function compressImage(file, maxWidth, callback){
-  if(!file || !file.type || file.type.indexOf('image/')!==0){ toast('Choisis une image.'); return; }
-  if(file.size>8*1024*1024){ toast('Image trop lourde (max 8 Mo).'); return; }
-  var reader=new FileReader();
-  reader.onerror=function(){ toast('Impossible de lire cette image.'); };
-  reader.onload=function(event){
-    var img=new Image();
-    img.onerror=function(){ toast('Image invalide.'); };
-    img.onload=function(){
-      if(!img.width||!img.height){ toast('Image invalide.'); return; }
-      var scale=Math.min(1, maxWidth/img.width); // jamais agrandir
-      var canvas=document.createElement('canvas');
-      canvas.width=Math.max(1, Math.round(img.width*scale));
-      canvas.height=Math.max(1, Math.round(img.height*scale));
-      var ctx=canvas.getContext('2d');
-      ctx.fillStyle='#ffffff';
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.drawImage(img,0,0,canvas.width,canvas.height);
-      try{ callback(canvas.toDataURL('image/jpeg',0.7)); }catch(e){ toast('Image trop grande.'); }
-    };
-    img.src=event.target.result;
-  };
+/* COMPRESSEUR D'IMAGE POUR FIREBASE */
+function compressImage(file, maxWidth, callback) {
+  const reader = new FileReader();
   reader.readAsDataURL(file);
+  reader.onload = function(event) {
+    const img = new Image();
+    img.src = event.target.result;
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const scaleSize = maxWidth / img.width;
+      canvas.width = maxWidth;
+      canvas.height = img.height * scaleSize;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      callback(canvas.toDataURL('image/jpeg', 0.7));
+    };
+  };
 }
 
-function headerHTML(){
-  var today=todayISO();
-  var remaining=state.tasks.filter(function(t){return !t.done;}).length;
-  var todayAppts=state.appts.filter(function(a){return a.date===today;}).length;
-  var todayLoisirs=state.loisirs.filter(function(l){return l.date===today;}).length;
-  var count=remaining+todayAppts+todayLoisirs;
-  var notifCount=state.notifs.length;
-  var h='<div class="header"><div class="brand"><div class="logo">❄️</div><div class="brand-text"><b>Maison Sam &amp; Shera</b><span>Notre douce maison d\'hiver</span></div></div>';
-  h+='<button type="button" class="notif-btn" data-act="go-notifs" aria-label="Notifications">🔔'+(notifCount?'<span class="notif-badge">'+notifCount+'</span>':'')+'</button></div>';
-  h+='<div class="nav">';
-  h+='<button type="button" class="nav-btn '+(currentView==='home'?'active':'')+'" data-act="go-home"><span class="ic">🏠</span><span class="tx">Accueil</span></button>';
-  h+='<button type="button" class="nav-btn '+(currentView==='tasks'?'active':'')+'" data-act="go-tasks"><span class="ic">✅</span><span class="tx">Tâches</span></button>';
-  h+='<button type="button" class="nav-btn '+(currentView==='appts'?'active':'')+'" data-act="go-appts"><span class="ic">📅</span><span class="tx">RDV</span></button>';
-  h+='<button type="button" class="nav-btn '+(currentView==='loisirs'?'active':'')+'" data-act="go-loisirs"><span class="ic">🎟️</span><span class="tx">Loisirs</span></button>';
-  h+='<button type="button" class="nav-btn '+(currentView==='shopping'?'active':'')+'" data-act="go-shopping"><span class="ic">🛒</span><span class="tx">Courses</span></button>';
-  h+='<button type="button" class="nav-btn '+(currentView==='share'?'active':'')+'" data-act="go-share"><span class="ic">🔗</span><span class="tx">Partage</span></button>';
-  h+='<button type="button" class="nav-btn '+(currentView==='notifs'?'active':'')+'" data-act="go-notifs"><span class="ic">💌</span><span class="tx">Notifs</span></button>';
-  h+='<button type="button" class="nav-btn" data-act="go-home"><span class="ic">✨</span><span class="tx">'+count+' à faire</span></button>';
-  h+='</div>';
-  return h;
-}
-function viewHTML(){
-  if(currentView==='tasks') return tasksHTML();
-  if(currentView==='appts') return apptsHTML();
-  if(currentView==='loisirs') return loisirsHTML();
-  if(currentView==='folder') return folderHTML();
-  if(currentView==='shopping') return shoppingHTML();
-  if(currentView==='share') return shareHTML();
-  if(currentView==='notifs') return notifsHTML();
-  if(currentView==='appt-detail') return apptDetailHTML();
-  return homeHTML();
-}
-function apptLineHTML(a){
-  var meta=[];
-  if(a.forWho) meta.push('Pour : '+esc(a.forWho));
-  if(a.withWho) meta.push('Avec : '+esc(a.withWho));
-  if(a.address) meta.push('📍 '+esc(a.address));
-  var d=frDateLong(a.date);
-  var dateTxt=d?d.split(' ').slice(0,2).join(' '):'';
-  return '<button type="button" class="line-btn" data-act="open-appt" data-id="'+esc(a.id)+'"><div class="line-time"><b>'+esc(a.time||'--:--')+'</b><span>'+esc(dateTxt)+'</span></div><div class="item-body"><b>'+esc(a.title)+'</b><span>'+meta.join(' • ')+'</span></div><div class="arrow">›</div></button>';
-}
+function render(){try{sanitizeState();}catch(e){}var app=document.getElementById('app');if(!app)return;try{var saved={};Array.prototype.forEach.call(app.querySelectorAll('input, textarea'),function(i){if(i.id)saved[i.id]=i.value;});app.innerHTML=headerHTML()+viewHTML();Object.keys(saved).forEach(function(k){var el=document.getElementById(k);if(el&&!el.value)el.value=saved[k];});if(currentView==='appts'){renderCalendar();renderTime();}}catch(e){try{state.shops.forEach(function(s){if(!Array.isArray(s.items))s.items=[];});app.innerHTML='<div class="card"><div class="section-title">Oups, petit bug réparé ♥</div><div class="empty">Ferme et rouvre l\'app, tout est encore dans Firebase.</div></div>';}catch(e2){}}}
+
+function headerHTML(){var d=new Date();var ds=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});ds=ds.charAt(0).toUpperCase()+ds.slice(1);var remaining=state.tasks.filter(function(t){return !t.done;}).length;var count=remaining+state.appts.length+state.loisirs.filter(function(l){return l.date===todayISO();}).length;
+return '<div class="header"><div class="logo">🏡✨</div><div class="titles"><h1><span class="title-small">Bonjour,</span><span class="title-large">Sam &amp; Shera !</span></h1><div class="date">'+esc(ds)+'</div></div><button class="icon-btn" data-act="go-notifs">🔔'+(count>0?'<span class="badge">'+count+'</span>':'')+'</button><button class="icon-btn gear" data-act="go-share">⚙️</button></div>';}
+
+function viewHTML(){switch(currentView){case 'tasks':return tasksHTML();case 'appts':return apptsHTML();case 'appt-detail':return apptDetailHTML();case 'shopping':return shoppingHTML();case 'loisirs':return loisirsHTML();case 'folder':return folderHTML();case 'share':return shareHTML();case 'notifs':return notifsHTML();default:return homeHTML();}}
+
 function homeHTML(){
+  var remaining=state.tasks.filter(function(t){return !t.done;}).length;
+  var apptsCount=state.appts.length;
+  var toBuy=state.shops.reduce(function(n,s){return n+(s.items||[]).filter(function(i){return !i.done;}).length;},0);
   var today=todayISO();
-  var todayAppts=state.appts.filter(function(a){return a.date===today;}).sort(function(x,y){return String(x.time).localeCompare(String(y.time));});
-  var todayLoisirs=state.loisirs.filter(function(l){return l.date===today;});
-  var remaining=state.tasks.filter(function(t){return !t.done;});
-  var h='<div class="card"><h2>❄️ Bienvenue à la maison</h2><p>Une douce soirée d\'hiver, un chocolat chaud, et tout ce qu\'il faut pour Sam &amp; Shera.</p></div>';
-  h+='<h2 class="sec">Aujourd\'hui • '+frDateLong(today)+'</h2>';
-  if(todayAppts.length===0 && todayLoisirs.length===0 && remaining.length===0){
-    h+='<div class="card"><p>✨ Rien de prévu aujourd\'hui. Profitez-en pour vous reposer.</p></div>';
-  }
-  if(todayAppts.length){
-    h+='<h2 class="sec">📅 Rendez-vous du jour</h2><div class="list">'+todayAppts.map(apptLineHTML).join('')+'</div>';
-  }
+  
+  var todayAppts=state.appts.filter(function(a){return a.date===today;}).sort(function(a,b){return String(a.time||'').localeCompare(String(b.time||''));});
+  var todayLoisirs=state.loisirs.filter(function(l){return l.date===today;}).sort(function(a,b){return String(a.time||'').localeCompare(String(b.time||''));});
+  
+  var h='';
+  h+='<div class="summary"><h2>RÉSUMÉ DU JOUR ♥</h2><p>Une douce soirée d\'hiver à la maison.</p><small>Avancez à notre rythme, ensemble. 💕</small></div>';
+  
+  h+='<button class="nav-btn t1" data-act="go-tasks"><span class="emoji">✅</span><span class="label">'+remaining+' tâche'+(remaining>1?'s':'')+' restante'+(remaining>1?'s':'')+'</span><span class="arrow">›</span></button>';
+  h+='<button class="nav-btn t2" data-act="go-appts"><span class="emoji">📅</span><span class="label">'+apptsCount+' rendez-vous</span><span class="arrow">›</span></button>';
+  h+='<button class="nav-btn t3" data-act="go-shopping"><span class="emoji">🛒</span><span class="label">'+toBuy+' article'+(toBuy>1?'s':'')+' à acheter</span><span class="arrow">›</span></button>';
+  h+='<button class="nav-btn t4" data-act="go-loisirs"><span class="emoji">🎟️</span><span class="label">'+state.loisirs.length+' loisirs</span><span class="arrow">›</span></button>';
+  
+  h+='<div class="section-title">📅 Rendez-vous du jour ❄️</div>';
+  if(todayAppts.length){todayAppts.forEach(function(a){h+=apptLineHTML(a);});}else{h+='<div class="empty-card">Aucun rendez-vous aujourd\'hui.</div>';}
+  
+  h+='<div class="section-title">🎟️ Loisirs du jour ❄️</div>';
   if(todayLoisirs.length){
-    h+='<h2 class="sec">🎟️ Loisirs du jour</h2><div class="list">'+todayLoisirs.map(function(l){
-      return '<button type="button" class="line-btn" data-act="open-folder" data-id="'+esc(l.id)+'"><div class="line-ic">'+esc(getLoisirEmoji(l.title))+'</div><div class="item-body"><b>'+esc(l.title)+'</b><span>'+esc(l.time||'')+' • '+(l.reservations?l.reservations.length:0)+' réservation(s)</span></div><div class="arrow">›</div></button>';
-    }).join('')+'</div>';
-  }
-  if(remaining.length){
-    h+='<h2 class="sec">✅ À faire ('+remaining.length+')</h2><div class="list">'+remaining.slice(0,5).map(taskItemHTML).join('')+'</div>';
-    if(remaining.length>5) h+='<div style="text-align:center;margin-top:8px;"><button type="button" class="chip" data-act="go-tasks">Voir tout →</button></div>';
-  }
-  h+='<h2 class="sec">Accès rapide</h2><div class="list">';
-  h+='<button type="button" class="line-btn" data-act="go-shopping"><div class="line-ic">🛒</div><div class="item-body"><b>Courses</b><span>'+state.shops.reduce(function(acc,s){return acc+(s.items||[]).filter(function(i){return !i.done;}).length;},0)+' articles à acheter</span></div><div class="arrow">›</div></button>';
-  h+='<button type="button" class="line-btn" data-act="go-loisirs"><div class="line-ic">🎟️</div><div class="item-body"><b>Loisirs &amp; billets</b><span>'+state.loisirs.length+' sortie(s) • '+state.loisirs.reduce(function(acc,l){return acc+(l.reservations||[]).reduce(function(a2,r){return a2+(r.billets||[]).length;},0);},0)+' billet(s)</span></div><div class="arrow">›</div></button>';
-  h+='</div>';
-  return h;
-}
-function taskItemHTML(t){
-  var whoLabel = t.who==='sam'?'Sam':(t.who==='shera'?'Shera':'Tous les deux');
-  return '<div class="task-row '+(t.done?'done':'')+'"><button type="button" class="ck '+(t.done?'on':'')+'" data-act="toggle-task" data-id="'+esc(t.id)+'" aria-label="Cocher">'+(t.done?'✓':'')+'</button><span class="t-text">'+esc(t.text)+'</span><span class="t-who">'+esc(whoLabel)+'</span><button type="button" class="menu-btn" data-act="task-menu" data-id="'+esc(t.id)+'" aria-label="Options">⋯</button></div>';
-}
-function tasksHTML(){
-  var editTask = editingTaskId ? (state.tasks.find(function(t){return t.id===editingTaskId;}) || {text:'', who:'both'}) : {text:'', who:'both'};
-  var currentWho = editTask.who || 'both';
-  if(editingTaskId) selectedWho=currentWho;
-  var h='<h2 class="sec">✅ Nouvelle tâche</h2><div class="card">';
-  h+='<input class="inp" id="taskText" placeholder="Ex : Faire les courses, arroser les plantes..." value="'+esc(editTask.text)+'">';
-  h+='<div style="height:10px"></div>';
-  h+='<div class="seg" id="taskWho">';
-  h+='<button type="button" class="seg-btn '+(currentWho==='sam'?'active':'')+'" data-act="who" data-who="sam">Sam</button>';
-  h+='<button type="button" class="seg-btn '+(currentWho==='shera'?'active':'')+'" data-act="who" data-who="shera">Shera</button>';
-  h+='<button type="button" class="seg-btn '+(currentWho==='both'?'active':'')+'" data-act="who" data-who="both">Tous les deux</button>';
-  h+='</div><div style="height:10px"></div>';
-  h+='<button type="button" class="btn btn-pink" data-act="'+(editingTaskId?'save-edit-task':'add-task')+'">'+(editingTaskId?'💾 Enregistrer':'➕ Ajouter la tâche')+'</button>';
-  if(editingTaskId) h+='<div style="height:8px"></div><button type="button" class="btn btn-ghost" data-act="cancel-edit-task">Annuler</button>';
-  h+='</div>';
-  var remaining=state.tasks.filter(function(t){return !t.done;});
-  var done=state.tasks.filter(function(t){return t.done;});
-  h+='<h2 class="sec">À faire ('+remaining.length+')</h2>';
-  h+='<div class="list">'+(remaining.length?remaining.map(taskItemHTML).join(''):'<div class="card"><p>✨ Tout est fait ! Bravo.</p></div>')+'</div>';
-  if(done.length){
-    h+='<h2 class="sec">Terminées ('+done.length+')</h2><div class="list">'+done.map(taskItemHTML).join('')+'</div>';
-    h+='<div style="height:10px"></div><button type="button" class="btn btn-ghost" data-act="clear-done-tasks">🧹 Effacer les terminées</button>';
-  }
-  return h;
-}
-function apptsHTML(){
-  var list=state.appts.slice().sort(function(a,b){return String(a.date+a.time).localeCompare(String(b.date+b.time));});
-  var h='<h2 class="sec">📅 Nouveau rendez-vous</h2><div class="card">';
-  h+='<input class="inp" id="apTitle" placeholder="Ex : Dentiste, Cinéma...">';
-  h+='<div style="height:8px"></div><div class="row"><input class="inp" id="apFor" placeholder="Pour qui ? (Sam / Shera)"><input class="inp" id="apWith" placeholder="Avec qui ?"></div>';
-  h+='<div style="height:8px"></div><input class="inp" id="apAddress" placeholder="📍 Adresse / lieu">';
-  h+='<div style="height:12px"></div><div style="display:flex;gap:8px;flex-wrap:wrap;"><button type="button" class="chip" id="dateChip" data-act="toggle-cal">📅 '+(selectedDate?frDate(selectedDate):'Choisir la date')+'</button><button type="button" class="chip" id="timeChip" data-act="toggle-time">🕐 '+(formTime?formTime:'Choisir l\'heure')+'</button></div>';
-  h+='<div id="calBox" style="display:none;margin-top:12px;"></div><div id="timeBox" style="display:none;margin-top:12px;"></div>';
-  h+='<div style="height:12px"></div><button type="button" class="btn btn-pink" data-act="add-appt">➕ Ajouter le rendez-vous</button></div>';
-  h+='<h2 class="sec">Tous les rendez-vous ('+list.length+')</h2>';
-  if(!list.length) h+='<div class="card"><p>📅 Aucun rendez-vous pour le moment.</p></div>';
-  else h+='<div class="list">'+list.map(apptLineHTML).join('')+'</div>';
-  return h;
-}
-function apptDetailHTML(){
-  var a=state.appts.find(function(x){return x.id===actionId;});
-  if(!a){ currentView='appts'; return apptsHTML(); }
-  var q=encodeURIComponent((a.title||'')+' '+(a.address||''));
-  var h='<button type="button" class="chip" data-act="back-from-detail">← Retour</button><div style="height:12px"></div>';
-  h+='<div class="card"><div style="font-size:34px;">📅</div><h2 style="font-size:20px;margin:8px 0 4px;">'+esc(a.title)+'</h2>';
-  h+='<p style="font-size:14px;">'+esc(frDateLong(a.date))+' à '+esc(a.time||'--:--')+'</p>';
-  if(a.forWho) h+='<p>Pour : <b>'+esc(a.forWho)+'</b></p>';
-  if(a.withWho) h+='<p>Avec : <b>'+esc(a.withWho)+'</b></p>';
-  if(a.address) h+='<p>📍 '+esc(a.address)+'</p>';
-  if(a.address) h+='<div style="height:12px"></div><a class="btn-maps" href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">🗺️ Ouvrir dans Maps</a>';
-  h+='<div style="height:10px"></div><button type="button" class="btn btn-ghost" data-act="edit-appt" data-id="'+esc(a.id)+'">✏️ Modifier</button>';
-  h+='<div style="height:8px"></div><button type="button" class="btn-danger" data-act="del-appt-detail" data-id="'+esc(a.id)+'">🗑 Supprimer</button></div>';
-  return h;
-}
-function renderCalendar(){
-  var box=document.getElementById('calBox'); if(!box) return;
-  var y=calYear, m=calMonth;
-  var first=new Date(y,m,1);
-  var startDay=(first.getDay()+6)%7;
-  var days=new Date(y,m+1,0).getDate();
-  var monthName=first.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
-  var h='<div class="cal-head"><button type="button" class="cal-nav" data-act="cal-prev">‹</button><b>'+esc(monthName)+'</b><button type="button" class="cal-nav" data-act="cal-next">›</button></div>';
-  h+='<div class="cal-grid"><span class="cal-dow">Lun</span><span class="cal-dow">Mar</span><span class="cal-dow">Mer</span><span class="cal-dow">Jeu</span><span class="cal-dow">Ven</span><span class="cal-dow">Sam</span><span class="cal-dow">Dim</span>';
-  for(var i=0;i<startDay;i++) h+='<span></span>';
-  for(var d=1;d<=days;d++){
-    var iso=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    var has=state.appts.some(function(a){return a.date===iso;});
-    h+='<button type="button" class="cal-day '+(selectedDate===iso?'sel':'')+' '+(has?'has-dot':'')+'" data-act="pick-date" data-date="'+esc(iso)+'">'+d+'</button>';
-  }
-  h+='</div><div style="height:10px"></div><button type="button" class="btn btn-ghost" data-act="confirm-date">Valider cette date</button>';
-  box.innerHTML=h;
-}
-function renderTime(){
-  var box=document.getElementById('timeBox'); if(!box) return;
-  var hh=''; for(var i=0;i<24;i++){ var v=String(i).padStart(2,'0'); hh+='<button type="button" class="'+(selHour===v?'sel':'')+'" data-act="pick-hour" data-h="'+v+'">'+v+'</button>'; }
-  var mm=''; for(var j=0;j<60;j+=5){ var v2=String(j).padStart(2,'0'); mm+='<button type="button" class="'+(selMin===v2?'sel':'')+'" data-act="pick-min" data-m="'+v2+'">'+v2+'</button>'; }
-  // minutes exactes possibles via les boutons 0-59 si besoin : on garde 5 en 5 pour la simplicité mobile
-  box.innerHTML='<div class="time-grid"><div><div class="time-label">Heure</div><div class="time-col">'+hh+'</div></div><div><div class="time-label">Minutes</div><div class="time-col">'+mm+'</div></div></div><div style="height:10px"></div><button type="button" class="btn btn-ghost" data-act="confirm-time">Valider '+esc(selHour)+':'+esc(selMin)+'</button>';
-  var col=box.querySelector('.time-col'); if(col){ col.scrollTop=parseInt(selHour,10)*47-60; }
-}
-function loisirsHTML(){
-  var editItem = editingLoisirId ? (state.loisirs.find(function(l){return l.id===editingLoisirId;}) || {title:'',date:'',time:'',desc:''}) : {title:'',date:'',time:'',desc:''};
-  var list=state.loisirs.slice().sort(function(a,b){return String(a.date).localeCompare(String(b.date));});
-  var h='<h2 class="sec">🎟️ Nouvelle sortie</h2><div class="card">';
-  h+='<input class="inp" id="lTitle" placeholder="Ex : Cinéma, Restaurant..." value="'+esc(editItem.title)+'">';
-  h+='<div style="height:8px"></div><div class="row"><input class="inp" type="date" id="lDate" value="'+esc(editItem.date)+'"><input class="inp" id="lTime" placeholder="HH:MM" maxlength="5" value="'+esc(editItem.time)+'"></div>';
-  h+='<div style="height:8px"></div><textarea class="inp" id="lDesc" placeholder="Détails, adresse...">'+esc(editItem.desc)+'</textarea>';
-  h+='<div style="height:10px"></div><button type="button" class="btn btn-pink" data-act="'+(editingLoisirId?'save-edit-loisir':'add-loisir')+'">'+(editingLoisirId?'💾 Enregistrer':'➕ Ajouter la sortie')+'</button>';
-  if(editingLoisirId) h+='<div style="height:8px"></div><button type="button" class="btn btn-ghost" data-act="cancel-edit-loisir">Annuler</button>';
-  h+='</div>';
-  h+='<h2 class="sec">Sorties ('+list.length+')</h2>';
-  if(!list.length) h+='<div class="card"><p>🎟️ Aucune sortie pour le moment.</p></div>';
-  else h+='<div class="list">'+list.map(function(item){
-    var resCount=(item.reservations||[]).length;
-    var dateStr=item.date?frDateLong(item.date):'Date à définir';
-    return '<button type="button" class="line-btn" data-act="open-folder" data-id="'+esc(item.id)+'"><div class="line-ic">'+esc(getLoisirEmoji(item.title))+'</div><div class="item-body"><b>'+esc(item.title)+'</b><span>'+esc(dateStr)+' • '+esc(item.time||'')+' • '+resCount+' réservation(s)</span></div><div class="arrow">›</div></button>';
-  }).join('')+'</div>';
-  return h;
-}
-function folderHTML(){
-  var folder=state.loisirs.find(function(l){return l.id===activeFolderId;});
-  if(!folder){ currentView='loisirs'; return loisirsHTML(); }
-  var h='<button type="button" class="chip" data-act="go-loisirs">← Toutes les sorties</button><div style="height:12px"></div>';
-  h+='<div class="card"><div style="display:flex;gap:12px;align-items:center;"><div style="font-size:36px;">'+esc(getLoisirEmoji(folder.title))+'</div><div><h2 style="margin:0;font-size:19px;">'+esc(folder.title)+'</h2><p style="margin:4px 0 0;">'+esc(frDateLong(folder.date))+' • '+esc(folder.time||'')+'</p>'+(folder.desc?'<p style="margin:6px 0 0;">'+esc(folder.desc)+'</p>':'')+'</div></div>';
-  h+='<div style="height:12px"></div><button type="button" class="btn btn-ghost" data-act="loisir-menu" data-id="'+esc(folder.id)+'">⋯ Options de la sortie</button></div>';
-  h+='<h2 class="sec">➕ Nouvelle réservation</h2><div class="card">';
-  h+='<div class="row"><select class="inp" id="rIcon"><option value="🎟️">🎟️ Billet</option><option value="🍽️">🍽️ Resto</option><option value="🏨">🏨 Hôtel</option><option value="✈️">✈️ Vol</option><option value="🎬">🎬 Cinéma</option><option value="🎵">🎵 Concert</option></select><input class="inp" id="rTitle" placeholder="Ex : Billets cinéma"></div>';
-  h+='<div style="height:8px"></div><div class="row"><input class="inp" type="date" id="rDate"><input class="inp" id="rTime" placeholder="HH:MM" maxlength="5"></div>';
-  h+='<div style="height:8px"></div><input class="inp" id="resBilletName" placeholder="Nom du billet (ex : Billet Sam)">';
-  h+='<div style="height:10px"></div><button type="button" class="btn btn-ghost" data-act="add-billet-temp">📎 Ajouter un billet (photo)</button>';
-  h+='<div id="tempPreview"></div>';
-  h+='<div style="height:10px"></div><button type="button" class="btn btn-pink" data-act="add-reservation">➕ Ajouter la réservation</button></div>';
-  h+='<h2 class="sec">Réservations ('+(folder.reservations||[]).length+')</h2>';
-  if(!(folder.reservations||[]).length) h+='<div class="card"><p>Aucune réservation. Ajoute ton premier billet ci-dessus.</p></div>';
-  else h+='<div class="list">'+(folder.reservations||[]).map(function(r){
-    var count=(r.billets||[]).length;
-    var sub='<div class="ticket"><div class="t-row"><div><b>'+esc(r.icon)+' '+esc(r.title)+'</b><span>'+esc(frDate(r.date))+' • '+esc(r.time||'')+' • '+count+' billet(s)</span></div><button type="button" class="del" data-act="del-res" data-id="'+esc(r.id)+'" aria-label="Supprimer">✕</button></div>';
-    if(count){
-      sub+='<div class="preview-grid">'+(r.billets||[]).map(function(b){
-        return '<div class="preview-item" data-act="view-billets" data-id="'+esc(r.id)+'"><img src="'+esc(b.url)+'" alt="'+esc(b.name)+'"><span>'+esc(b.name)+'</span></div>';
-      }).join('')+'</div>';
-      sub+='<div class="t-actions"><button type="button" style="background:#ff8a9c;color:#fff;" data-act="view-billets" data-id="'+esc(r.id)+'">👁 Voir les billets</button></div>';
-    }
-    sub+='</div>';
-    return sub;
-  }).join('')+'</div>';
-  return h;
-}
-function previewBilletsHTML(){
-  if(!tempResBillets.length) return '';
-  return '<div class="preview-grid">'+tempResBillets.map(function(b,i){
-    return '<div class="preview-item"><img src="'+esc(b.url)+'" alt="'+esc(b.name)+'"><span>'+esc(b.name)+'</span></div>';
-  }).join('')+'</div><div style="height:8px"></div><button type="button" class="btn btn-ghost" data-act="clear-temp-billets">Effacer les billets temporaires</button>';
-}
-function shoppingHTML(){
-  var h='<h2 class="sec">🛒 Nouvelle liste</h2><div class="card"><div class="row"><input class="inp" id="shopName" placeholder="Ex : Carrefour, Marché..."><button type="button" class="add-btn" data-act="add-shop">+</button></div></div>';
-  if(!state.shops.length) h+='<div class="card"><p>🛒 Aucune liste. Crée ta première liste ci-dessus.</p></div>';
-  h+=state.shops.map(function(s){
-    var remaining=(s.items||[]).filter(function(i){return !i.done;}).length;
-    var sh='<div class="card"><div class="shop-head"><b>🛒 '+esc(s.name)+' <span style="opacity:.6;font-size:12px;">('+remaining+' restant)</span></b><button type="button" class="del" data-act="del-shop" data-id="'+esc(s.id)+'" aria-label="Supprimer la liste">✕</button></div>';
-    sh+='<div class="row"><input class="inp" id="item-'+esc(s.id)+'" placeholder="Ajouter un article..."><button type="button" class="add-btn" data-act="add-item" data-id="'+esc(s.id)+'">+</button></div>';
-    sh+='<div style="height:10px"></div><div class="list">'+(s.items||[]).map(function(it){
-      return '<div class="task-row '+(it.done?'done':'')+'"><button type="button" class="ck '+(it.done?'on':'')+'" data-act="toggle-item" data-shop="'+esc(s.id)+'" data-id="'+esc(it.id)+'">'+(it.done?'✓':'')+'</button><span class="t-text">'+esc(it.text)+'</span><button type="button" class="del" data-act="del-item" data-shop="'+esc(s.id)+'" data-id="'+esc(it.id)+'" aria-label="Supprimer">✕</button></div>';
-    }).join('')+'</div></div>';
-    return sh;
-  }).join('');
-  return h;
-}
-function shareHTML(){
-  var h='<h2 class="sec">🔗 Partager la maison</h2><div class="card"><p>Pour que Sam et Shera voient la même maison sur 2 téléphones, utilisez la même URL Firebase et le même code.</p><div style="height:12px"></div>';
-  h+='<label style="font-size:12px;font-weight:900;opacity:.8;">URL Firebase (se termine par firebaseio.com)</label><input class="inp" id="fbUrl" value="'+esc(fbUrl)+'" placeholder="https://ton-projet-default-rtdb.firebaseio.com">';
-  h+='<div style="height:8px"></div><label style="font-size:12px;font-weight:900;opacity:.8;">Code maison</label><input class="inp" id="houseCode" value="'+esc(houseCode)+'" placeholder="sam-shera">';
-  h+='<div style="height:12px"></div><button type="button" class="btn btn-pink" data-act="save-share">💾 Enregistrer et synchroniser</button>';
-  h+='<div style="height:8px"></div><p class="mini">Astuce : mets la même URL + le même code sur les deux téléphones, puis recharge. La synchro se fait toutes les 3 secondes.</p></div>';
-  h+='<div class="card"><h2>⚠️ Sécurité</h2><p>Ne partage jamais ton URL Firebase en public. Toute personne avec l\'URL + le code peut lire et modifier ta maison. Pour une vraie sécurité, active les règles Firebase avec authentification.</p></div>';
-  return h;
-}
-function notifsHTML(){
-  var h='<h2 class="sec">💌 Activité</h2>';
-  if(!state.notifs.length) h+='<div class="card"><p>Aucune activité pour le moment.</p></div>';
-  else h+='<div class="list">'+state.notifs.map(function(n){
-    var d=new Date(n.ts);
-    var when=isNaN(d.getTime())?'':d.toLocaleDateString('fr-FR',{day:'numeric',month:'short'})+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-    return '<div class="card" style="margin-bottom:8px;padding:12px 14px;"><b style="font-size:13.5px;">'+esc(n.text)+'</b><div class="mini">'+esc(when)+'</div></div>';
-  }).join('')+'</div>';
-  h+='<div style="height:10px"></div><button type="button" class="btn btn-ghost" data-act="clear-notifs">Effacer les notifications</button>';
-  return h;
-}
-function render(){
-  var app=document.getElementById('app'); if(!app) return;
-  // Préserve focus + saisie + scroll pour ne pas casser la frappe pendant un poll
-  var activeEl=document.activeElement;
-  var activeId=activeEl&&activeEl.id?activeEl.id:null;
-  var selStart=activeEl&&typeof activeEl.selectionStart==='number'?activeEl.selectionStart:null;
-  var selEnd=activeEl&&typeof activeEl.selectionEnd==='number'?activeEl.selectionEnd:null;
-  var scrollY=window.scrollY||0;
-  var saved={};
-  app.querySelectorAll('input, textarea, select').forEach(function(el){ if(el.id) saved[el.id]=el.value; });
-  try{
-    app.innerHTML=headerHTML()+viewHTML();
-    Object.keys(saved).forEach(function(id){
-      var el=document.getElementById(id);
-      if(el && !el.value) el.value=saved[id];
+    todayLoisirs.forEach(function(l){
+      var emoji = getLoisirEmoji(l.title);
+      h+='<button class="line-btn loisir-home" data-act="open-folder-home" data-id="'+l.id+'"><div class="line-time">'+esc(l.time||'Journée')+'</div><div class="item-body"><div class="line-title">'+emoji+' '+esc(l.title)+'</div>'+(l.desc?'<div class="line-addr">'+esc(l.desc)+'</div>':'')+'</div><div class="arrow">›</div></button>';
     });
-    if(activeId){
-      var toFocus=document.getElementById(activeId);
-      if(toFocus){ try{ toFocus.focus(); if(selStart!==null && toFocus.setSelectionRange && toFocus.type!=='date') toFocus.setSelectionRange(selStart, selEnd); }catch(e){} }
-    }
-    window.scrollTo(0, scrollY);
-    if(currentView==='appts'){
-      renderCalendar();
-      var calBox=document.getElementById('calBox'); if(calBox) calBox.style.display='none';
-      var timeBox=document.getElementById('timeBox'); if(timeBox) timeBox.style.display='none';
-      var dateChip=document.getElementById('dateChip'); if(dateChip) dateChip.textContent='📅 '+(selectedDate?frDate(selectedDate):'Choisir la date');
-      var timeChip=document.getElementById('timeChip'); if(timeChip) timeChip.textContent='🕐 '+(formTime?formTime:'Choisir l\'heure');
-    }
-    if(currentView==='folder'){
-      var tp=document.getElementById('tempPreview'); if(tp) tp.innerHTML=previewBilletsHTML();
-    }
-  }catch(e){
-    app.innerHTML='<div class="card"><h2>Oups, un petit souci</h2><p>'+esc(e.message||'Erreur')+'</p><button type="button" class="btn btn-pink" data-act="go-home">Retour à l\'accueil</button></div>';
+  }else{
+    h+='<div class="empty-card">Aucun loisir aujourd\'hui.</div>';
   }
-}
-function openTaskMenu(id){
-  actionId=id; actionType='task';
-  var t=state.tasks.find(function(x){return x.id===id;}); if(!t) return;
-  document.getElementById('modalOptionsTitle').textContent='Tâche : '+t.text;
-  document.getElementById('modalOptionsBody').innerHTML='<button type="button" class="modal-opt" data-act="btn-edit-task">✏️ Modifier</button><button type="button" class="modal-opt danger" data-act="btn-del-task">🗑 Supprimer</button>';
-  openModal('modalOptions');
-}
-function openLoisirMenu(id){
-  actionId=id; actionType='loisir';
-  var l=state.loisirs.find(function(x){return x.id===id;}); if(!l) return;
-  document.getElementById('modalOptionsTitle').textContent='Sortie : '+l.title;
-  document.getElementById('modalOptionsBody').innerHTML='<button type="button" class="modal-opt" data-act="btn-edit-loisir">✏️ Modifier</button><button type="button" class="modal-opt danger" data-act="btn-del-loisir">🗑 Supprimer la sortie</button>';
-  openModal('modalOptions');
-}
-function openBilletViewer(resId){
-  var folder=state.loisirs.find(function(l){return l.id===activeFolderId;});
-  if(!folder || !Array.isArray(folder.reservations)) return;
-  var res=folder.reservations.find(function(r){return r.id===resId;});
-  if(!res || !Array.isArray(res.billets) || res.billets.length===0) return;
-  currentBilletResId=resId;
-  currentBilletArray=res.billets.slice();
-  currentBilletIndex=0;
-  document.getElementById('billetViewerTitle').textContent=res.title||'Billet';
-  updateBilletImage();
-  openModal('modalBillet');
-}
-function updateBilletImage(){
-  var b=currentBilletArray[currentBilletIndex];
-  if(!b){ closeModal('modalBillet'); return; }
-  var img=document.getElementById('billetViewerImg'); if(img) img.src=b.url;
-  var name=document.getElementById('billetViewerName'); if(name) name.textContent=b.name+' ('+(currentBilletIndex+1)+'/'+currentBilletArray.length+')';
-}
-function changeBillet(dir){
-  if(!currentBilletArray.length) return;
-  currentBilletIndex=(currentBilletIndex+dir+currentBilletArray.length)%currentBilletArray.length;
-  updateBilletImage();
-}
-function deleteBilletFromViewer(){
-  if(!confirm('Supprimer ce billet ?')) return;
-  var folder=state.loisirs.find(function(l){return l.id===activeFolderId;});
-  if(!folder || !Array.isArray(folder.reservations)) return;
-  var res=folder.reservations.find(function(r){return r.id===currentBilletResId;});
-  if(!res || !Array.isArray(res.billets)) return;
-  res.billets.splice(currentBilletIndex,1);
-  if(res.billets.length===0){ closeModal('modalBillet'); commit('🗑 Billet supprimé'); return; }
-  currentBilletArray=res.billets.slice();
-  if(currentBilletIndex>=currentBilletArray.length) currentBilletIndex=0;
-  updateBilletImage();
-  commit('🗑 Billet supprimé');
+  
+  return h;
 }
 
-document.addEventListener('click', function(e){
-  var el=e.target.closest('[data-act]');
-  if(!el) return;
+function apptLineHTML(a){var meta=[];if(a.forWho)meta.push('Pour : '+esc(a.forWho));if(a.withWho)meta.push('Avec : '+esc(a.withWho));return '<button class="line-btn" data-act="open-appt" data-id="'+a.id+'"><div class="line-time">'+esc(a.time||'--:--')+'</div><div class="item-body"><div class="line-title">'+esc(a.title||a.forWho||'Rendez-vous')+'</div>'+(a.address?'<div class="line-addr">📍 '+esc(a.address)+'</div>':'')+(meta.length?'<div class="line-meta">'+meta.join(' · ')+'</div>':'')+'</div><div class="arrow">›</div></button>';}
+
+/* --- TÂCHES --- */
+function tasksHTML(){
+  var h='<button class="back" data-act="go-home">‹ Retour</button>';
+  h+='<div class="card"><div class="section-title">✅ Tâches</div>';
+  if(state.tasks.length){state.tasks.forEach(function(t){h+=taskItemHTML(t);});}else{h+='<div class="empty">Aucune tâche pour le moment.</div>';}
+  h+='</div>';
+  
+  let editTask = editingTaskId ? state.tasks.find(t => t.id === editingTaskId) : { text: '', who: 'both' };
+  let currentWho = editingTaskId ? editTask.who : selectedWho;
+
+  h+='<div class="card form-card"><div class="form-title">'+(editingTaskId ? 'Modifier la tâche' : 'Ajouter une nouvelle tâche')+'</div>';
+  h+='<input class="inp" id="taskText" placeholder="Écrire..." value="'+esc(editTask.text)+'" autocomplete="off">';
+  h+='<div class="seg" id="taskWho">';
+  h+='<button class="seg-btn sam'+(currentWho==='sam'?' sel':'')+'" data-act="who" data-who="sam">Sam 💙</button>';
+  h+='<button class="seg-btn shera'+(currentWho==='shera'?' sel':'')+'" data-act="who" data-who="shera">Shera 💜</button>';
+  h+='<button class="seg-btn both'+(currentWho==='both'?' sel':'')+'" data-act="who" data-who="both">Les deux 💖</button>';
+  h+='</div>';
+  h+='<button class="btn-main" data-act="add-task">'+(editingTaskId ? '✓ Enregistrer les modifications' : '+ Ajouter la tâche')+'</button>';
+  h+='<button class="btn-soft" style="'+(editingTaskId?'display:block':'display:none')+'" data-act="cancel-edit-task">Annuler la modification</button>';
+  h+='</div>';
+  
+  return h;
+}
+
+function taskItemHTML(t){
+  return '<div class="item'+(t.done?' done':'')+'">'+
+    '<button class="chk" data-act="toggle-task" data-id="'+t.id+'">'+(t.done?'✓':'')+'</button>'+
+    '<div class="item-body"><div class="txt">'+esc(t.text)+'</div>'+
+    '<span class="tag '+esc(t.who)+'">'+whoLabel(t.who)+'</span></div>'+
+    '<button class="menu-arrow" data-act="menu-task" data-id="'+t.id+'">⌄</button>'+
+  '</div>';
+}
+
+function apptsHTML(){var list=state.appts.slice().sort(function(a,b){return (String(a.date||'')+String(a.time||'')).localeCompare(String(b.date||'')+String(b.time||''));});var h='<button class="back" data-act="go-home">‹ Retour</button>';h+='<div class="card"><div class="section-title">📅 Rendez-vous</div>';if(list.length){list.forEach(function(a){h+='<div class="line-btn" style="margin-bottom:9px" data-act="open-appt" data-id="'+a.id+'"><div class="line-time">'+esc(a.time||'--:--')+'<div style="font-size:10px;font-weight:800;color:#a89fb5;margin-top:2px">'+esc(frDate(a.date))+'</div></div><div class="item-body"><div class="line-title">'+esc(a.title||a.forWho||'Rendez-vous')+'</div>'+(a.address?'<div class="line-addr">📍 '+esc(a.address)+'</div>':'')+((a.forWho||a.withWho)?'<div class="line-meta">'+(a.forWho?'Pour : '+esc(a.forWho):'')+(a.forWho&&a.withWho?' · ':'')+(a.withWho?'Avec : '+esc(a.withWho):'')+'</div>':'')+'</div><div class="arrow">›</div></div>';});}else{h+='<div class="empty">Aucun rendez-vous pour le moment.</div>';}h+='</div>';h+='<div class="card form-card"><div class="form-title">Ajouter un nouveau rendez-vous</div>';h+='<label class="lbl">Titre</label><input class="inp" id="apTitle" placeholder="Écrire..." autocomplete="off">';h+='<label class="lbl">Pour qui ?</label><input class="inp" id="apFor" placeholder="Écrire..." autocomplete="off">';h+='<label class="lbl">Avec qui ?</label><input class="inp" id="apWith" placeholder="Écrire..." autocomplete="off">';h+='<label class="lbl">Date</label><div class="chip" id="dateChip">'+(selectedDate?frDate(selectedDate):'Aucune date choisie')+'</div><div class="cal" id="calBox"></div><button class="btn-soft" data-act="confirm-date">Confirmer la date</button>';h+='<label class="lbl">Heure</label><div class="chip" id="timeChip">'+(formTime?formTime:'Aucune heure choisie')+'</div><div class="time-wrap" id="timeBox"></div><button class="btn-soft" data-act="confirm-time">Confirmer l\'heure</button>';h+='<label class="lbl">Adresse</label><input class="inp" id="apAddr" placeholder="Écrire..." autocomplete="off">';h+='<button class="btn-main" data-act="add-appt">+ Ajouter le rendez-vous</button></div>';return h;}
+
+function apptDetailHTML(){var a=state.appts.filter(function(x){return x.id===detailApptId;})[0];if(!a){return '<button class="back" data-act="go-home">‹ Retour</button><div class="card"><div class="empty">Rendez-vous introuvable.</div></div>';}var q=encodeURIComponent(a.address||'');var h='<button class="back" data-act="back-from-detail">‹ Retour</button><div class="card">';h+='<div class="detail-hero"><div class="detail-time">'+esc(a.time||'--:--')+'</div><div class="detail-date">'+esc(frDate(a.date))+'</div></div>';h+='<div class="detail-title">'+esc(a.title||a.forWho||'Rendez-vous')+'</div>';if(a.forWho)h+='<div class="detail-row"><div class="detail-lbl">Pour qui</div><div class="detail-val">'+esc(a.forWho)+'</div></div>';if(a.withWho)h+='<div class="detail-row"><div class="detail-lbl">Avec qui</div><div class="detail-val">'+esc(a.withWho)+'</div></div>';if(a.address)h+='<div class="detail-row"><div class="detail-lbl">Adresse</div><div class="detail-val">'+esc(a.address)+'</div></div>';h+='<div class="maps-row" style="margin-top:14px"><a class="btn-maps" href="https://www.google.com/maps/search/?api=1&amp;query='+q+'" target="_blank" rel="noopener">Ouvrir dans Maps</a></div>';h+='<button class="btn-soft" style="margin-top:12px;background:rgba(255,168,197,0.15);color:#ffa8c5;border:none;" data-act="del-appt-detail" data-id="'+a.id+'">Supprimer ce rendez-vous</button></div>';return h;}
+
+function renderCalendar(){var box=document.getElementById('calBox');if(!box)return;var y=calYear,m=calMonth;var first=new Date(y,m,1);var startDow=(first.getDay()+6)%7;var daysInMonth=new Date(y,m+1,0).getDate();var mois=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];var h='<div class="cal-head"><button class="cal-nav" data-act="cal-prev">‹</button><div class="cal-title">'+mois[m]+' '+y+'</div><button class="cal-nav" data-act="cal-next">›</button></div><div class="cal-grid">';['L','M','M','J','V','S','D'].forEach(function(d){h+='<div class="cal-dow">'+d+'</div>';});for(var i=0;i<startDow;i++)h+='<div></div>';for(var d=1;d<=daysInMonth;d++){var iso=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');h+='<button class="cal-day'+(iso===selectedDate?' sel':'')+'" data-act="cal-day" data-date="'+iso+'">'+d+'</button>';}h+='</div>';box.innerHTML=h;}
+
+function renderTime(){var box=document.getElementById('timeBox');if(!box)return;var hoursHtml='',minsHtml='';for(var i=0;i<24;i++){var hh=String(i).padStart(2,'0');hoursHtml+='<button class="t-item'+(hh===selHour?' sel':'')+'" data-act="t-hour" data-v="'+hh+'">'+hh+'</button>';}for(var j=0;j<60;j++){var mm=String(j).padStart(2,'0');minsHtml+='<button class="t-item'+(mm===selMin?' sel':'')+'" data-act="t-min" data-v="'+mm+'">'+mm+'</button>';}box.innerHTML='<div class="t-col" id="tHours">'+hoursHtml+'</div><div class="t-colon">:</div><div class="t-col" id="tMins">'+minsHtml+'</div>';var hc=document.getElementById('tHours');var mc=document.getElementById('tMins');if(hc)hc.scrollTop=Math.max(0,parseInt(selHour,10)*47-60);if(mc)mc.scrollTop=Math.max(0,parseInt(selMin,10)*47-60);}
+
+/* --- LOISIRS (DOSSIERS) --- */
+function loisirsHTML(){
+  var list = state.loisirs.slice().sort(function(a,b){
+    return (String(a.date||'')+String(a.time||'')).localeCompare(String(b.date||'')+String(b.time||''));
+  });
+  
+  var itemsHTML = list.map(function(item){
+    var dateStr = 'Date libre';
+    if (item.date) {
+      const d = new Date(item.date + 'T12:00:00');
+      dateStr = d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
+      if (item.time) dateStr += ' à ' + item.time;
+    } else if (item.time) {
+      dateStr = 'À ' + item.time;
+    }
+    var emoji = getLoisirEmoji(item.title);
+    let resCount = item.reservations ? item.reservations.length : 0;
+
+    return `
+    <div class="ticket">
+      <div class="ticket-left">${emoji}</div>
+      <div class="ticket-right">
+        <div class="ticket-date">${dateStr}</div>
+        <div class="ticket-title">${esc(item.title)}</div>
+        ${item.desc ? `<div class="ticket-desc">${esc(item.desc)}</div>` : ''}
+        
+        <button class="link-folder" data-act="open-folder" data-id="${item.id}">
+          <span>📂 ${resCount} réservation${resCount > 1 ? 's' : ''}</span>
+          <span class="arrow">›</span>
+        </button>
+
+        <div style="display:flex; align-items:center; margin-top:5px;">
+          <button class="menu-arrow" data-act="menu-loisir" data-id="${item.id}">⌄</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  let editItem = editingLoisirId ? state.loisirs.find(i => i.id === editingLoisirId) : { title: '', date: '', time: '', desc: '' };
+
+  var h = '<button class="back" data-act="go-home">‹ Retour</button>';
+  h += '<div style="background:transparent; padding:0; border:none; margin-bottom:20px;">';
+  h += itemsHTML.length > 0 ? itemsHTML : '<div class="empty" style="background:rgba(255,255,255,0.03); border-radius:20px; padding:20px; border:1px dashed rgba(255,255,255,0.15);">Aucun loisir noté pour le moment.</div>';
+  h += '</div>';
+
+  h += '<div class="card form-card">';
+  h += '<div class="form-title">'+(editingLoisirId ? 'Modifier le voyage' : 'Créer un nouveau voyage')+'</div>';
+  h += '<label class="lbl">Titre principal</label>';
+  h += '<input class="inp" id="loisirTitle" placeholder="Ex: Week-end à Londres..." value="'+esc(editItem.title)+'">';
+  
+  h += '<div class="row-2" style="display:flex; gap:10px;">';
+  h += '<div style="flex:1"><label class="lbl">Date</label><input class="inp" id="loisirDate" type="date" value="'+esc(editItem.date)+'"></div>';
+  h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="loisirTime" type="text" placeholder="Ex: 19:30" value="'+esc(editItem.time)+'" maxlength="5"></div>';
+  h += '</div>';
+  
+  h += '<label class="lbl">Notes</label>';
+  h += '<textarea class="inp" id="loisirDesc" placeholder="Écrire..." rows="2">'+esc(editItem.desc)+'</textarea>';
+  
+  h += '<button class="btn-main" data-act="add-loisir">'+(editingLoisirId ? '✓ Enregistrer les modifications' : '+ Créer le dossier')+'</button>';
+  h += '<button class="btn-soft" style="'+(editingLoisirId?'display:block':'display:none')+'" data-act="cancel-edit-loisir">Annuler</button>';
+  h += '</div>';
+  
+  return h;
+}
+
+/* --- DOSSIER INTERNE (RESERVATIONS) --- */
+function folderHTML(){
+  var folder = state.loisirs.find(function(l){return l.id===activeFolderId;});
+  if(!folder) { currentView='loisirs'; return loisirsHTML(); }
+
+  let subItemsHTML = (folder.reservations || []).map(r => {
+    let count = r.billets ? r.billets.length : 0;
+    let btnText = count > 1 ? `🎟️ Voir les ${count} billets` : (count === 1 ? '🎟️ Voir le billet' : 'Sans billet');
+    let btn = count > 0 ? `<button class="sub-billet-btn" data-act="view-billets" data-resid="${r.id}">${btnText}</button>` : `<span style="font-size:11px;color:#6b7280;font-weight:800;">Sans billet</span>`;
+
+    return `
+    <div class="sub-item">
+      <div class="sub-icon">${r.icon}</div>
+      <div class="sub-info">
+        <div class="sub-title">${esc(r.title)}</div>
+        <div class="sub-date">${esc(r.date)} ${r.time ? 'à '+esc(r.time) : ''}</div>
+      </div>
+      ${btn}
+    </div>
+  `}).join('');
+
+  let previewBillets = tempResBillets.map((b, idx) => `
+    <div class="preview-item">
+      <img src="${b.url}">
+      <div class="p-name">${esc(b.name)}</div>
+      <button class="del-billet-btn" data-act="remove-temp-billet" data-idx="${idx}">✕</button>
+    </div>
+  `).join('');
+
+  var h = '<div class="header"><div class="logo">'+(folder.emoji||'🎟️')+'</div><div class="titles"><h1>'+esc(folder.title)+'</h1><div class="date">'+esc(folder.date)+'</div></div></div>';
+  h += '<button class="back" data-act="back-to-loisirs">‹ Retour aux loisirs</button>';
+
+  h += '<div class="card" style="background:rgba(255,255,255,0.03); border-style:dashed;">';
+  h += '<div class="section-title" style="margin:0 0 10px 0; font-size:12px;">📋 Réservations prévues</div>';
+  h += subItemsHTML || '<div style="color:#6b7280; font-size:13px; font-weight:700; text-align:center; padding:10px;">Aucune réservation pour l\'instant.</div>';
+  h += '</div>';
+
+  h += '<div class="card form-card">';
+  h += '<div class="form-title">Ajouter une réservation</div>';
+  h += '<label class="lbl">Titre (ex: Train, Musée...)</label>';
+  h += '<input class="inp" id="rTitle" placeholder="Qu\'avez-vous réservé ?">';
+  
+  h += '<div class="row-2" style="display:flex; gap:10px;">';
+  h += '<div style="flex:1"><label class="lbl">Date</label><input class="inp" id="rDate" type="date"></div>';
+  h += '<div style="flex:1"><label class="lbl">Heure</label><input class="inp" id="rTime" type="text" placeholder="Ex: 19:30" maxlength="5"></div>';
+  h += '</div>';
+
+  h += '<label class="lbl">Icône</label>';
+  h += '<select class="inp" id="rIcon" style="appearance:none; background:rgba(255,255,255,0.05); color:#fff;">';
+  h += '<option value="🚆" style="color:#000">🚆 Train</option>';
+  h += '<option value="✈️" style="color:#000">✈️ Avion</option>';
+  h += '<option value="🏛️" style="color:#000">🏛️ Musée</option>';
+  h += '<option value="🎭" style="color:#000">🎭 Spectacle</option>';
+  h += '<option value="🍽️" style="color:#000">🍽️ Restaurant</option>';
+  h += '<option value="🎟️" style="color:#000">🎟️ Autre</option>';
+  h += '</select>';
+
+  h += '<label class="lbl">Billets / QR Codes</label>';
+  h += '<div class="preview-billets">'+previewBillets+'</div>';
+  
+  h += '<div style="display:flex; gap:8px; margin-top:10px;">';
+  h += '<input class="inp" id="newBilletName" placeholder="Nom (ex: Sam...)" style="flex:1; padding:10px; font-size:13px;">';
+  h += '<button class="btn-soft" style="width:auto; margin:0; padding:10px 15px; font-size:13px; background:rgba(139,184,255,0.15); color:#8bb8ff; border:none;" data-act="upload-billet">📷 Choisir</button>';
+  h += '</div>';
+
+  h += '<button class="btn-main" data-act="add-reservation">+ Ajouter à ce voyage</button>';
+  h += '</div>';
+
+  return h;
+}
+
+function shoppingHTML(){var h='<button class="back" data-act="go-home">‹ Retour</button>';if(!state.shops.length){h+='<div class="card"><div class="empty">Aucune liste pour le moment.</div></div>';}state.shops.forEach(function(s){var done=s.items.filter(function(i){return i.done;}).length;h+='<div class="shop-card"><div class="shop-head"><div class="shop-name">🛒 '+esc(s.name)+'</div><div class="shop-count">'+done+'/'+s.items.length+'</div><button class="del" data-act="del-shop" data-id="'+s.id+'">✕</button></div>';if(s.items.length){s.items.forEach(function(it){h+='<div class="item'+(it.done?' done':'')+'"><button class="chk" data-act="toggle-item" data-id="'+it.id+'">'+(it.done?'✓':'')+'</button><div class="item-body"><div class="txt">'+esc(it.text)+'</div></div><button class="del" data-act="del-item" data-id="'+it.id+'">✕</button></div>';});}else{h+='<div class="empty">Aucun article.</div>';}h+='<div class="add-row"><input class="inp" id="item-'+s.id+'" placeholder="Écrire un article" autocomplete="off"><button class="btn-plus" data-act="add-item" data-id="'+s.id+'">+</button></div></div>';});h+='<div class="card form-card"><div class="form-title">Créer une nouvelle liste avec nom du magasin</div><input class="inp" id="newShopName" placeholder="Écrire..." autocomplete="off"><button class="btn-main" data-act="add-shop">+ Créer la liste</button></div>';return h;}
+
+function shareHTML(){var h='<button class="back" data-act="go-home">‹ Retour</button>';h+='<div class="card form-card"><div class="section-title">⚙️ Partage</div><label class="lbl">Code Maison</label><input class="inp" id="shareCode" value="'+esc(houseCode)+'" placeholder="Écrire..." autocomplete="off"><label class="lbl">URL Firebase</label><input class="inp" id="shareUrl" value="'+esc(fbUrl)+'" placeholder="Écrire..." autocomplete="off"><button class="btn-main" data-act="save-share">Enregistrer le partage</button><div class="hint">Même Code Maison sur les deux téléphones = mêmes données, en temps réel.</div></div>';return h;}
+
+function notifsHTML(){var h='<button class="back" data-act="go-home">‹ Retour</button><div class="card"><div class="section-title">🔔 Historique</div>';if(state.notifs.length){state.notifs.forEach(function(n){var d=new Date(n.ts);h+='<div class="notif"><div class="notif-txt">'+esc(n.text)+'</div><div class="notif-time">'+esc(d.toLocaleString('fr-FR'))+'</div></div>';});}else{h+='<div class="empty">Aucun changement pour le moment.</div>';}h+='</div>';return h;}
+
+function commit(notifText){if(notifText)addNotif(notifText);schedulePush();render();}
+
+/* --- MENUS D'ACTION --- */
+function openTaskMenu(id, title) {
+  actionType = 'task';
+  actionId = id;
+  document.getElementById('modalOptionsTaskTitle').textContent = "Que faire pour : " + title + " ?";
+  document.getElementById('modalOptionsTask').classList.add('active');
+}
+
+function openLoisirMenu(id, title) {
+  actionType = 'loisir';
+  actionId = id;
+  document.getElementById('modalOptionsTitle').textContent = "Gérer : " + title;
+  document.getElementById('modalOptions').classList.add('active');
+}
+
+function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
+
+document.getElementById('btnEditTask').onclick = function() {
+  closeModal('modalOptionsTask');
+  editingTaskId = actionId;
+  render();
+  window.scrollTo(0, document.body.scrollHeight);
+};
+
+document.getElementById('btnDeleteTask').onclick = function() {
+  closeModal('modalOptionsTask');
+  var t=state.tasks.find(function(x){return x.id===actionId;});
+  state.tasks=state.tasks.filter(function(x){return x.id!==actionId;});
+  editingTaskId=null;
+  commit('Tâche supprimée : '+(t?t.text:''));
+};
+
+document.getElementById('btnEditLoisir').onclick = function() {
+  closeModal('modalOptions');
+  editingLoisirId = actionId;
+  render();
+  window.scrollTo(0, document.body.scrollHeight);
+};
+
+document.getElementById('btnDeleteLoisir').onclick = function() {
+  closeModal('modalOptions');
+  var l=state.loisirs.find(function(x){return x.id===actionId;});
+  state.loisirs=state.loisirs.filter(function(x){return x.id!==actionId;});
+  if(activeFolderId === actionId) activeFolderId=null;
+  editingLoisirId=null;
+  commit('Voyage supprimé : '+(l?l.title:''));
+};
+
+/* --- VISIONNEUSE BILLETS --- */
+function openBilletViewer(resId) {
+  let folder = state.loisirs.find(l => l.id === activeFolderId);
+  let res = folder.reservations.find(r => r.id === resId);
+  if (!res || !res.billets || res.billets.length === 0) return;
+  
+  currentBilletResId = resId;
+  currentBilletArray = res.billets;
+  currentBilletIndex = 0;
+  
+  document.getElementById('viewerTitle').textContent = res.title;
+  updateBilletImage();
+  document.getElementById('navBillets').style.display = res.billets.length > 1 ? 'flex' : 'none';
+  document.getElementById('modalBilletViewer').classList.add('active');
+}
+
+function updateBilletImage() {
+  let b = currentBilletArray[currentBilletIndex];
+  document.getElementById('viewerImg').src = b.url;
+  document.getElementById('viewerName').textContent = b.name;
+}
+
+function nextBillet() { if (currentBilletIndex < currentBilletArray.length - 1) { currentBilletIndex++; updateBilletImage(); } }
+function prevBillet() { if (currentBilletIndex > 0) { currentBilletIndex--; updateBilletImage(); } }
+
+function deleteBilletFromViewer() {
+  if(!confirm("Supprimer ce billet ?")) return;
+  let folder = state.loisirs.find(l => l.id === activeFolderId);
+  let res = folder.reservations.find(r => r.id === currentBilletResId);
+  res.billets.splice(currentBilletIndex, 1);
+  
+  if (res.billets.length === 0) {
+    closeModal('modalBilletViewer');
+    commit('Billet supprimé de : '+res.title);
+    return;
+  }
+  if (currentBilletIndex >= res.billets.length) currentBilletIndex = res.billets.length - 1;
+  currentBilletArray = res.billets;
+  updateBilletImage();
+  commit('Billet supprimé de : '+res.title);
+}
+
+/* --- UPLOAD DE FICHIER --- */
+var fileInput = document.getElementById('fileInput');
+var currentBilletNameTemp = '';
+
+fileInput.addEventListener('change', function(e) {
+  if (!e.target.files || !e.target.files[0]) return;
+  var file = e.target.files[0];
+  
+  compressImage(file, 600, function(base64Image) {
+    tempResBillets.push({ name: currentBilletNameTemp, url: base64Image });
+    currentBilletNameTemp = '';
+    fileInput.value = ''; // Reset
+    render(); // Met à jour la preview
+  });
+});
+
+/* --- NAVIGATION & ACTIONS (ÉCOUTEUR GLOBAL UNIQUE) --- */
+document.addEventListener('click',function(e){
+  var el=e.target.closest?e.target.closest('[data-act]'):null;
+  if(!el)return;
   var act=el.getAttribute('data-act');
   var id=el.getAttribute('data-id');
 
-  if(act==='go-home'){ currentView='home'; render(); }
-  else if(act==='go-tasks'){ currentView='tasks'; render(); }
-  else if(act==='go-appts'){ currentView='appts'; render(); }
-  else if(act==='go-loisirs'){ currentView='loisirs'; render(); }
-  else if(act==='go-shopping'){ currentView='shopping'; render(); }
-  else if(act==='go-share'){ currentView='share'; render(); }
-  else if(act==='go-notifs'){ currentView='notifs'; render(); }
-  else if(act==='back-from-detail'){ currentView=prevView||'home'; render(); }
-  else if(act==='who'){ selectedWho=el.getAttribute('data-who')||'both'; document.querySelectorAll('#taskWho .seg-btn').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-who')===selectedWho); }); }
-  else if(act==='add-task'){
-    var txt=val('taskText'); if(!txt){ toast('Écris ta tâche.'); return; }
-    state.tasks.unshift({id:uid(), text:txt, who:selectedWho, done:false});
-    commit('✅ Nouvelle tâche : '+txt);
-    toast('Tâche ajoutée');
+  if(act==='go-home'){currentView='home';detailApptId='';activeFolderId=null;render();return;}
+  if(act==='go-tasks'){currentView='tasks';render();return;}
+  if(act==='go-appts'){currentView='appts';render();return;}
+  if(act==='go-shopping'){currentView='shopping';render();return;}
+  if(act==='go-loisirs'){currentView='loisirs';render();return;}
+  if(act==='go-share'){currentView='share';render();return;}
+  if(act==='go-notifs'){currentView='notifs';render();return;}
+  if(act==='open-appt'){detailApptId=id;currentView='appt-detail';render();return;}
+  if(act==='back-from-detail'){detailApptId='';currentView='home';render();return;}
+  if(act==='who'){selectedWho=el.getAttribute('data-who');var btns=document.querySelectorAll('#taskWho .seg-btn');Array.prototype.forEach.call(btns,function(b){b.classList.toggle('sel',b.getAttribute('data-who')===selectedWho);});return;}
+
+  /* --- MENUS --- */
+  if(act==='menu-task'){
+    var t=state.tasks.find(function(x){return x.id===id;});
+    openTaskMenu(id, t ? t.text : 'Options');
+    return;
   }
-  else if(act==='save-edit-task'){
-    var txt2=val('taskText'); if(!txt2){ toast('Écris ta tâche.'); return; }
-    var t=state.tasks.find(function(x){return x.id===editingTaskId;}); if(!t){ editingTaskId=null; render(); return; }
-    t.text=txt2; t.who=selectedWho; editingTaskId=null; commit('✏️ Tâche modifiée');
+  if(act==='menu-loisir'){
+    var l=state.loisirs.find(function(x){return x.id===id;});
+    openLoisirMenu(id, l ? l.title : 'Options');
+    return;
   }
-  else if(act==='cancel-edit-task'){ editingTaskId=null; render(); }
-  else if(act==='toggle-task'){
-    var tt=state.tasks.find(function(x){return x.id===id;}); if(!tt) return;
-    tt.done=!tt.done; commit(tt.done?'✅ Tâche faite : '+tt.text:'↩️ Tâche relancée : '+tt.text);
+
+  /* --- UPLOAD BILLET --- */
+  if (act === 'upload-billet') {
+    currentBilletNameTemp = val('newBilletName') || "Billet " + (tempResBillets.length + 1);
+    fileInput.click();
+    return;
   }
-  else if(act==='task-menu'){ openTaskMenu(id); }
-  else if(act==='btn-edit-task'){
-    var et=state.tasks.find(function(x){return x.id===actionId;}); if(!et) return;
-    editingTaskId=actionId; selectedWho=et.who||'both'; closeModal('modalOptions'); currentView='tasks'; render();
-    setTimeout(function(){ var inp=document.getElementById('taskText'); if(inp){ inp.focus(); } }, 60);
-  }
-  else if(act==='btn-del-task'){
-    if(!confirm('Supprimer cette tâche ?')) return;
-    state.tasks=state.tasks.filter(function(x){return x.id!==actionId;}); closeModal('modalOptions'); commit('🗑 Tâche supprimée');
-  }
-  else if(act==='clear-done-tasks'){
-    state.tasks=state.tasks.filter(function(x){return !x.done;}); commit('🧹 Tâches terminées effacées');
-  }
-  else if(act==='toggle-cal'){
-    var cb=document.getElementById('calBox'); if(!cb) return;
-    var show=cb.style.display==='none'; cb.style.display=show?'block':'none'; if(show) renderCalendar();
-    var tb=document.getElementById('timeBox'); if(tb) tb.style.display='none';
-  }
-  else if(act==='toggle-time'){
-    var tb2=document.getElementById('timeBox'); if(!tb2) return;
-    var show2=tb2.style.display==='none'; tb2.style.display=show2?'block':'none'; if(show2) renderTime();
-    var cb2=document.getElementById('calBox'); if(cb2) cb2.style.display='none';
-  }
-  else if(act==='cal-prev'){ calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
-  else if(act==='cal-next'){ calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCalendar(); }
-  else if(act==='pick-date'){
-    selectedDate=el.getAttribute('data-date')||'';
-    var d=new Date(selectedDate+'T12:00:00'); if(!isNaN(d.getTime())){ calYear=d.getFullYear(); calMonth=d.getMonth(); }
-    renderCalendar();
-    var dc=document.getElementById('dateChip'); if(dc) dc.textContent='📅 '+frDate(selectedDate);
-  }
-  else if(act==='confirm-date'){ var cb3=document.getElementById('calBox'); if(cb3) cb3.style.display='none'; if(selectedDate) toast('Date : '+frDate(selectedDate)); }
-  else if(act==='pick-hour'){ selHour=el.getAttribute('data-h')||'12'; timeTouched=true; renderTime(); }
-  else if(act==='pick-min'){ selMin=el.getAttribute('data-m')||'00'; timeTouched=true; renderTime(); }
-  else if(act==='confirm-time'){
-    formTime=selHour+':'+selMin; timeTouched=true;
-    var tb3=document.getElementById('timeBox'); if(tb3) tb3.style.display='none';
-    var tc=document.getElementById('timeChip'); if(tc) tc.textContent='🕐 '+formTime;
-    toast('Heure : '+formTime);
-  }
-  else if(act==='add-appt'){
-    var title=val('apTitle'); if(!title){ toast('Donne un titre au RDV.'); return; }
-    if(!selectedDate){ toast('Choisis une date.'); return; }
-    var heure=timeTouched? (selHour+':'+selMin) : formTime;
-    if(!isValidTime(heure)){ toast('Choisis une heure.'); return; }
-    state.appts.push({id:uid(), title:title, forWho:val('apFor'), withWho:val('apWith'), date:selectedDate, time:heure, address:val('apAddress')});
-    selectedDate=''; formTime=''; timeTouched=false; selHour='12'; selMin='00';
-    commit('📅 Nouveau RDV : '+title);
-  }
-  else if(act==='open-appt'){ prevView=currentView; actionId=id; currentView='appt-detail'; render(); }
-  else if(act==='edit-appt'){ toast('Modifie en supprimant puis recréant ce RDV pour l\'instant.'); }
-  else if(act==='del-appt-detail'){
-    if(!confirm('Supprimer ce rendez-vous ?')) return;
-    state.appts=state.appts.filter(function(x){return x.id!==id;}); currentView=prevView||'appts'; commit('🗑 RDV supprimé');
-  }
-  else if(act==='add-loisir'){
-    var lt=val('lTitle'); if(!lt){ toast('Donne un titre à la sortie.'); return; }
-    var ld=val('lDate'); var ltm=val('lTime');
-    if(ltm && !isValidTime(ltm)){ toast('Heure invalide, format HH:MM.'); return; }
-    state.loisirs.push({id:uid(), title:lt, date:ld, time:ltm, desc:val('lDesc'), reservations:[]});
-    commit('🎟️ Nouvelle sortie : '+lt);
-  }
-  else if(act==='save-edit-loisir'){
-    var lt2=val('lTitle'); if(!lt2){ toast('Donne un titre.'); return; }
-    var ltm2=val('lTime'); if(ltm2 && !isValidTime(ltm2)){ toast('Heure invalide, format HH:MM.'); return; }
-    var li=state.loisirs.find(function(x){return x.id===editingLoisirId;}); if(!li){ editingLoisirId=null; render(); return; }
-    li.title=lt2; li.date=val('lDate'); li.time=ltm2; li.desc=val('lDesc'); editingLoisirId=null; commit('✏️ Sortie modifiée');
-  }
-  else if(act==='cancel-edit-loisir'){ editingLoisirId=null; render(); }
-  else if(act==='open-folder'){ activeFolderId=id; tempResBillets=[]; currentView='folder'; render(); }
-  else if(act==='loisir-menu'){ openLoisirMenu(id); }
-  else if(act==='btn-edit-loisir'){
-    editingLoisirId=actionId; closeModal('modalOptions'); currentView='loisirs'; render();
-  }
-  else if(act==='btn-del-loisir'){
-    if(!confirm('Supprimer cette sortie et ses billets ?')) return;
-    state.loisirs=state.loisirs.filter(function(x){return x.id!==actionId;}); closeModal('modalOptions'); currentView='loisirs'; commit('🗑 Sortie supprimée');
-  }
-  else if(act==='add-billet-temp'){
-    currentBilletNameTemp=val('resBilletName')||('Billet '+(tempResBillets.length+1));
-    document.getElementById('fileInput').click();
-  }
-  else if(act==='clear-temp-billets'){ tempResBillets=[]; render(); }
-  else if(act==='add-reservation'){
-    var folder=state.loisirs.find(function(l){return l.id===activeFolderId;}); if(!folder) return;
-    if(!Array.isArray(folder.reservations)) folder.reservations=[];
-    var rIconEl=document.getElementById('rIcon'); var rIcon=rIconEl?rIconEl.value:'🎟️';
-    var rt=val('rTime'); if(rt && !isValidTime(rt)){ toast('Heure invalide, format HH:MM.'); return; }
-    folder.reservations.push({id:uid(), icon:rIcon, title:val('rTitle')||'Réservation', date:val('rDate'), time:rt, billets:tempResBillets.slice()});
-    tempResBillets=[]; commit('🎟️ Réservation ajoutée');
-  }
-  else if(act==='del-res'){
-    if(!confirm('Supprimer cette réservation ?')) return;
-    var f2=state.loisirs.find(function(l){return l.id===activeFolderId;}); if(!f2) return;
-    f2.reservations=(f2.reservations||[]).filter(function(r){return r.id!==id;}); commit('🗑 Réservation supprimée');
-  }
-  else if(act==='view-billets'){ openBilletViewer(id); }
-  else if(act==='add-shop'){
-    var sn=val('shopName'); if(!sn){ toast('Nom de la liste ?'); return; }
-    state.shops.push({id:uid(), name:sn, items:[]}); commit('🛒 Nouvelle liste : '+sn);
-  }
-  else if(act==='del-shop'){
-    if(!confirm('Supprimer cette liste ?')) return;
-    state.shops=state.shops.filter(function(s){return s.id!==id;}); commit('🗑 Liste supprimée');
-  }
-  else if(act==='add-item'){
-    var inp=document.getElementById('item-'+id); var txt3=inp?inp.value.trim():'';
-    if(!txt3){ toast('Écris un article.'); return; }
-    var shop=state.shops.find(function(s){return s.id===id;}); if(!shop) return;
-    shop.items.push({id:uid(), text:txt3, done:false}); commit('🛒 Article ajouté : '+txt3);
-  }
-  else if(act==='toggle-item'){
-    var shop2=state.shops.find(function(s){return s.id===el.getAttribute('data-shop');}); if(!shop2) return;
-    var it=shop2.items.find(function(x){return x.id===id;}); if(!it) return;
-    it.done=!it.done; commit(it.done?'✅ Acheté : '+it.text:'↩️ Remis : '+it.text);
-  }
-  else if(act==='del-item'){
-    var shop3=state.shops.find(function(s){return s.id===el.getAttribute('data-shop');}); if(!shop3) return;
-    shop3.items=shop3.items.filter(function(x){return x.id!==id;}); commit('🗑 Article supprimé');
-  }
-  else if(act==='save-share'){
-    var newUrl=val('fbUrl').replace(/\/+$/,'');
-    var newCode=val('houseCode')||'sam-shera';
-    fbUrl=newUrl; houseCode=newCode;
-    localStorage.setItem(LS_FB, fbUrl);
-    localStorage.setItem(LS_CODE, houseCode);
-    lastRemoteJson='';
-    toast('Synchronisation enregistrée');
-    if(fbUrl) poll();
+
+  /* --- DOSSIERS --- */
+  if(act==='open-folder' || act==='open-folder-home'){
+    activeFolderId = id;
+    currentView = 'folder';
+    tempResBillets = [];
     render();
+    window.scrollTo(0,0);
+    return;
   }
-  else if(act==='clear-notifs'){ state.notifs=[]; commit('💌 Notifications effacées'); }
-});
-
-document.getElementById('fileInput').addEventListener('change', function(e){
-  var file=e.target.files[0];
-  e.target.value='';
-  if(!file) return;
-  compressImage(file, 600, function(dataUrl){
-    tempResBillets.push({name: currentBilletNameTemp||('Billet '+(tempResBillets.length+1)), url:dataUrl});
-    currentBilletNameTemp='';
-    var nameEl=document.getElementById('resBilletName'); if(nameEl) nameEl.value='';
-    render();
-    toast('Billet ajouté');
-  });
-});
-
-// Fermer modales en cliquant dehors / Échap
-document.querySelectorAll('.modal-overlay').forEach(function(ov){
-  ov.addEventListener('click', function(e){ if(e.target===ov) ov.classList.remove('active'); });
-});
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') document.querySelectorAll('.modal-overlay.active').forEach(function(m){ m.classList.remove('active'); }); });
-
-// NEIGE
-(function(){
-  var c=document.getElementById('snow-container');
-  for(var i=0;i<20;i++){
-    var s=document.createElement('div');
-    s.className='snowflake';
-    var size=3+Math.random()*5;
-    s.style.width=size+'px'; s.style.height=size+'px';
-    s.style.left=Math.random()*100+'%';
-    s.style.opacity=(0.4+Math.random()*0.5).toFixed(2);
-    s.style.animationDuration=(7+Math.random()*7)+'s';
-    s.style.animationDelay=(-Math.random()*12)+'s';
-    c.appendChild(s);
+  if(act==='back-to-loisirs'){
+    currentView='loisirs'; activeFolderId=null; render(); return;
   }
-})();
 
+  if(act==='view-billets'){
+    var resId = el.getAttribute('data-resid');
+    openBilletViewer(resId);
+    return;
+  }
+
+  if(act==='remove-temp-billet'){
+    tempResBillets.splice(parseInt(el.getAttribute('data-idx'), 10), 1);
+    render(); return;
+  }
+
+  /* --- AJOUTS / EDITS --- */
+  if(act==='cancel-edit-task'){editingTaskId=null;render();return;}
+  if(act==='add-task'){
+    var inp=document.getElementById('taskText');
+    var text=(inp.value||'').trim();
+    if(!text){inp.focus();toast('Écrivez d\'abord une tâche.');return;}
+    if(editingTaskId){
+      var idx=state.tasks.findIndex(function(x){return x.id===editingTaskId;});
+      if(idx>-1){state.tasks[idx]={id:editingTaskId,text:text,who:selectedWho,done:state.tasks[idx].done};}
+      editingTaskId=null;
+      toast('Tâche modifiée !');
+      commit('Tâche modifiée : '+text);
+    } else {
+      state.tasks.unshift({id:uid(),text:text,who:selectedWho,done:false});
+      inp.value='';
+      toast('Tâche ajoutée !');
+      commit('Nouvelle tâche ajoutée : '+text);
+    }
+    return;
+  }
+
+  if(act==='toggle-task'){var t=state.tasks.filter(function(x){return x.id===id;})[0];if(!t)return;t.done=!t.done;commit(t.done?'Tâche terminée : '+t.text:'Tâche rouverte : '+t.text);return;}
+  if(act==='del-task'){var dt=state.tasks.filter(function(x){return x.id===id;})[0];state.tasks=state.tasks.filter(function(x){return x.id!==id;});commit('Tâche supprimée : '+(dt?dt.text:''));return;}
+  if(act==='cal-prev'){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();return;}
+  if(act==='cal-next'){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();return;}
+  if(act==='cal-day'){selectedDate=el.getAttribute('data-date');var days=document.querySelectorAll('#calBox .cal-day');Array.prototype.forEach.call(days,function(b){b.classList.toggle('sel',b.getAttribute('data-date')===selectedDate);});var chip=document.getElementById('dateChip');if(chip)chip.textContent=frDate(selectedDate);return;}
+  if(act==='confirm-date'){if(!selectedDate){toast('Choisissez d\'abord une date.');return;}var c=document.getElementById('dateChip');if(c)c.textContent=frDate(selectedDate);toast('Date confirmée : '+frDate(selectedDate));return;}
+  if(act==='t-hour'){selHour=el.getAttribute('data-v');timeTouched=true;var hs=document.querySelectorAll('#tHours .t-item');Array.prototype.forEach.call(hs,function(b){b.classList.toggle('sel',b.getAttribute('data-v')===selHour);});var tc1=document.getElementById('timeChip');if(tc1)tc1.textContent=selHour+':'+selMin;return;}
+  if(act==='t-min'){selMin=el.getAttribute('data-v');timeTouched=true;var ms=document.querySelectorAll('#tMins .t-item');Array.prototype.forEach.call(ms,function(b){b.classList.toggle('sel',b.getAttribute('data-v')===selMin);});var tc2=document.getElementById('timeChip');if(tc2)tc2.textContent=selHour+':'+selMin;return;}
+  if(act==='confirm-time'){formTime=selHour+':'+selMin;timeTouched=true;var tc3=document.getElementById('timeChip');if(tc3)tc3.textContent=formTime;toast('Heure confirmée : '+formTime);return;}
+  if(act==='add-appt'){var title=val('apTitle'),forWho=val('apFor'),withWho=val('apWith'),address=val('apAddr');if(!selectedDate){toast('Choisissez une date.');return;}var heure=formTime||(timeTouched?(selHour+':'+selMin):'');if(!heure){toast('Choisissez une heure.');return;}if(!title&&!forWho&&!withWho&&!address){toast('Remplissez au moins un champ.');return;}var dateSaved=selectedDate;state.appts.push({id:uid(),title:title,forWho:forWho,withWho:withWho,date:selectedDate,time:heure,address:address});var nom=title||forWho||'Rendez-vous';document.getElementById('apTitle').value='';document.getElementById('apFor').value='';document.getElementById('apWith').value='';document.getElementById('apAddr').value='';selectedDate='';formTime='';selHour='00';selMin='00';timeTouched=false;toast('Rendez-vous ajouté !');commit('Nouveau rendez-vous : '+nom+' le '+frDate(dateSaved)+' à '+heure);return;}
+  if(act==='del-appt'){var da=state.appts.filter(function(x){return x.id===id;})[0];state.appts=state.appts.filter(function(x){return x.id!==id;});commit('Rendez-vous supprimé : '+(da?(da.title||da.forWho||'Rendez-vous'):''));return;}
+  if(act==='del-appt-detail'){var dad=state.appts.filter(function(x){return x.id===id;})[0];state.appts=state.appts.filter(function(x){return x.id!==id;});addNotif('Rendez-vous supprimé : '+(dad?(dad.title||dad.forWho||'Rendez-vous'):''));detailApptId='';currentView='home';schedulePush();render();return;}
+  if(act==='add-item'){var inp2=document.getElementById('item-'+id);var txt=(inp2.value||'').trim();if(!txt){inp2.focus();toast('Écrivez d\'abord un article.');return;}var shop=state.shops.filter(function(s){return s.id===id;})[0];if(!shop)return;if(!Array.isArray(shop.items))shop.items=[];shop.items.push({id:uid(),text:txt,done:false});inp2.value='';toast('Article ajouté !');commit('Article ajouté ('+shop.name+') : '+txt);return;}
+  if(act==='toggle-item'){for(var i=0;i<state.shops.length;i++){var arr=state.shops[i].items||[];state.shops[i].items=arr;for(var k=0;k<arr.length;k++){if(arr[k].id===id){arr[k].done=!arr[k].done;commit(arr[k].done?'Article coché : '+arr[k].text:'Article décoché : '+arr[k].text);return;}}}return;}
+  if(act==='del-item'){for(var s1=0;s1<state.shops.length;s1++){var it=(state.shops[s1].items||[]).filter(function(x){return x.id===id;})[0];if(it){state.shops[s1].items=(state.shops[s1].items||[]).filter(function(x){return x.id!==id;});commit('Article supprimé : '+it.text);return;}}return;}
+  if(act==='del-shop'){var sh=state.shops.filter(function(s){return s.id===id;})[0];state.shops=state.shops.filter(function(s){return s.id!==id;});commit('Liste supprimée : '+(sh?sh.name:''));return;}
+  if(act==='add-shop'){var ni=document.getElementById('newShopName');var nomMag=(ni.value||'').trim();if(!nomMag){ni.focus();toast('Écrivez le nom du magasin.');return;}state.shops.push({id:uid(),name:nomMag,items:[]});ni.value='';toast('Liste créée !');commit('Nouvelle liste créée : '+nomMag);return;}
+  if(act==='save-share'){var code=(val('shareCode')||'SAMSHERA');var url=(val('shareUrl')||'').replace(/\/+$/,'');houseCode=code;fbUrl=url;localStorage.setItem(LS_CODE,code);localStorage.setItem(LS_FB,url);lastRemoteJson='';toast('Partage enregistré.');poll();return;}
+
+  /* --- LOISIRS --- */
+  if(act==='add-loisir'){
+    var lTitle=val('loisirTitle'), lDate=val('loisirDate'), lTime=val('loisirTime'), lDesc=val('loisirDesc');
+    if(!lTitle){toast('Écrivez un titre.');return;}
+    if(editingLoisirId){
+      var idx=state.loisirs.findIndex(function(x){return x.id===editingLoisirId;});
+      if(idx>-1){
+        state.loisirs[idx]={...state.loisirs[idx], title:lTitle, date:lDate, time:lTime, desc:lDesc};
+      }
+      editingLoisirId=null;
+      toast('Voyage modifié !');
+      commit('Voyage modifié : '+lTitle);
+    }else{
+      state.loisirs.push({id:uid(),title:lTitle,date:lDate,time:lTime,desc:lDesc,reservations:[]});
+      toast('Voyage créé !');
+      commit('Nouveau voyage : '+lTitle);
+    }
+    return;
+  }
+  if(act==='cancel-edit-loisir'){editingLoisirId=null;render();return;}
+
+  if(act==='add-reservation'){
+    var rTitle=val('rTitle'), rDate=val('rDate'), rTime=val('rTime'), rIcon=document.getElementById('rIcon').value;
+    if(!rTitle){toast('Mettez un titre.');return;}
+    var folder = state.loisirs.find(function(l){return l.id===activeFolderId;});
+    if(!folder) return;
+    folder.reservations.push({ id:uid(), icon:rIcon, title:rTitle, date:rDate, time:rTime, billets:[...tempResBillets] });
+    tempResBillets = [];
+    toast('Réservation ajoutée !');
+    commit('Réservation ajoutée à '+folder.title+' : '+rTitle);
+    return;
+  }
+});
+
+/* INITIALISATION & NEIGE */
 loadLocal();
 render();
-if(fbUrl) setTimeout(poll, 600);
-setInterval(function(){ if(!document.hidden && fbUrl) poll(); }, 3000);
-document.addEventListener('visibilitychange', function(){ if(!document.hidden && fbUrl) poll(); });
-window.addEventListener('online', function(){ if(fbUrl) poll(); });
+
+const snowContainer = document.getElementById('snow-container');
+const snowflakeCount = 20; 
+for (let i = 0; i < snowflakeCount; i++) {
+  const flake = document.createElement('div');
+  flake.classList.add('snowflake');
+  const size = Math.random() * 6 + 4; 
+  flake.style.width = size + 'px';
+  flake.style.height = size + 'px';
+  flake.style.left = Math.random() * 100 + 'vw';
+  flake.style.animationDuration = Math.random() * 7 + 8 + 's';
+  flake.style.animationDelay = Math.random() * 10 + 's';
+  flake.style.opacity = Math.random() * 0.5 + 0.4;
+  snowContainer.appendChild(flake);
+}
+
+setInterval(poll,3000);
+setTimeout(poll,600);
+document.addEventListener('visibilitychange',function(){if(!document.hidden)poll();});
+window.addEventListener('online',function(){poll();});
 </script>
 </body>
 </html>
