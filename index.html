@@ -666,19 +666,6 @@ function deleteBilletFromViewer() {
 var fileInput = document.getElementById('fileInput');
 var currentBilletNameTemp = '';
 
-document.addEventListener('click', function(e) {
-  var el = e.target.closest ? e.target.closest('[data-act]') : null;
-  if (!el) return;
-  var act = el.getAttribute('data-act');
-  var id = el.getAttribute('data-id');
-
-  if (act === 'upload-billet') {
-    currentBilletNameTemp = val('newBilletName') || "Billet " + (tempResBillets.length + 1);
-    fileInput.click();
-    return;
-  }
-});
-
 fileInput.addEventListener('change', function(e) {
   if (!e.target.files || !e.target.files[0]) return;
   var file = e.target.files[0];
@@ -691,127 +678,139 @@ fileInput.addEventListener('change', function(e) {
   });
 });
 
-/* --- NAVIGATION & ACTIONS --- */
-document.addEventListener('click',function(e){var el=e.target.closest?e.target.closest('[data-act]'):null;if(!el)return;var act=el.getAttribute('data-act');var id=el.getAttribute('data-id');
-if(act==='go-home'){currentView='home';detailApptId='';activeFolderId=null;render();return;}
-if(act==='go-tasks'){currentView='tasks';render();return;}
-if(act==='go-appts'){currentView='appts';render();return;}
-if(act==='go-shopping'){currentView='shopping';render();return;}
-if(act==='go-loisirs'){currentView='loisirs';render();return;}
-if(act==='go-share'){currentView='share';render();return;}
-if(act==='go-notifs'){currentView='notifs';render();return;}
-if(act==='open-appt'){detailApptId=id;currentView='appt-detail';render();return;}
-if(act==='back-from-detail'){detailApptId='';currentView='home';render();return;}
-if(act==='who'){selectedWho=el.getAttribute('data-who');var btns=document.querySelectorAll('#taskWho .seg-btn');Array.prototype.forEach.call(btns,function(b){b.classList.toggle('sel',b.getAttribute('data-who')===selectedWho);});return;}
+/* --- NAVIGATION & ACTIONS (ÉCOUTEUR GLOBAL UNIQUE) --- */
+document.addEventListener('click',function(e){
+  var el=e.target.closest?e.target.closest('[data-act]'):null;
+  if(!el)return;
+  var act=el.getAttribute('data-act');
+  var id=el.getAttribute('data-id');
 
-/* --- MENUS --- */
-if(act==='menu-task'){
-  var t=state.tasks.find(function(x){return x.id===id;});
-  openTaskMenu(id, t ? t.text : 'Options');
-  return;
-}
-if(act==='menu-loisir'){
-  var l=state.loisirs.find(function(x){return x.id===id;});
-  openLoisirMenu(id, l ? l.title : 'Options');
-  return;
-}
+  if(act==='go-home'){currentView='home';detailApptId='';activeFolderId=null;render();return;}
+  if(act==='go-tasks'){currentView='tasks';render();return;}
+  if(act==='go-appts'){currentView='appts';render();return;}
+  if(act==='go-shopping'){currentView='shopping';render();return;}
+  if(act==='go-loisirs'){currentView='loisirs';render();return;}
+  if(act==='go-share'){currentView='share';render();return;}
+  if(act==='go-notifs'){currentView='notifs';render();return;}
+  if(act==='open-appt'){detailApptId=id;currentView='appt-detail';render();return;}
+  if(act==='back-from-detail'){detailApptId='';currentView='home';render();return;}
+  if(act==='who'){selectedWho=el.getAttribute('data-who');var btns=document.querySelectorAll('#taskWho .seg-btn');Array.prototype.forEach.call(btns,function(b){b.classList.toggle('sel',b.getAttribute('data-who')===selectedWho);});return;}
 
-/* --- DOSSIERS --- */
-if(act==='open-folder' || act==='open-folder-home'){
-  activeFolderId = id;
-  currentView = 'folder';
-  tempResBillets = [];
-  render();
-  window.scrollTo(0,0);
-  return;
-}
-if(act==='back-to-loisirs'){
-  currentView='loisirs'; activeFolderId=null; render(); return;
-}
-
-if(act==='view-billets'){
-  var resId = el.getAttribute('data-resid');
-  openBilletViewer(resId);
-  return;
-}
-
-if(act==='remove-temp-billet'){
-  tempResBillets.splice(parseInt(el.getAttribute('data-idx'), 10), 1);
-  render(); return;
-}
-
-/* --- AJOUTS / EDITS --- */
-if(act==='cancel-edit-task'){editingTaskId=null;render();return;}
-if(act==='add-task'){
-  var inp=document.getElementById('taskText');
-  var text=(inp.value||'').trim();
-  if(!text){inp.focus();toast('Écrivez d\'abord une tâche.');return;}
-  if(editingTaskId){
-    var idx=state.tasks.findIndex(function(x){return x.id===editingTaskId;});
-    if(idx>-1){state.tasks[idx]={id:editingTaskId,text:text,who:selectedWho,done:state.tasks[idx].done};}
-    editingTaskId=null;
-    toast('Tâche modifiée !');
-    commit('Tâche modifiée : '+text);
-  } else {
-    state.tasks.unshift({id:uid(),text:text,who:selectedWho,done:false});
-    inp.value='';
-    toast('Tâche ajoutée !');
-    commit('Nouvelle tâche ajoutée : '+text);
+  /* --- MENUS --- */
+  if(act==='menu-task'){
+    var t=state.tasks.find(function(x){return x.id===id;});
+    openTaskMenu(id, t ? t.text : 'Options');
+    return;
   }
-  return;
-}
+  if(act==='menu-loisir'){
+    var l=state.loisirs.find(function(x){return x.id===id;});
+    openLoisirMenu(id, l ? l.title : 'Options');
+    return;
+  }
 
-if(act==='toggle-task'){var t=state.tasks.filter(function(x){return x.id===id;})[0];if(!t)return;t.done=!t.done;commit(t.done?'Tâche terminée : '+t.text:'Tâche rouverte : '+t.text);return;}
-if(act==='del-task'){var dt=state.tasks.filter(function(x){return x.id===id;})[0];state.tasks=state.tasks.filter(function(x){return x.id!==id;});commit('Tâche supprimée : '+(dt?dt.text:''));return;}
-if(act==='cal-prev'){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();return;}
-if(act==='cal-next'){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();return;}
-if(act==='cal-day'){selectedDate=el.getAttribute('data-date');var days=document.querySelectorAll('#calBox .cal-day');Array.prototype.forEach.call(days,function(b){b.classList.toggle('sel',b.getAttribute('data-date')===selectedDate);});var chip=document.getElementById('dateChip');if(chip)chip.textContent=frDate(selectedDate);return;}
-if(act==='confirm-date'){if(!selectedDate){toast('Choisissez d\'abord une date.');return;}var c=document.getElementById('dateChip');if(c)c.textContent=frDate(selectedDate);toast('Date confirmée : '+frDate(selectedDate));return;}
-if(act==='t-hour'){selHour=el.getAttribute('data-v');timeTouched=true;var hs=document.querySelectorAll('#tHours .t-item');Array.prototype.forEach.call(hs,function(b){b.classList.toggle('sel',b.getAttribute('data-v')===selHour);});var tc1=document.getElementById('timeChip');if(tc1)tc1.textContent=selHour+':'+selMin;return;}
-if(act==='t-min'){selMin=el.getAttribute('data-v');timeTouched=true;var ms=document.querySelectorAll('#tMins .t-item');Array.prototype.forEach.call(ms,function(b){b.classList.toggle('sel',b.getAttribute('data-v')===selMin);});var tc2=document.getElementById('timeChip');if(tc2)tc2.textContent=selHour+':'+selMin;return;}
-if(act==='confirm-time'){formTime=selHour+':'+selMin;timeTouched=true;var tc3=document.getElementById('timeChip');if(tc3)tc3.textContent=formTime;toast('Heure confirmée : '+formTime);return;}
-if(act==='add-appt'){var title=val('apTitle'),forWho=val('apFor'),withWho=val('apWith'),address=val('apAddr');if(!selectedDate){toast('Choisissez une date.');return;}var heure=formTime||(timeTouched?(selHour+':'+selMin):'');if(!heure){toast('Choisissez une heure.');return;}if(!title&&!forWho&&!withWho&&!address){toast('Remplissez au moins un champ.');return;}var dateSaved=selectedDate;state.appts.push({id:uid(),title:title,forWho:forWho,withWho:withWho,date:selectedDate,time:heure,address:address});var nom=title||forWho||'Rendez-vous';document.getElementById('apTitle').value='';document.getElementById('apFor').value='';document.getElementById('apWith').value='';document.getElementById('apAddr').value='';selectedDate='';formTime='';selHour='00';selMin='00';timeTouched=false;toast('Rendez-vous ajouté !');commit('Nouveau rendez-vous : '+nom+' le '+frDate(dateSaved)+' à '+heure);return;}
-if(act==='del-appt'){var da=state.appts.filter(function(x){return x.id===id;})[0];state.appts=state.appts.filter(function(x){return x.id!==id;});commit('Rendez-vous supprimé : '+(da?(da.title||da.forWho||'Rendez-vous'):''));return;}
-if(act==='del-appt-detail'){var dad=state.appts.filter(function(x){return x.id===id;})[0];state.appts=state.appts.filter(function(x){return x.id!==id;});addNotif('Rendez-vous supprimé : '+(dad?(dad.title||dad.forWho||'Rendez-vous'):''));detailApptId='';currentView='home';schedulePush();render();return;}
-if(act==='add-item'){var inp2=document.getElementById('item-'+id);var txt=(inp2.value||'').trim();if(!txt){inp2.focus();toast('Écrivez d\'abord un article.');return;}var shop=state.shops.filter(function(s){return s.id===id;})[0];if(!shop)return;if(!Array.isArray(shop.items))shop.items=[];shop.items.push({id:uid(),text:txt,done:false});inp2.value='';toast('Article ajouté !');commit('Article ajouté ('+shop.name+') : '+txt);return;}
-if(act==='toggle-item'){for(var i=0;i<state.shops.length;i++){var arr=state.shops[i].items||[];state.shops[i].items=arr;for(var k=0;k<arr.length;k++){if(arr[k].id===id){arr[k].done=!arr[k].done;commit(arr[k].done?'Article coché : '+arr[k].text:'Article décoché : '+arr[k].text);return;}}}return;}
-if(act==='del-item'){for(var s1=0;s1<state.shops.length;s1++){var it=(state.shops[s1].items||[]).filter(function(x){return x.id===id;})[0];if(it){state.shops[s1].items=(state.shops[s1].items||[]).filter(function(x){return x.id!==id;});commit('Article supprimé : '+it.text);return;}}return;}
-if(act==='del-shop'){var sh=state.shops.filter(function(s){return s.id===id;})[0];state.shops=state.shops.filter(function(s){return s.id!==id;});commit('Liste supprimée : '+(sh?sh.name:''));return;}
-if(act==='add-shop'){var ni=document.getElementById('newShopName');var nomMag=(ni.value||'').trim();if(!nomMag){ni.focus();toast('Écrivez le nom du magasin.');return;}state.shops.push({id:uid(),name:nomMag,items:[]});ni.value='';toast('Liste créée !');commit('Nouvelle liste créée : '+nomMag);return;}
-if(act==='save-share'){var code=(val('shareCode')||'SAMSHERA');var url=(val('shareUrl')||'').replace(/\/+$/,'');houseCode=code;fbUrl=url;localStorage.setItem(LS_CODE,code);localStorage.setItem(LS_FB,url);lastRemoteJson='';toast('Partage enregistré.');poll();return;}
+  /* --- UPLOAD BILLET --- */
+  if (act === 'upload-billet') {
+    currentBilletNameTemp = val('newBilletName') || "Billet " + (tempResBillets.length + 1);
+    fileInput.click();
+    return;
+  }
 
-/* --- LOISIRS --- */
-if(act==='add-loisir'){
-  var lTitle=val('loisirTitle'), lDate=val('loisirDate'), lTime=val('loisirTime'), lDesc=val('loisirDesc');
-  if(!lTitle){toast('Écrivez un titre.');return;}
-  if(editingLoisirId){
-    var idx=state.loisirs.findIndex(function(x){return x.id===editingLoisirId;});
-    if(idx>-1){
-      state.loisirs[idx]={...state.loisirs[idx], title:lTitle, date:lDate, time:lTime, desc:lDesc};
+  /* --- DOSSIERS --- */
+  if(act==='open-folder' || act==='open-folder-home'){
+    activeFolderId = id;
+    currentView = 'folder';
+    tempResBillets = [];
+    render();
+    window.scrollTo(0,0);
+    return;
+  }
+  if(act==='back-to-loisirs'){
+    currentView='loisirs'; activeFolderId=null; render(); return;
+  }
+
+  if(act==='view-billets'){
+    var resId = el.getAttribute('data-resid');
+    openBilletViewer(resId);
+    return;
+  }
+
+  if(act==='remove-temp-billet'){
+    tempResBillets.splice(parseInt(el.getAttribute('data-idx'), 10), 1);
+    render(); return;
+  }
+
+  /* --- AJOUTS / EDITS --- */
+  if(act==='cancel-edit-task'){editingTaskId=null;render();return;}
+  if(act==='add-task'){
+    var inp=document.getElementById('taskText');
+    var text=(inp.value||'').trim();
+    if(!text){inp.focus();toast('Écrivez d\'abord une tâche.');return;}
+    if(editingTaskId){
+      var idx=state.tasks.findIndex(function(x){return x.id===editingTaskId;});
+      if(idx>-1){state.tasks[idx]={id:editingTaskId,text:text,who:selectedWho,done:state.tasks[idx].done};}
+      editingTaskId=null;
+      toast('Tâche modifiée !');
+      commit('Tâche modifiée : '+text);
+    } else {
+      state.tasks.unshift({id:uid(),text:text,who:selectedWho,done:false});
+      inp.value='';
+      toast('Tâche ajoutée !');
+      commit('Nouvelle tâche ajoutée : '+text);
     }
-    editingLoisirId=null;
-    toast('Voyage modifié !');
-    commit('Voyage modifié : '+lTitle);
-  }else{
-    state.loisirs.push({id:uid(),title:lTitle,date:lDate,time:lTime,desc:lDesc,reservations:[]});
-    toast('Voyage créé !');
-    commit('Nouveau voyage : '+lTitle);
+    return;
   }
-  return;
-}
-if(act==='cancel-edit-loisir'){editingLoisirId=null;render();return;}
 
-if(act==='add-reservation'){
-  var rTitle=val('rTitle'), rDate=val('rDate'), rTime=val('rTime'), rIcon=document.getElementById('rIcon').value;
-  if(!rTitle){toast('Mettez un titre.');return;}
-  var folder = state.loisirs.find(function(l){return l.id===activeFolderId;});
-  if(!folder) return;
-  folder.reservations.push({ id:uid(), icon:rIcon, title:rTitle, date:rDate, time:rTime, billets:[...tempResBillets] });
-  tempResBillets = [];
-  toast('Réservation ajoutée !');
-  commit('Réservation ajoutée à '+folder.title+' : '+rTitle);
-  return;
-}
+  if(act==='toggle-task'){var t=state.tasks.filter(function(x){return x.id===id;})[0];if(!t)return;t.done=!t.done;commit(t.done?'Tâche terminée : '+t.text:'Tâche rouverte : '+t.text);return;}
+  if(act==='del-task'){var dt=state.tasks.filter(function(x){return x.id===id;})[0];state.tasks=state.tasks.filter(function(x){return x.id!==id;});commit('Tâche supprimée : '+(dt?dt.text:''));return;}
+  if(act==='cal-prev'){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();return;}
+  if(act==='cal-next'){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();return;}
+  if(act==='cal-day'){selectedDate=el.getAttribute('data-date');var days=document.querySelectorAll('#calBox .cal-day');Array.prototype.forEach.call(days,function(b){b.classList.toggle('sel',b.getAttribute('data-date')===selectedDate);});var chip=document.getElementById('dateChip');if(chip)chip.textContent=frDate(selectedDate);return;}
+  if(act==='confirm-date'){if(!selectedDate){toast('Choisissez d\'abord une date.');return;}var c=document.getElementById('dateChip');if(c)c.textContent=frDate(selectedDate);toast('Date confirmée : '+frDate(selectedDate));return;}
+  if(act==='t-hour'){selHour=el.getAttribute('data-v');timeTouched=true;var hs=document.querySelectorAll('#tHours .t-item');Array.prototype.forEach.call(hs,function(b){b.classList.toggle('sel',b.getAttribute('data-v')===selHour);});var tc1=document.getElementById('timeChip');if(tc1)tc1.textContent=selHour+':'+selMin;return;}
+  if(act==='t-min'){selMin=el.getAttribute('data-v');timeTouched=true;var ms=document.querySelectorAll('#tMins .t-item');Array.prototype.forEach.call(ms,function(b){b.classList.toggle('sel',b.getAttribute('data-v')===selMin);});var tc2=document.getElementById('timeChip');if(tc2)tc2.textContent=selHour+':'+selMin;return;}
+  if(act==='confirm-time'){formTime=selHour+':'+selMin;timeTouched=true;var tc3=document.getElementById('timeChip');if(tc3)tc3.textContent=formTime;toast('Heure confirmée : '+formTime);return;}
+  if(act==='add-appt'){var title=val('apTitle'),forWho=val('apFor'),withWho=val('apWith'),address=val('apAddr');if(!selectedDate){toast('Choisissez une date.');return;}var heure=formTime||(timeTouched?(selHour+':'+selMin):'');if(!heure){toast('Choisissez une heure.');return;}if(!title&&!forWho&&!withWho&&!address){toast('Remplissez au moins un champ.');return;}var dateSaved=selectedDate;state.appts.push({id:uid(),title:title,forWho:forWho,withWho:withWho,date:selectedDate,time:heure,address:address});var nom=title||forWho||'Rendez-vous';document.getElementById('apTitle').value='';document.getElementById('apFor').value='';document.getElementById('apWith').value='';document.getElementById('apAddr').value='';selectedDate='';formTime='';selHour='00';selMin='00';timeTouched=false;toast('Rendez-vous ajouté !');commit('Nouveau rendez-vous : '+nom+' le '+frDate(dateSaved)+' à '+heure);return;}
+  if(act==='del-appt'){var da=state.appts.filter(function(x){return x.id===id;})[0];state.appts=state.appts.filter(function(x){return x.id!==id;});commit('Rendez-vous supprimé : '+(da?(da.title||da.forWho||'Rendez-vous'):''));return;}
+  if(act==='del-appt-detail'){var dad=state.appts.filter(function(x){return x.id===id;})[0];state.appts=state.appts.filter(function(x){return x.id!==id;});addNotif('Rendez-vous supprimé : '+(dad?(dad.title||dad.forWho||'Rendez-vous'):''));detailApptId='';currentView='home';schedulePush();render();return;}
+  if(act==='add-item'){var inp2=document.getElementById('item-'+id);var txt=(inp2.value||'').trim();if(!txt){inp2.focus();toast('Écrivez d\'abord un article.');return;}var shop=state.shops.filter(function(s){return s.id===id;})[0];if(!shop)return;if(!Array.isArray(shop.items))shop.items=[];shop.items.push({id:uid(),text:txt,done:false});inp2.value='';toast('Article ajouté !');commit('Article ajouté ('+shop.name+') : '+txt);return;}
+  if(act==='toggle-item'){for(var i=0;i<state.shops.length;i++){var arr=state.shops[i].items||[];state.shops[i].items=arr;for(var k=0;k<arr.length;k++){if(arr[k].id===id){arr[k].done=!arr[k].done;commit(arr[k].done?'Article coché : '+arr[k].text:'Article décoché : '+arr[k].text);return;}}}return;}
+  if(act==='del-item'){for(var s1=0;s1<state.shops.length;s1++){var it=(state.shops[s1].items||[]).filter(function(x){return x.id===id;})[0];if(it){state.shops[s1].items=(state.shops[s1].items||[]).filter(function(x){return x.id!==id;});commit('Article supprimé : '+it.text);return;}}return;}
+  if(act==='del-shop'){var sh=state.shops.filter(function(s){return s.id===id;})[0];state.shops=state.shops.filter(function(s){return s.id!==id;});commit('Liste supprimée : '+(sh?sh.name:''));return;}
+  if(act==='add-shop'){var ni=document.getElementById('newShopName');var nomMag=(ni.value||'').trim();if(!nomMag){ni.focus();toast('Écrivez le nom du magasin.');return;}state.shops.push({id:uid(),name:nomMag,items:[]});ni.value='';toast('Liste créée !');commit('Nouvelle liste créée : '+nomMag);return;}
+  if(act==='save-share'){var code=(val('shareCode')||'SAMSHERA');var url=(val('shareUrl')||'').replace(/\/+$/,'');houseCode=code;fbUrl=url;localStorage.setItem(LS_CODE,code);localStorage.setItem(LS_FB,url);lastRemoteJson='';toast('Partage enregistré.');poll();return;}
+
+  /* --- LOISIRS --- */
+  if(act==='add-loisir'){
+    var lTitle=val('loisirTitle'), lDate=val('loisirDate'), lTime=val('loisirTime'), lDesc=val('loisirDesc');
+    if(!lTitle){toast('Écrivez un titre.');return;}
+    if(editingLoisirId){
+      var idx=state.loisirs.findIndex(function(x){return x.id===editingLoisirId;});
+      if(idx>-1){
+        state.loisirs[idx]={...state.loisirs[idx], title:lTitle, date:lDate, time:lTime, desc:lDesc};
+      }
+      editingLoisirId=null;
+      toast('Voyage modifié !');
+      commit('Voyage modifié : '+lTitle);
+    }else{
+      state.loisirs.push({id:uid(),title:lTitle,date:lDate,time:lTime,desc:lDesc,reservations:[]});
+      toast('Voyage créé !');
+      commit('Nouveau voyage : '+lTitle);
+    }
+    return;
+  }
+  if(act==='cancel-edit-loisir'){editingLoisirId=null;render();return;}
+
+  if(act==='add-reservation'){
+    var rTitle=val('rTitle'), rDate=val('rDate'), rTime=val('rTime'), rIcon=document.getElementById('rIcon').value;
+    if(!rTitle){toast('Mettez un titre.');return;}
+    var folder = state.loisirs.find(function(l){return l.id===activeFolderId;});
+    if(!folder) return;
+    folder.reservations.push({ id:uid(), icon:rIcon, title:rTitle, date:rDate, time:rTime, billets:[...tempResBillets] });
+    tempResBillets = [];
+    toast('Réservation ajoutée !');
+    commit('Réservation ajoutée à '+folder.title+' : '+rTitle);
+    return;
+  }
 });
 
 /* INITIALISATION & NEIGE */
